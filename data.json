@@ -1,0 +1,12 @@
+{
+    "user" :{
+        "token" : "Aba123asdabzb",
+     "user" :{
+        "name": "june",
+        "email" : "setmayjune@gmail.com",
+        "img" :"https://lh3.googleusercontent.com/ogw/ADea4I4iyeyGaHDyt3lWBqThAl0CO-_J7ounnG8dExbC=s32-c-mo"
+    }
+},
+"logout":{
+        }
+}
