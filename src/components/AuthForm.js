@@ -1,24 +1,30 @@
 import React from "react";
-import GoogleLogin from "react-google-login";
 
-const AuthForm = ({ user, onLogin }) => {
-  const googleClientId = process.env.REACT_APP_OAUTH_CLIENT_ID || "";
-  //사용자 정보를 담아둘 userObj
+import { signInGoogle } from "./../lib/fireBaseAuth";
 
-  //로그인 성공시 res처리
-  const onLoginSuccess = (res) => {
-    const token = res.accessToken;
-    onLogin({ token });
+const AuthForm = ({ user, onLogin, onLogout }) => {
+  const oAuthLogin = async () => {
+    try {
+      const token = await signInGoogle();
+      onLogin({ token });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const oAuthLogOut = () => {
+    onLogout();
   };
 
   return (
     <div>
-      <GoogleLogin
-        clientId={googleClientId}
-        buttonText="Google"
-        onSuccess={onLoginSuccess}
-        onFailure={(result) => console.log(result)}
-      />
+      {user ? (
+        <div>
+          <p> {`hello ${user.name}`}</p>
+          <button onClick={oAuthLogOut}> logout</button>
+        </div>
+      ) : (
+        <button onClick={oAuthLogin}>로그인</button>
+      )}
     </div>
   );
 };

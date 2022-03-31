@@ -25,13 +25,7 @@ const HeaderContainer = () => {
 
   return (
     <div>
-      {user && (
-        <div>
-          <p> {`hello ${user.name}`}</p>
-          <button onClick={onLogout}> logout</button>
-        </div>
-      )}
-      {user === null && <AuthForm user={user} onLogin={onLogin} />}
+      <AuthForm user={user} onLogin={onLogin} onLogout={onLogout} />
     </div>
   );
 };
