@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import AuthForm from "./../../components/AuthForm";
 import { login, logout } from "./../../modules/auth";
+
+import Header from "./../../components/common/Header";
 
 const HeaderContainer = () => {
   const { user } = useSelector(({ auth }) => ({ user: auth.user }));
@@ -25,7 +26,7 @@ const HeaderContainer = () => {
 
   return (
     <div>
-      <AuthForm user={user} onLogin={onLogin} onLogout={onLogout} />
+      <Header user={user} onLogin={onLogin} onLogout={onLogout}></Header>
     </div>
   );
 };
