@@ -18,9 +18,9 @@ const AuthForm = ({ user, onLogin, onLogout }) => {
     onLogout();
   };
   const menu = (
-    <Menu>
-      <Menu.Item key="0" onClick={oAuthLogOut}>
-        <a> Logout &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </a>
+    <Menu style={{ background: "rgb(216 216 216)", width: "100px" }}>
+      <Menu.Item key="0" onClick={oAuthLogOut} style={{ hover: "pointer" }}>
+        Logout
       </Menu.Item>
       <Menu.Item key="1">
         <Link to="/myPage">myPage</Link>

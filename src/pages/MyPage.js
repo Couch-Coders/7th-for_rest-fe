@@ -1,13 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-
-const MyPageBlock = styled.div``;
+import HeaderContainer from "../containers/common/HeaderContainer";
 
 const MyPage = () => {
   return (
-    <MyPageBlock>
-      <p>mypage</p>
-    </MyPageBlock>
+    <>
+      <HeaderContainer />
+    </>
   );
 };
 

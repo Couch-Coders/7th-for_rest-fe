@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
 import "antd/dist/antd.css";
 import AuthForm from "./AuthForm";
+import Responsive from "./Responsive";
 
 const HeaderBackground = styled.div`
   display: flex;
@@ -11,14 +11,15 @@ const HeaderBackground = styled.div`
   background: #001529;
 `;
 
-const HeaderBlock = styled.div`
+const HeaderWrapper = styled(Responsive)`
   margin-top: 2.5rem;
   display: flex;
   justify-content: center;
 `;
 
-const AuthBlock = styled.div`
-  width: 60vw;
+const HeaderBlock = styled.div`
+  box-sizing: border-box;
+  width: 1440px;
   border-bottom: 5px solid #afadad;
   display: flex;
   align-items: center;
@@ -38,30 +39,20 @@ const AuthBlock = styled.div`
   }
 `;
 
-/**Responsive 컴포넌트의 속성에 스타일을 추가해서 새로운 컴포넌트 생성 */
-
-/** 헤더가 fixed로 설정되어 있기 때문에 페이지의 콘텐츠가 4rem아래에 나타나도록
- * 해주는 컴포넌트
- */
-
-const Spacer = styled.div`
-  height: 4rem;
-`;
-
 const Header = ({ user, onLogin, onLogout }) => {
   return (
     <>
       <HeaderBackground />
-      <HeaderBlock>
-        <AuthBlock>
+      <HeaderWrapper>
+        <HeaderBlock>
           <Link to="/" className="logo">
             For-Rest
           </Link>
           <div className="user">
             <AuthForm user={user} onLogin={onLogin} onLogout={onLogout} />
           </div>
-        </AuthBlock>
-      </HeaderBlock>
+        </HeaderBlock>
+      </HeaderWrapper>
     </>
   );
 };
