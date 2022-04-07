@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import Responsive from './../../common/Responsive';
+import Responsive from '../../common/Responsive';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import mainInfoData from '../../../assets/mainInfoData.json';
 import SlideItem from './SlideItem';

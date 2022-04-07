@@ -19,35 +19,35 @@
   "mainCategory": {
     "info_1": {
       "name": "박물관",
-      "img_url": "tag_img1.img"
+      "img_url": "tag_img1.jpg"
     },
     "info_2": {
       "name": "공원",
-      "img_url": "tag_img2.img"
+      "img_url": "tag_img2.jpg"
     },
     "info_3": {
       "name": "전시관",
-      "img_url": "tag_img3.img"
+      "img_url": "tag_img3.jpg"
     },
     "info_4": {
       "name": "공연장",
-      "img_url": "tag_img4.img"
+      "img_url": "tag_img4.jpg"
     },
     "info_5": {
       "name": "전망대",
-      "img_url": "tag_img5.img"
+      "img_url": "tag_img5.jpg"
     },
     "info_6": {
       "name": "미술관",
-      "img_url": "tag_img6.img"
+      "img_url": "tag_img6.jpg"
     },
     "info_7": {
       "name": "테마파크",
-      "img_url": "tag_img7.img"
+      "img_url": "tag_img7.jpg"
     },
     "info_8": {
       "name": "만화방",
-      "img_url": "tag_img8.img"
+      "img_url": "tag_img8.jpg"
     }
   }
 }

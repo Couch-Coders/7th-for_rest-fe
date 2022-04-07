@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { login, logout } from "./../../modules/auth";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { login, logout } from '../../modules/auth';
 
-import Header from "./../../components/common/Header";
+import Header from '../../components/common/Header';
 
 const HeaderContainer = () => {
   const { user } = useSelector(({ auth }) => ({ user: auth.user }));
@@ -17,9 +17,9 @@ const HeaderContainer = () => {
   useEffect(() => {
     if (user) {
       try {
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
       } catch (error) {
-        console.log("localStorage is not working");
+        console.log('localStorage is not working');
       }
     }
   }, [user]);

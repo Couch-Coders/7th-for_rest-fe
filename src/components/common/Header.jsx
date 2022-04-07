@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import "antd/dist/antd.css";
-import AuthForm from "./AuthForm";
-import Responsive from "./Responsive";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import 'antd/dist/antd.css';
+import AuthForm from './AuthForm';
+import Responsive from './Responsive';
 
 const HeaderBackground = styled.div`
   display: flex;
@@ -13,7 +13,6 @@ const HeaderBackground = styled.div`
 
 const HeaderWrapper = styled(Responsive)`
   margin-top: 2.5rem;
-  display: flex;
   justify-content: center;
 `;
 
