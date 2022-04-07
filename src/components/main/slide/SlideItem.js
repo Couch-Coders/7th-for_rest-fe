@@ -21,6 +21,7 @@ const SlideItemBlock = styled.div`
   }
 `;
 
+// h3. 텍스트부분 position 수정해야함.
 const SlideItem = ({ item }) => {
   return (
     <SlideItemBlock>

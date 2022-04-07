@@ -18,7 +18,6 @@ const HeaderWrapper = styled(Responsive)`
 `;
 
 const HeaderBlock = styled.div`
-  box-sizing: border-box;
   width: 1440px;
   border-bottom: 5px solid #afadad;
   display: flex;

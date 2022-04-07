@@ -1,55 +1,53 @@
 {
-    "recommendInfo":{
-        "info_1" :{
-            "img_url" : "slide_img1.png",
-            "serachType" : "have_tag",
-            "parameter" :""
-        },
-        "info_2" : {
-            "img_url" : "slide_img2.png",
-            "serachType" : "like_sort",
-            "parameter" :"10"
-        },
-        "info_3" : {
-            "img_url" : "slide_img3.png",
-            "serachType" : "region_sort",
-            "parameter" :""
-        }
-},
-
-"mainCategory":{
-    "info_1" : {
-        "name": "박물관",
-        "img_url" :"tag_img1.img"
+  "recommendInfo": {
+    "info_1": {
+      "img_url": "slide_img1.png",
+      "serachType": "have_tag",
+      "parameter": ""
     },
-    "info_2" : {
-        "name": "공원",
-        "img_url" :"tag_img2.img"
+    "info_2": {
+      "img_url": "slide_img2.png",
+      "serachType": "like_sort",
+      "parameter": "10"
     },
-    "info_3" : {
-        "name": "전시관",
-        "img_url" :"tag_img3.img"
-    },
-    "info_4" : {
-        "name": "공연장",
-        "img_url" :"tag_img4.img"
-    },
-    "info_5" : {
-        "name": "전망대",
-        "img_url" :"tag_img5.img"
-    },
-    "info_6" : {
-        "name": "미술관",
-        "img_url" :"tag_img6.img"
-    },
-    "info_7" : {
-        "name": "테마파크",
-        "img_url" :"tag_img7.img"
-    },
-    "info_8" : {
-        "name": "만화방",
-        "img_url" :"tag_img8.img"
+    "info_3": {
+      "img_url": "slide_img3.png",
+      "serachType": "region_sort",
+      "parameter": ""
     }
-
-}
+  },
+  "mainCategory": {
+    "info_1": {
+      "name": "박물관",
+      "img_url": "tag_img1.img"
+    },
+    "info_2": {
+      "name": "공원",
+      "img_url": "tag_img2.img"
+    },
+    "info_3": {
+      "name": "전시관",
+      "img_url": "tag_img3.img"
+    },
+    "info_4": {
+      "name": "공연장",
+      "img_url": "tag_img4.img"
+    },
+    "info_5": {
+      "name": "전망대",
+      "img_url": "tag_img5.img"
+    },
+    "info_6": {
+      "name": "미술관",
+      "img_url": "tag_img6.img"
+    },
+    "info_7": {
+      "name": "테마파크",
+      "img_url": "tag_img7.img"
+    },
+    "info_8": {
+      "name": "만화방",
+      "img_url": "tag_img8.img"
+    }
+  }
 }
