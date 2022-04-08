@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Button } from 'antd';
 import tagData from '../../../assets/tagData.json';
 import { useState } from 'react';
@@ -48,7 +48,15 @@ const TagModalBlock = styled.div`
   }
 `;
 
-const CatTagModal = ({ visible, title, onClick, onCancel, category }) => {
+const CatTagModal = ({
+  category,
+  visible,
+  onClick,
+  onCancel,
+  onToggleCat,
+  onToggleReg,
+  title,
+}) => {
   const [index, setIndex] = useState(0);
 
   function render(index) {
@@ -94,30 +102,33 @@ const CatTagModal = ({ visible, title, onClick, onCancel, category }) => {
     }
     return result;
   }
+
   const onCancelCat = () => {
-    onClick({ category: '' });
     setIndex(0);
     onCancel();
+    onToggleCat();
   };
 
   const onClickInTemplate = ({ category }) => {
     onClick({ category });
+    onToggleReg();
   };
+
+  const result = render(index);
 
   if (!visible) return null;
   return (
     <FullScreen>
       <TagModalBlock>
         <h2>{title}</h2>
-
-        <div className="tagBox">{render(index)}</div>
+        <div className="tagBox">{result}</div>
 
         <div className="buttons">
           <Button size={'large'} shape={'round'} type="primary">
             확인
           </Button>
           <Button size={'large'} shape={'round'} onClick={onCancelCat}>
-            cancel
+            취소
           </Button>
         </div>
       </TagModalBlock>

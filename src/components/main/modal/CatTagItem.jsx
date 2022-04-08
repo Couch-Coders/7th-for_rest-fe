@@ -20,7 +20,8 @@ const CatTagItemBlock = styled.div`
   ${(props) =>
     props.picked &&
     css`
-      background: #bdbaba;
+      background: #12483aa1;
+      color: white;
     `}
 `;
 

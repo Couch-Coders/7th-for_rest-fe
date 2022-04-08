@@ -17,7 +17,6 @@ const HeaderWrapper = styled(Responsive)`
 `;
 
 const HeaderBlock = styled.div`
-  width: 1440px;
   border-bottom: 5px solid #afadad;
   display: flex;
   align-items: center;
