@@ -1,0 +1,59 @@
+[33mcommit 62eccb54193e22fb961a173b670d28a1f6ceb1e0[m[33m ([m[1;36mHEAD -> [m[1;32mfeat/main/places[m[33m, [m[1;31morigin/feat/main/places[m[33m)[m
+Author: june <jun_53@naver.com>
+Date:   Sun Apr 10 13:43:40 2022 +0900
+
+    feat:places layout 구현
+
+[33mcommit 79014acb468edee5ee868f6ff7ef05df2427bf3b[m[33m ([m[1;31morigin/feat/main/Thumbnail[m[33m, [m[1;32mfeat/main/Thumbnail[m[33m)[m
+Author: june <jun_53@naver.com>
+Date:   Sat Apr 9 21:59:36 2022 +0900
+
+    feat:Thumbnail 클릭시 모달 구현
+
+[33mcommit 29042cde8baa2f0c281917ab07c3dc8ffdbf97c3[m
+Author: june <jun_53@naver.com>
+Date:   Fri Apr 8 15:45:38 2022 +0900
+
+    feat : 이름 변경, Thumbnail 아이템 구현, 컨테이너 부분구현
+
+[33mcommit 6b385f42a65a37aecfa9b5b109e34bda86490d54[m[33m ([m[1;31morigin/feat/main/modal[m[33m, [m[1;32mfeat/main/modal[m[33m)[m
+Author: june <jun_53@naver.com>
+Date:   Fri Apr 8 02:15:11 2022 +0900
+
+    category modal 구현
+
+[33mcommit 2e9d841658f02f8dc873ddfcc47b34c71312d265[m[33m ([m[1;31morigin/feat/main/categoryMenu[m[33m, [m[1;32mfeat/main/categoryMenu[m[33m)[m
+Author: june <jun_53@naver.com>
+Date:   Thu Apr 7 10:42:57 2022 +0900
+
+    feat: layout 구현
+
+[33mcommit 1f8f357c3cc9f8f7814afe7ab700b0f2341831ce[m[33m ([m[1;31morigin/feat/main/slide[m[33m, [m[1;32mfeat/main/slide[m[33m)[m
+Author: june <jun_53@naver.com>
+Date:   Mon Apr 4 18:47:38 2022 +0900
+
+    feat: 자동 슬라이드 완성
+
+[33mcommit 32b4f3166826d69bb020d2faf89fe74a30ec5837[m[33m ([m[1;31morigin/feat/oAuth[m[33m, [m[1;32mfeat/oAuth[m[33m)[m
+Author: june <jun_53@naver.com>
+Date:   Sat Apr 2 18:20:40 2022 +0900
+
+    feat : 헤더 추가 및 auth 연동
+
+[33mcommit 7ee6c333381c56aebc8e41fa65f856a8a8a4bd72[m
+Author: june <jun_53@naver.com>
+Date:   Thu Mar 31 16:33:36 2022 +0900
+
+    build : google-react-login -> firebase로 교체
+
+[33mcommit ded00c483b7a3a8cff9fd5f88315c5d3ab12960a[m
+Author: june <jun_53@naver.com>
+Date:   Tue Mar 29 00:37:57 2022 +0900
+
+    oAuth 기능구현(no TypeScript)
+
+[33mcommit 918ba010f01b79623caf0df63895970b36f84d70[m[33m ([m[1;32mmaster[m[33m)[m
+Author: june <jun_53@naver.com>
+Date:   Mon Mar 28 17:25:30 2022 +0900
+
+    Initialize project using Create React App
