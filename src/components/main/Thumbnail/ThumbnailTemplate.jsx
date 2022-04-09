@@ -23,14 +23,14 @@ const TextBlock = styled.div`
   align-items: center;
   justify-content: space-between;
   .menuTitle {
-    margin-left: calc((100% - 890px) / 2);
+    margin-left: calc((100% - 935px) / 2);
     font-weight: 500;
     font-size: 1.5rem;
     border-bottom: 3px solid gray;
   }
 
   .moreCat {
-    margin-right: calc((100% - 970px) / 2);
+    margin-right: calc((100% - 930px) / 2);
     font-weight: 500;
     font-size: 1.5rem;
 
@@ -43,31 +43,30 @@ const TextBlock = styled.div`
 const ThumbnailTemplate = ({ onClick, onToggleCat, onToggleReg }) => {
   // <MenuItem>를 4개씩 나눠서 저장
   function render() {
-    let itemCount = 0;
+    let itemCount = 1;
     const result = [];
-    const result_2 = [];
+    let temp = [];
     for (const key in mainInfoData.mainCategory) {
-      if (itemCount < 4)
+      temp.push(
+        <ThumbnailItem
+          item={mainInfoData.mainCategory[key]}
+          onClick={onClickThumbnail}
+          key={itemCount}
+        />,
+      );
+      if (itemCount % 4 === 0) {
         result.push(
-          <ThumbnailItem
-            item={mainInfoData.mainCategory[key]}
-            onClick={onClickThumbnail}
-            key={itemCount}
-          />,
+          <ThumbnailTemplateBlock key={itemCount}>
+            {temp}
+          </ThumbnailTemplateBlock>,
         );
-      else
-        result_2.push(
-          <ThumbnailItem
-            item={mainInfoData.mainCategory[key]}
-            onClick={onClickThumbnail}
-            key={itemCount}
-          />,
-        );
+        temp = [];
+      }
       itemCount += 1;
     }
-
-    return [result, result_2];
+    return result;
   }
+
   const onClickThumbnail = ({ category }) => {
     onClick({ category });
     onToggleReg();
@@ -76,8 +75,6 @@ const ThumbnailTemplate = ({ onClick, onToggleCat, onToggleReg }) => {
   const onClickMoreCat = () => {
     onToggleCat();
   };
-
-  const [result, result_2] = render();
 
   return (
     <>
@@ -91,9 +88,7 @@ const ThumbnailTemplate = ({ onClick, onToggleCat, onToggleReg }) => {
             <PlusCircleOutlined size={30} /> 더 보기
           </h4>
         </TextBlock>
-
-        <ThumbnailTemplateBlock>{result}</ThumbnailTemplateBlock>
-        <ThumbnailTemplateBlock>{result_2}</ThumbnailTemplateBlock>
+        {render()}
       </ThumbnailTemplateWrapper>
     </>
   );

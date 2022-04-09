@@ -18,20 +18,20 @@ const CatTagItemBlock = styled.div`
   }
 
   ${(props) =>
-    props.picked &&
+    props.checked &&
     css`
       background: #12483aa1;
       color: white;
     `}
 `;
 
-const CatTagItem = ({ children, item, onClick, picked }) => {
+const CatTagItem = ({ children, item, onClick, checked }) => {
   const onClickInItem = () => {
     onClick({ category: item });
   };
 
   return (
-    <CatTagItemBlock onClick={onClickInItem} picked={picked}>
+    <CatTagItemBlock onClick={onClickInItem} checked={checked}>
       {children ? children : item}
     </CatTagItemBlock>
   );

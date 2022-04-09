@@ -72,24 +72,16 @@ const CatTagModal = ({
     //index*viewItem 값 만큼 반복,
     while (i < itemIndex * viewItem && i < catItem.length) {
       //선택된 카테고리와 아이템의 카테고리가 같을 경우에만 picked 값 설정
-      if (category === catItem[i]) {
-        result.push(
-          <CatTagItem
-            item={catItem[i]}
-            key={i}
-            onClick={onClickInTemplate}
-            picked
-          >
-            {catItem[i]}
-          </CatTagItem>,
-        );
-      } else {
-        result.push(
-          <CatTagItem item={catItem[i]} key={i} onClick={onClickInTemplate}>
-            {catItem[i]}
-          </CatTagItem>,
-        );
-      }
+      result.push(
+        <CatTagItem
+          item={catItem[i]}
+          key={i}
+          onClick={onClickInTemplate}
+          checked={category === catItem[i]}
+        >
+          {catItem[i]}
+        </CatTagItem>,
+      );
       i++;
     }
     //인덱스가 item.length보다 작을경우 ... 표시가 있는 인덱스를 1 올려주는 더보기 아이템 생성
@@ -111,20 +103,27 @@ const CatTagModal = ({
 
   const onClickInTemplate = ({ category }) => {
     onClick({ category });
+  };
+  const onConfirm = () => {
+    if (category === '') return;
+    onToggleCat();
     onToggleReg();
   };
-
-  const result = render(index);
 
   if (!visible) return null;
   return (
     <FullScreen>
       <TagModalBlock>
         <h2>{title}</h2>
-        <div className="tagBox">{result}</div>
+        <div className="tagBox">{render(index)}</div>
 
         <div className="buttons">
-          <Button size={'large'} shape={'round'} type="primary">
+          <Button
+            size={'large'}
+            shape={'round'}
+            type="primary"
+            onClick={onConfirm}
+          >
             확인
           </Button>
           <Button size={'large'} shape={'round'} onClick={onCancelCat}>
