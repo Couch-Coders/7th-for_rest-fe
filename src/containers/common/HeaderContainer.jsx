@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout } from '../../modules/auth';
+import { login, logout } from '../../modules/common/auth';
 
 import Header from '../../components/common/Header';
 

@@ -33,7 +33,6 @@ const style = {
   height: '400px',
   overflowY: 'auto',
   overflowX: 'hidden',
-  WebkitScrollbar: 'none',
 };
 
 const RegionTagModal = ({
@@ -100,7 +99,7 @@ const RegionTagModal = ({
     });
     return result;
   }
-
+  if (!visible) return null;
   return (
     <Modal
       visible={visible}

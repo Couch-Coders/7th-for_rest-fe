@@ -85,7 +85,7 @@ const ThumbnailTemplate = ({ onClick, onToggleCat, onToggleReg }) => {
           </h4>
 
           <h4 className="moreCat" onClick={onClickMoreCat}>
-            <PlusCircleOutlined size={30} /> 더 보기
+            <PlusCircleOutlined /> 더 보기
           </h4>
         </TextBlock>
         {render()}

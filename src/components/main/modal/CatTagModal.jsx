@@ -5,6 +5,8 @@ import tagData from '../../../assets/tagData.json';
 import { useState } from 'react';
 import CatTagItem from './CatTagItem';
 
+const VIEW_ITEM = 8; //카테고리 모달에서 한번에 보여줄 아이템 수
+
 const FullScreen = styled.div`
   position: fixed;
   z-index: 30;
@@ -62,7 +64,6 @@ const CatTagModal = ({
   function render(index) {
     const catItem = [];
     const result = [];
-    let viewItem = 8; //카테고리 모달에서 한번에 보여줄 아이템 수
     let itemIndex = 1 + index;
     let i = 0; //while문에서 사용
 
@@ -70,7 +71,7 @@ const CatTagModal = ({
       catItem.push(item);
     });
     //index*viewItem 값 만큼 반복,
-    while (i < itemIndex * viewItem && i < catItem.length) {
+    while (i < itemIndex * VIEW_ITEM && i < catItem.length) {
       //선택된 카테고리와 아이템의 카테고리가 같을 경우에만 picked 값 설정
       result.push(
         <CatTagItem
@@ -78,9 +79,7 @@ const CatTagModal = ({
           key={i}
           onClick={onClickInTemplate}
           checked={category === catItem[i]}
-        >
-          {catItem[i]}
-        </CatTagItem>,
+        />,
       );
       i++;
     }

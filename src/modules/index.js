@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
-import auth, { authSaga } from "./auth";
-import loading from "./loading";
-import { all } from "redux-saga/effects";
+import { combineReducers } from 'redux';
+import auth, { authSaga } from './common/auth';
+import loading from './common/loading';
+import { all } from 'redux-saga/effects';
 
 const rootReducer = combineReducers({
   auth,

@@ -1,8 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
-} from './../lib/createRequestSaga';
-import * as authAPI from '../lib/api/auth';
+} from '../../lib/createRequestSaga';
+import * as authAPI from '../../lib/api/auth';
 import { call, takeLatest } from 'redux-saga/effects';
 
 const TEMP_SET_USER = 'user/TEMP_SET_USER';
