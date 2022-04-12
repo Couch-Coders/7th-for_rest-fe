@@ -37,10 +37,11 @@ const ThumbnailItemBlock = styled.div`
 `;
 
 const ThumbnailItem = ({ item, onClick }) => {
-  const onClickItem = () =>
+  const onClickItem = () => {
     onClick({
       category: item.name,
     });
+  };
 
   return (
     <ThumbnailItemBlock onClick={onClickItem}>

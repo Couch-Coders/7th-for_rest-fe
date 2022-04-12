@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout } from '../../modules/common/auth';
-
 import Header from '../../components/common/Header';
+import { logout } from '../../modules/common/auth';
+import { login } from './../../modules/common/auth';
 
 const HeaderContainer = () => {
   const { user } = useSelector(({ auth }) => ({ user: auth.user }));
@@ -25,9 +25,9 @@ const HeaderContainer = () => {
   }, [user]);
 
   return (
-    <div>
+    <>
       <Header user={user} onLogin={onLogin} onLogout={onLogout}></Header>
-    </div>
+    </>
   );
 };
 

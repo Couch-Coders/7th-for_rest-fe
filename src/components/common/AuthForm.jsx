@@ -10,7 +10,6 @@ const AuthForm = ({ user, onLogin, onLogout }) => {
       const token = await signInGoogle();
       onLogin({ token });
     } catch (e) {
-      console.log(e);
     }
   };
   const oAuthLogOut = () => {

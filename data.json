@@ -1,12 +1,210 @@
 {
-    "user" :{
-        "token" : "Aba123asdabzb",
-     "user" :{
-        "name": "june",
-        "email" : "setmayjune@gmail.com",
-        "img" :"https://lh3.googleusercontent.com/ogw/ADea4I4iyeyGaHDyt3lWBqThAl0CO-_J7ounnG8dExbC=s32-c-mo"
+  "user": {
+    "token": "Aba123asdabzb",
+    "user": {
+      "name": "june",
+      "email": "setmayjune@gmail.com",
+      "img": "https://lh3.googleusercontent.com/ogw/ADea4I4iyeyGaHDyt3lWBqThAl0CO-_J7ounnG8dExbC=s32-c-mo"
     }
-},
-"logout":{
-        }
+  },
+  "places?": [
+    {
+      "placeName": "호림박물관 신사분관",
+      "img_url": null,
+      "tag": null,
+      "id": "1",
+      "heart": "0"
+    },
+    {
+      "placeName": "탄허기념불교박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20200321_216%2F1584764946874jhgnc_JPEG%2F_CqGqwGd-G7lYMcdINckRwzV.jpeg.jpg",
+      "tag": ["#박물관"],
+      "id": "2",
+      "heart": "1"
+    },
+    {
+      "placeName": "국립관세박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20211206_117%2F1638755742592rsb5N_JPEG%2F3X3A3800.",
+      "tag": null,
+      "id": "3",
+      "heart": "3"
+    },
+    {
+      "placeName": "세계골프역사박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150901_209%2F1441101075486q0aeW_JPEG%2F156756558521211_0.jpeg",
+      "tag": ["#슈페리어", "#골프", "#역사박물관", "#세계골프", "#골프역사"],
+      "id": "4",
+      "heart": "7"
+    },
+    {
+      "placeName": "경운박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20140714_137%2F14053292922644aPNk_JPEG%2F%25BC%25AD%25BF%25EF_%25B0%25E6%25BF%25EE%25B9%25DA%25B9%25B0%25B0%25FC_1.JPG%3Ftype%3Dm500_500",
+      "tag": ["#전시", "#교육"],
+      "id": "5",
+      "heart": "0"
+    },
+    {
+      "placeName": "생각하는박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20190809_198%2F1565318509406AXQ5d_JPEG%2F%25C5%25B0%25BE%25C6%25C5%25EB%25C7%25D53x-100.jpg",
+      "tag": null,
+      "id": "6",
+      "heart": "0"
+    },
+    {
+      "placeName": "코리아나화장박물관",
+      "img_url": null,
+      "tag": null,
+      "id": "7",
+      "heart": "0"
+    },
+    {
+      "placeName": "민폐류박물관",
+      "img_url": null,
+      "tag": null,
+      "id": "8",
+      "heart": "0"
+    },
+    {
+      "placeName": "피규어뮤지엄w",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20180706_200%2F1530865520610TSd9m_JPEG%2F%2528.jpg",
+      "tag": null,
+      "id": "9",
+      "heart": "0"
+    },
+    {
+      "placeName": "올드스토리뮤지엄",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150901_59%2F14410718873136gMoF_JPEG%2F166265567673684_0.jpeg",
+      "tag": ["#화석박물관", "#화석광물전문", "#강남박물관", "#체험프로그램"],
+      "id": "10",
+      "heart": "5"
+    },
+    {
+      "placeName": "이티그룹",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210818_253%2F1629238519193N9cEj_PNG%2FmMgNqpFMPkJCrku0BQuuS9XE.png",
+      "tag": ["#갤러리미카엘", "#KBeauty"],
+      "id": "11",
+      "heart": "0"
+    },
+    {
+      "placeName": "둘리뮤지엄",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220107_163%2F1641544814512SJ0EO_JPEG%2F3pywug5ul3ysda.jpg",
+      "tag": ["#둘리", "#쌍문동", "#고길동", "#둘리뮤지엄", "#도봉문화재단"],
+      "id": "12",
+      "heart": "5"
+    },
+    {
+      "placeName": "국립공원 산악박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxNzA2MjJfNDAg%2FMDAxNDk4MDk3OTE3OTQw.p8pueN7fOxgNubzcfnl6mtumzkl5VyItPQ1tfuEgsEQg.tgKTAEUdlraeraqxKJmChTNfHaytZc-jC9xDYxDNZ5Eg.JPEG.little_home%2F6575fe7b-a013-43eb-ac60-a4d09d234fb5.jpg%23700x467",
+      "tag": null,
+      "id": "13",
+      "heart": "0"
+    },
+    {
+      "placeName": "호림박물관 신사분관",
+      "img_url": null,
+      "tag": null,
+      "id": "14",
+      "heart": "0"
+    },
+    {
+      "placeName": "탄허기념불교박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20200321_216%2F1584764946874jhgnc_JPEG%2F_CqGqwGd-G7lYMcdINckRwzV.jpeg.jpg",
+      "tag": ["#박물관"],
+      "id": "15",
+      "heart": "1"
+    },
+    {
+      "placeName": "국립관세박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20211206_117%2F1638755742592rsb5N_JPEG%2F3X3A3800.",
+      "tag": null,
+      "id": "16",
+      "heart": "3"
+    },
+    {
+      "placeName": "세계골프역사박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150901_209%2F1441101075486q0aeW_JPEG%2F156756558521211_0.jpeg",
+      "tag": ["#슈페리어", "#골프", "#역사박물관", "#세계골프", "#골프역사"],
+      "id": "17",
+      "heart": "7"
+    },
+    {
+      "placeName": "경운박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20140714_137%2F14053292922644aPNk_JPEG%2F%25BC%25AD%25BF%25EF_%25B0%25E6%25BF%25EE%25B9%25DA%25B9%25B0%25B0%25FC_1.JPG%3Ftype%3Dm500_500",
+      "tag": ["#전시", "#교육"],
+      "id": "18",
+      "heart": "0"
+    },
+    {
+      "placeName": "생각하는박물관",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20190809_198%2F1565318509406AXQ5d_JPEG%2F%25C5%25B0%25BE%25C6%25C5%25EB%25C7%25D53x-100.jpg",
+      "tag": null,
+      "id": "19",
+      "heart": "0"
+    },
+    {
+      "placeName": "코리아나화장박물관",
+      "img_url": null,
+      "tag": null,
+      "id": "20",
+      "heart": "0"
+    },
+    {
+      "placeName": "민폐류박물관",
+      "img_url": null,
+      "tag": null,
+      "id": "21",
+      "heart": "0"
+    },
+    {
+      "placeName": "피규어뮤지엄w",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20180706_200%2F1530865520610TSd9m_JPEG%2F%2528.jpg",
+      "tag": null,
+      "id": "22",
+      "heart": "0"
+    },
+    {
+      "placeName": "민폐류박물관",
+      "img_url": null,
+      "tag": null,
+      "id": "23",
+      "heart": "0"
+    },
+    {
+      "placeName": "피규어뮤지엄w",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20180706_200%2F1530865520610TSd9m_JPEG%2F%2528.jpg",
+      "tag": null,
+      "id": "24",
+      "heart": "0"
+    },
+    {
+      "placeName": "올드스토리뮤지엄",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150901_59%2F14410718873136gMoF_JPEG%2F166265567673684_0.jpeg",
+      "tag": ["#화석박물관", "#화석광물전문", "#강남박물관", "#체험프로그램"],
+      "id": "25",
+      "heart": "5"
+    },
+    {
+      "placeName": "이티그룹",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210818_253%2F1629238519193N9cEj_PNG%2FmMgNqpFMPkJCrku0BQuuS9XE.png",
+      "tag": ["#갤러리미카엘", "#KBeauty"],
+      "id": "26",
+      "heart": "0"
+    },
+    {
+      "placeName": "둘리뮤지엄",
+      "img_url": "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220107_163%2F1641544814512SJ0EO_JPEG%2F3pywug5ul3ysda.jpg",
+      "tag": ["#둘리", "#쌍문동", "#고길동", "#둘리뮤지엄", "#도봉문화재단"],
+      "id": "27",
+      "heart": "5"
+    },
+    {
+      "placeName": "코리아나화장박물관",
+      "img_url": null,
+      "tag": null,
+      "id": "20",
+      "heart": "0"
+    }
+  ],
+
+  "logout": {}
 }

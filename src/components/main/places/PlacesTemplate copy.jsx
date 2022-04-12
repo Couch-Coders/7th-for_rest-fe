@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PlacesItem from './PlacesItem';
 import Responsive from './../../common/Responsive';
+import { useSelector } from 'react-redux';
 
 const PlacesTemplateBlock = styled(Responsive)`
   margin-top: 15vh;
@@ -49,14 +50,20 @@ const Spacer = styled.div`
   height: 5rem;
 `;
 
-const MAX_VIEW = 100;
-
 const PlacesTemplate = ({ places }) => {
-  const scorllTarget = useRef(null);
-  const target = useRef(null);
-
+  const { loading } = useSelector(({ loading }) => ({
+    loading: loading['places/SEARCH'],
+  }));
   const [index, setIndex] = useState(1);
 
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight && loading === false) {
+      setIndex(index + 1);
+    }
+  };
   function render(index) {
     const VIEW_PLACE_ITEM = 12;
     const result = [];
@@ -87,45 +94,21 @@ const PlacesTemplate = ({ places }) => {
   }
 
   useEffect(() => {
-    if (index === 1) {
-      scorllTarget?.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    const options = {
-      threshold: 0.25,
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
     };
-    const handleIntersection = (entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          console.log('Asdaa');
-          return;
-        }
-        if (index < MAX_VIEW) setIndex((cur) => cur + 1);
-      });
-    };
-    const io = new IntersectionObserver(handleIntersection, options);
-
-    if (target.current) {
-      io.observe(target.current);
-    }
-
-    return () => io && io.disconnect();
-  }, [target, index]);
-  console.log(index);
-  if (places.length === 0) return <>결과 없음</>;
-
+  });
   return (
-    <>
-      <PlacesTemplateBlock>
-        <TextBlock ref={scorllTarget}>
-          <h4 className="Counter">총 여러개</h4>
-          <h4>/</h4>
-          <h4 className="sortMenu">좋아요 순</h4>
-        </TextBlock>
-        {render(index)}
-        <Spacer ref={target} />
-      </PlacesTemplateBlock>
-    </>
+    <PlacesTemplateBlock>
+      <TextBlock>
+        <h4 className="Counter">총 여러개</h4>
+        <h4>/</h4>
+        <h4 className="sortMenu">좋아요 순</h4>
+      </TextBlock>
+      {render(index)}
+      <Spacer />
+    </PlacesTemplateBlock>
   );
 };
 

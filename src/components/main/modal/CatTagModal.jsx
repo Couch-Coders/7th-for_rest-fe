@@ -5,7 +5,7 @@ import tagData from '../../../assets/tagData.json';
 import { useState } from 'react';
 import CatTagItem from './CatTagItem';
 
-const VIEW_ITEM = 8; //카테고리 모달에서 한번에 보여줄 아이템 수
+const VIEW_CATEGORY_TAG_ITEM = 8; //카테고리 모달에서 한번에 보여줄 아이템 수
 
 const FullScreen = styled.div`
   position: fixed;
@@ -59,32 +59,32 @@ const CatTagModal = ({
   onToggleReg,
   title,
 }) => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
 
   function render(index) {
-    const catItem = [];
+    const categoryArr = [];
     const result = [];
-    let itemIndex = 1 + index;
+    let itemIndex = index;
     let i = 0; //while문에서 사용
 
     tagData.category.forEach((item) => {
-      catItem.push(item);
+      categoryArr.push(item);
     });
     //index*viewItem 값 만큼 반복,
-    while (i < itemIndex * VIEW_ITEM && i < catItem.length) {
+    while (i < itemIndex * VIEW_CATEGORY_TAG_ITEM && i < categoryArr.length) {
       //선택된 카테고리와 아이템의 카테고리가 같을 경우에만 picked 값 설정
       result.push(
         <CatTagItem
-          item={catItem[i]}
+          item={categoryArr[i]}
           key={i}
-          onClick={onClickInTemplate}
-          checked={category === catItem[i]}
+          onClick={onClickCatTag}
+          checked={category === categoryArr[i]}
         />,
       );
       i++;
     }
     //인덱스가 item.length보다 작을경우 ... 표시가 있는 인덱스를 1 올려주는 더보기 아이템 생성
-    if (i < catItem.length) {
+    if (i < categoryArr.length) {
       result.push(
         <CatTagItem key={i} onClick={() => setIndex((cur) => cur + 1)}>
           ...
@@ -95,12 +95,14 @@ const CatTagModal = ({
   }
 
   const onCancelCat = () => {
-    setIndex(0);
+    setIndex(1);
     onCancel();
     onToggleCat();
   };
 
-  const onClickInTemplate = ({ category }) => {
+  //이전 검색결과 값이 남아있을수 있어 초기화
+  const onClickCatTag = ({ category }) => {
+    onCancel();
     onClick({ category });
   };
   const onConfirm = () => {

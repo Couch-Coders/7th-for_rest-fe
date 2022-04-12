@@ -4,6 +4,10 @@ import RegionTagItem from './RegionTagItem';
 import styled from 'styled-components';
 import tagData from '../../../assets/tagData.json';
 
+const CustomModal = styled(Modal)`
+  overflow: hidden;
+`;
+
 const TagBox = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -12,7 +16,7 @@ const TagBox = styled.div`
 const TitleBox = styled.div`
   margin-left: -25px;
   margin-top: 1rem;
-  width: 520px;
+  width: 540px;
   padding: 16px 24px;
   color: rgba(0, 0, 0, 0.85);
   background: #fff;
@@ -29,7 +33,7 @@ const TitleBox = styled.div`
 `;
 
 const style = {
-  width: '100%',
+  width: '540px',
   height: '400px',
   overflowY: 'auto',
   overflowX: 'hidden',
@@ -44,6 +48,7 @@ const RegionTagModal = ({
   onCancel,
   onToggleReg,
   onReset,
+  onSearch,
 }) => {
   const onClickRegion1 = ({ region_1 }) => {
     onClick({ region_1 });
@@ -59,6 +64,12 @@ const RegionTagModal = ({
   };
   const onResetReg2 = () => {
     onReset();
+  };
+  const onConfirm = () => {
+    if (region_1 !== '') {
+      onSearch();
+      onToggleReg();
+    }
   };
 
   //region1에 맞는 클릭 이벤트를 넣는다.
@@ -101,13 +112,13 @@ const RegionTagModal = ({
   }
   if (!visible) return null;
   return (
-    <Modal
+    <CustomModal
       visible={visible}
       title="지역을 선택해주세요"
       centered
       bodyStyle={style}
       footer={[
-        <Button key="submit" type="primary">
+        <Button key="submit" type="primary" onClick={onConfirm}>
           확인
         </Button>,
         <Button key="back" onClick={onCancelModal}>
@@ -127,7 +138,7 @@ const RegionTagModal = ({
       ) : (
         ''
       )}
-    </Modal>
+    </CustomModal>
   );
 };
 
