@@ -33,25 +33,25 @@ const CustomButton = styled(Button)`
 
 const RegionTagItem = ({
   item,
-  onClickReg1,
-  onClickReg2,
+  onClickFirstRegion,
+  onClickSecondRegion,
   checked,
-  onReset,
+  onResetSecondRegion,
 }) => {
   const onClickRegion1 = () => {
-    onClickReg1({ region_1: item });
+    onClickFirstRegion({ region_1: item });
   };
   const onClickRegion2 = () => {
-    onClickReg2(item);
+    onClickSecondRegion(item);
   };
-  const onResetReg2 = () => {
-    onReset();
+  const onReset = () => {
+    onResetSecondRegion();
   };
 
   const onClick = () => {
-    if (onClickReg1) return onClickRegion1();
-    else if (onClickReg2) return onClickRegion2();
-    else if (onReset) return onResetReg2();
+    if (onClickFirstRegion) return onClickRegion1();
+    else if (onClickSecondRegion) return onClickRegion2();
+    else if (onResetSecondRegion) return onReset();
   };
 
   return (

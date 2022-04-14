@@ -52,9 +52,9 @@ const CatTagModal = ({
   visible,
   title,
   onClick,
+  onReset,
   onToggleCat,
   onToggleReg,
-  onCancel,
   category,
 }) => {
   const [index, setIndex] = useState(0);
@@ -76,7 +76,7 @@ const CatTagModal = ({
         <CatTagItem
           item={catItem[i]}
           key={i}
-          onClick={onClickInTemplate}
+          onClick={onClickCatTag}
           checked={category === catItem[i]}
         >
           {catItem[i]}
@@ -95,12 +95,15 @@ const CatTagModal = ({
     return result;
   }
   const onCancelCat = () => {
-    onClick({ category: '' });
-    setIndex(0);
-    onCancel();
+    setIndex(1);
+    onReset();
+    onToggleCat();
   };
 
-  const onClickInTemplate = ({ category }) => {
+  //이전 검색결과 값이 남아있을수 있어 초기화
+  const onClickCatTag = ({ category }) => {
+    onReset();
+
     onClick({ category });
   };
   const onConfirm = () => {

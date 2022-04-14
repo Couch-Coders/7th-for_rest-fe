@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'antd';
 import RegionTagItem from './RegionTagItem';
 import styled from 'styled-components';
@@ -43,27 +43,45 @@ const style = {
 const RegionTagModal = ({
   region_1,
   region_2,
-  onClickReg2,
   visible,
   onClick,
-  onCancel,
   onToggleReg,
   onReset,
+  onSearch,
 }) => {
-  const onClickRegion1 = ({ region_1 }) => {
+  const [secondRegion, setSecondRegion] = useState(region_2);
+
+  const onClickFirstRegion = ({ region_1 }) => {
     onClick({ region_1 });
   };
 
-  const onClickRegion2 = (Reg_2) => {
-    onClickReg2(Reg_2);
-  };
-
   const onCancelModal = () => {
-    onCancel();
+    onReset();
     onToggleReg();
   };
-  const onResetReg2 = () => {
-    onReset();
+
+  const onClickSecondRegion = (region_2_item) => {
+    if (region_2.includes(region_2_item)) {
+      const updateItem = secondRegion.filter((item) => item !== region_2_item);
+      setSecondRegion(updateItem);
+      onClick({ region_2: updateItem });
+    } else {
+      const updateItem = [...secondRegion, region_2_item];
+      setSecondRegion(updateItem);
+      onClick({ region_2: updateItem });
+    }
+  };
+
+  const onResetSecondRegion = () => {
+    setSecondRegion([]);
+    onClick({ region_2: [] });
+  };
+
+  const onConfirm = () => {
+    if (region_1 !== '') {
+      onSearch();
+      onToggleReg();
+    }
   };
 
   //region1에 맞는 클릭 이벤트를 넣는다.
@@ -75,7 +93,7 @@ const RegionTagModal = ({
           item={item}
           key={index}
           checked={region_1 === item}
-          onClickReg1={onClickRegion1}
+          onClickFirstRegion={onClickFirstRegion}
         />,
       );
     });
@@ -89,7 +107,7 @@ const RegionTagModal = ({
         checked={region_2.length === 0}
         item={'전체'}
         key={'All'}
-        onReset={onResetReg2}
+        onResetSecondRegion={onResetSecondRegion}
       />,
     );
     tagData.region2[region_1].forEach((item, index) => {
@@ -98,7 +116,7 @@ const RegionTagModal = ({
           checked={region_2.includes(item)}
           item={item}
           key={'reg2_' + index}
-          onClickReg2={onClickRegion2}
+          onClickSecondRegion={onClickSecondRegion}
         />,
       );
     });
@@ -112,7 +130,7 @@ const RegionTagModal = ({
       centered
       bodyStyle={style}
       footer={[
-        <Button key="submit" type="primary">
+        <Button key="submit" type="primary" onClick={onConfirm}>
           확인
         </Button>,
         <Button key="back" onClick={onCancelModal}>
