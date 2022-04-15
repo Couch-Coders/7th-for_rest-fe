@@ -3,6 +3,7 @@ import { Modal, Button } from 'antd';
 import RegionTagItem from './RegionTagItem';
 import styled from 'styled-components';
 import tagData from '../../../assets/tagData.json';
+import { Link } from 'react-router-dom';
 
 const CustomModal = styled(Modal)`
   overflow: hidden;
@@ -16,12 +17,11 @@ const TagBox = styled.div`
 const TitleBox = styled.div`
   margin-left: -25px;
   margin-top: 1rem;
-  width: 540px;
+  width: 520px;
   padding: 16px 24px;
   color: rgba(0, 0, 0, 0.85);
   background: #fff;
   border-bottom: 1px solid #f0f0f0;
-
   .h3 {
     margin: 0;
     color: rgba(0, 0, 0, 0.85);
@@ -33,38 +33,46 @@ const TitleBox = styled.div`
 `;
 
 const style = {
-  width: '540px',
-  height: '400px',
+  width: '550px',
+  height: '350px',
   overflowY: 'auto',
   overflowX: 'hidden',
+  WebkitScrollbar: 'none',
 };
 
 const RegionTagModal = ({
+  category,
   region_1,
   region_2,
-  onClickReg2,
   visible,
-  onClick,
-  onCancel,
+  onChangeSearchParam,
   onToggleReg,
   onReset,
   onSearch,
 }) => {
-  const onClickRegion1 = ({ region_1 }) => {
-    onClick({ region_1 });
-  };
-
-  const onClickRegion2 = (Reg_2) => {
-    onClickReg2(Reg_2);
+  const onClickFirstRegion = ({ region_1 }) => {
+    onChangeSearchParam({ region_1 });
   };
 
   const onCancelModal = () => {
-    onCancel();
+    onReset();
     onToggleReg();
   };
-  const onResetReg2 = () => {
-    onReset();
+
+  const onClickSecondRegion = (region_2_item) => {
+    let updateItem = '';
+    if (region_2.includes(region_2_item)) {
+      updateItem = region_2.filter((item) => item !== region_2_item);
+    } else {
+      updateItem = [...region_2, region_2_item];
+    }
+    onChangeSearchParam({ region_2: updateItem });
   };
+
+  const onResetSecondRegion = () => {
+    onChangeSearchParam({ region_2: [] });
+  };
+
   const onConfirm = () => {
     if (region_1 !== '') {
       onSearch();
@@ -81,7 +89,7 @@ const RegionTagModal = ({
           item={item}
           key={index}
           checked={region_1 === item}
-          onClickReg1={onClickRegion1}
+          onClickFirstRegion={onClickFirstRegion}
         />,
       );
     });
@@ -90,12 +98,13 @@ const RegionTagModal = ({
   //region2에 맞는 클릭 이벤트를 넣는다.
   function Region2Render() {
     const result = [];
+    // 처음에 전체 태그를 하나 넣는다.
     result.push(
       <RegionTagItem
         checked={region_2.length === 0}
         item={'전체'}
         key={'All'}
-        onReset={onResetReg2}
+        onResetSecondRegion={onResetSecondRegion}
       />,
     );
     tagData.region2[region_1].forEach((item, index) => {
@@ -103,14 +112,14 @@ const RegionTagModal = ({
         <RegionTagItem
           checked={region_2.includes(item)}
           item={item}
-          key={'reg2_' + index}
-          onClickReg2={onClickRegion2}
+          key={'reg_2' + index}
+          onClickSecondRegion={onClickSecondRegion}
         />,
       );
     });
     return result;
   }
-  if (!visible) return null;
+
   return (
     <CustomModal
       visible={visible}
@@ -119,7 +128,7 @@ const RegionTagModal = ({
       bodyStyle={style}
       footer={[
         <Button key="submit" type="primary" onClick={onConfirm}>
-          확인
+          <Link to={`places/${category}/${region_1}/`}>확인</Link>
         </Button>,
         <Button key="back" onClick={onCancelModal}>
           취소

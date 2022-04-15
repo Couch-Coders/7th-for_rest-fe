@@ -6,6 +6,8 @@ const PlacesContainer = () => {
   const { places } = useSelector(({ places }) => ({
     places: places.places,
   }));
+  console.log('호출이 안되나222');
+  if (places === null) return null;
   return <>{places != null && <PlacesTemplate places={places} />}</>;
 };
 

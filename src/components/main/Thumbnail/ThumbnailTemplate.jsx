@@ -40,7 +40,12 @@ const TextBlock = styled.div`
   }
 `;
 
-const ThumbnailTemplate = ({ onClick, onCancel, onToggleCat, onToggleReg }) => {
+const ThumbnailTemplate = ({
+  onChangeSearchParam,
+  onReset,
+  onToggleCat,
+  onToggleReg,
+}) => {
   // <MenuItem>를 4개씩 나눠서 저장
   function render() {
     let itemCount = 1;
@@ -68,8 +73,8 @@ const ThumbnailTemplate = ({ onClick, onCancel, onToggleCat, onToggleReg }) => {
   }
 
   const onClickThumbnail = ({ category }) => {
-    onCancel();
-    onClick({ category });
+    onReset();
+    onChangeSearchParam({ category });
     onToggleReg();
   };
 
