@@ -21,9 +21,9 @@ export default function createRequestSaga(type, request) {
         type: SUCCESS,
         payload: response.data,
       });
-      console.log('성공');
+      console.log('saga 성공');
     } catch (e) {
-      console.log('실패');
+      console.log('saga 실패');
       console.log(e);
       yield put({
         type: FAILURE,

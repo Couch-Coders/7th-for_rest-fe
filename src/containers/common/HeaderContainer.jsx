@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from '../../components/common/Header';
 import { logout } from '../../modules/common/auth';
 import { login } from './../../modules/common/auth';
+import { Outlet } from 'react-router-dom';
 
 const HeaderContainer = () => {
   const { user } = useSelector(({ auth }) => ({ user: auth.user }));
@@ -27,6 +28,9 @@ const HeaderContainer = () => {
   return (
     <>
       <Header user={user} onLogin={onLogin} onLogout={onLogout}></Header>
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 };

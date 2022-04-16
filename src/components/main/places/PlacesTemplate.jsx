@@ -50,15 +50,15 @@ const Spacer = styled.div`
 `;
 
 const MAX_VIEW = 100;
+const VIEW_PLACE_ITEM = 12;
 
 const PlacesTemplate = ({ places }) => {
   const scorllTarget = useRef(null);
   const target = useRef(null);
-
   const [index, setIndex] = useState(1);
 
   function render(index) {
-    const VIEW_PLACE_ITEM = 12;
+
     const result = [];
     let temp = [];
     let itemCount = 0;
@@ -73,7 +73,7 @@ const PlacesTemplate = ({ places }) => {
         itemCount === VIEW_PLACE_ITEM * index ||
         itemCount === places.length
       ) {
-        // 공간만 채우기 위해, 부족한 수 만큼 커스텀div 추가
+        // 공간만 채우기 위해, 부족한 수 만큼 TempDiv 추가
         const gap = 3 - (itemCount % 3);
         for (let index = 0; index < gap; index++) {
           temp.push(<TempDiv key={index}></TempDiv>);
@@ -85,19 +85,16 @@ const PlacesTemplate = ({ places }) => {
     }
     return result;
   }
-
+  if (index === 1) {
+    scorllTarget?.current?.scrollIntoView({ behavior: 'smooth' });
+  }
   useEffect(() => {
-    if (index === 1) {
-      scorllTarget?.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-
     const options = {
       threshold: 0.25,
     };
     const handleIntersection = (entries, observer) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) {
-          console.log('Asdaa');
           return;
         }
         if (index < MAX_VIEW) setIndex((cur) => cur + 1);

@@ -1,16 +1,46 @@
-import { Route, Routes } from "react-router-dom";
-import DetailPage from "./pages/DetailPage";
-import MainPage from "./pages/MainPage";
-import MyPage from "./pages/MyPage";
+import MainPage from './pages/MainPage';
+import NotFound from './pages/NotFound';
+import { Route, Routes } from 'react-router-dom';
+import React from 'react';
+import HeaderContainer from './containers/common/HeaderContainer';
+const PlacesListPage = React.lazy(() => import('./pages/PlacesListPage'));
+const MyPage = React.lazy(() => import('./pages/MyPage'));
+const DetailPage = React.lazy(() => import('./pages/DetailPage'));
 
-function App() {
+const App = () => {
   return (
     <Routes>
-      <Route element={<MainPage />} path="/" />
-      <Route element={<DetailPage />} path="/:category/:placeId" />
-      <Route element={<MyPage />} path="/:username" />
+      <Route element={<HeaderContainer />}>
+        <Route path="/" element={<MainPage />}>
+          <Route
+            path="places/:category/:region_1/"
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <PlacesListPage />
+              </React.Suspense>
+            }
+          />
+        </Route>
+        <Route
+          path="detail/:placeId"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <DetailPage />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="myPage"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <MyPage />
+            </React.Suspense>
+          }
+        />
+        <Route path="*" element={<NotFound />} />{' '}
+      </Route>
     </Routes>
   );
-}
+};
 
 export default App;

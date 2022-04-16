@@ -1,12 +1,7 @@
-import React from "react";
-import HeaderContainer from "../containers/common/HeaderContainer";
+import React from 'react';
 
 const MyPage = () => {
-  return (
-    <>
-      <HeaderContainer />
-    </>
-  );
+  return <></>;
 };
 
 export default MyPage;

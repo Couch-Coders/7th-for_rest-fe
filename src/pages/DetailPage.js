@@ -1,13 +1,12 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
 
-const DetailPageBlock = styled.div``;
+import DetailTemplate from '../components/detail/DetailTemplate';
 
 const DetailPage = () => {
   return (
-    <DetailPageBlock>
-      <p>detailPage</p>
-    </DetailPageBlock>
+    <>
+      <DetailTemplate />
+    </>
   );
 };
 
