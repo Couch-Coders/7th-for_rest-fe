@@ -1,5 +1,5 @@
 import React from 'react';
-import ThumbnailTemplate from '../../components/main/humbnail/ThumbnailTemplate';
+import ThumbnailTemplate from '../../components/main/thumbnail/ThumbnailTemplate';
 import { useState } from 'react';
 import CatTagModal from './../../components/main/modal/CatTagModal';
 import RegionTagModal from '../../components/main/modal/RegionTagModal';
