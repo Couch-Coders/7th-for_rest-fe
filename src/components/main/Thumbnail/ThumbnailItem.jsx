@@ -18,8 +18,8 @@ const ThumbnailItemBlock = styled.div`
   img {
     object-fit: cover;
     filter: brightness(65%);
-    width: 196px;
-    height: 196px;
+    width: 198px;
+    height: 198px;
     box-sizing: border-box;
     border-radius: 0.6rem;
   }
