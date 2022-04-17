@@ -43,7 +43,8 @@ const MenuContainer = () => {
 
   const onSearch = () => {
     if (category !== '' && region_1 !== '')
-      dispatch(serach({ category, region_1, region_2 }));
+      //검색시에는 0페이지부터 시작
+      dispatch(serach({ page: 0, category, region_1, region_2 }));
   };
 
   return (

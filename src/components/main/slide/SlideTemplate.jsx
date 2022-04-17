@@ -17,7 +17,7 @@ const SlideTemplateBlock = styled.div`
 
 const SlideButton = styled.div`
   position: absolute;
-  top: 423px;
+  top: 365px;
   z-index: 5;
   :hover {
     cursor: pointer;

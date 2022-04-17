@@ -88,6 +88,13 @@ const CustomTab = styled(TabPane)`
 
 const TabItem = styled.div`
   margin-top: -1rem;
+  display: none;
+
+  ${(props) =>
+    props.checked &&
+    css`
+      display: block;
+    `}
 
   .infoBlock + .infoBlock {
     border-top: 1px solid #f0f0f0;
@@ -127,6 +134,7 @@ const DetailTemplate = () => {
     KakaoMapScript('경기도 부천시 원미로 89번길');
   }, []);
 
+  console.log('ss');
   return (
     <DetailTemplateBlock>
       <TitleWrapper>
@@ -173,7 +181,7 @@ const DetailTemplate = () => {
             <span className="info"> 설명</span>
           </div>
         </TabItem>
-        <TabItem tab="Tab 2" key="2">
+        <TabItem tab="Tab 2" key="2" checked>
           <div className="infoBlock">
             <span className="category">카테고리</span>
             <span className="info"> 설명</span>

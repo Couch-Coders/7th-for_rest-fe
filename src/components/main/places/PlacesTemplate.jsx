@@ -52,26 +52,30 @@ const Spacer = styled.div`
 const MAX_VIEW = 100;
 const VIEW_PLACE_ITEM = 12;
 
-const PlacesTemplate = ({ places }) => {
+const PlacesTemplate = ({ places, onSearch }) => {
   const scorllTarget = useRef(null);
   const target = useRef(null);
   const [index, setIndex] = useState(1);
 
   function render(index) {
-
     const result = [];
     let temp = [];
     let itemCount = 0;
 
-    while (itemCount < VIEW_PLACE_ITEM * index && itemCount < places.length) {
-      temp.push(<PlacesItem item={places[itemCount]} key={itemCount} />);
+    while (
+      itemCount < VIEW_PLACE_ITEM * index &&
+      itemCount < places.content.length
+    ) {
+      temp.push(
+        <PlacesItem item={places.content[itemCount]} key={itemCount} />,
+      );
       itemCount += 1;
       if (itemCount % 3 === 0) {
         result.push(<ItemBlock key={itemCount}>{temp}</ItemBlock>);
         temp = [];
       } else if (
         itemCount === VIEW_PLACE_ITEM * index ||
-        itemCount === places.length
+        itemCount === places.content.length
       ) {
         // 공간만 채우기 위해, 부족한 수 만큼 TempDiv 추가
         const gap = 3 - (itemCount % 3);
@@ -88,6 +92,7 @@ const PlacesTemplate = ({ places }) => {
   if (index === 1) {
     scorllTarget?.current?.scrollIntoView({ behavior: 'smooth' });
   }
+
   useEffect(() => {
     const options = {
       threshold: 0.25,
@@ -97,7 +102,10 @@ const PlacesTemplate = ({ places }) => {
         if (!entry.isIntersecting) {
           return;
         }
-        if (index < MAX_VIEW) setIndex((cur) => cur + 1);
+        if (index < MAX_VIEW && index < places.totalPages) {
+          onSearch(index);
+          setIndex((cur) => cur + 1);
+        }
       });
     };
     const io = new IntersectionObserver(handleIntersection, options);
@@ -107,7 +115,7 @@ const PlacesTemplate = ({ places }) => {
     }
 
     return () => io && io.disconnect();
-  }, [target, index]);
+  }, [target, index, places, onSearch]);
   console.log(index);
   if (places.length === 0) return <>결과 없음</>;
 

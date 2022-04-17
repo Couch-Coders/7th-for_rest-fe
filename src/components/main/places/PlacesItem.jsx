@@ -37,29 +37,31 @@ const TitleBox = styled.div`
 const { Meta } = Card;
 
 const PlacesItem = ({ item }) => {
-  const img_url = item.img_url
-    ? item.img_url
+  const img_url = item.img_src
+    ? item.img_src
     : require('../../../assets/noImg.png');
+
+  const tagRender = (tag) => {
+    const tagAry = tag.split('\n');
+    return tagAry.map((item, index) => (
+      <CustomTag color="green" key={index}>
+        {item}
+      </CustomTag>
+    ));
+  };
 
   return (
     <PlacesItemBlock>
       <Link to={`/detail/${item.id}`}>
-        <CustomCard cover={<img alt={item.placeName} src={img_url} />}>
+        <CustomCard cover={<img alt={item.name} src={img_url} />}>
           <TitleBox>
-            <Meta title={item.placeName} />
+            <Meta title={item.name} />
             <p>
               <HeartTwoTone twoToneColor="#eb2f96" />
-              <em>{item.heart}</em>
+              <em>{item.likeCount}</em>
             </p>
           </TitleBox>
-          {item.tag &&
-            item.tag.map((item, index) => {
-              return (
-                <CustomTag color="green" key={index}>
-                  {item}
-                </CustomTag>
-              );
-            })}
+          {item.tag && tagRender(item.tag)}
         </CustomCard>
       </Link>
     </PlacesItemBlock>
