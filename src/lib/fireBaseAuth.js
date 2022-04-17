@@ -18,11 +18,7 @@ export const signInGoogle = () => {
   const provider = new GoogleAuthProvider();
   return signInWithPopup(auth, provider)
     .then((result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      console.log(credential);
-      console.log('oAuth성공');
-      return token;
+      return result.user.getIdToken();
     })
     .catch((error) => {
       console.log(error.message);
