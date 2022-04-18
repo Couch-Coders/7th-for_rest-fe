@@ -4,10 +4,10 @@ import { useState } from 'react';
 import CatTagModal from './../../components/main/modal/CatTagModal';
 import RegionTagModal from '../../components/main/modal/RegionTagModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { serach } from './../../modules/main/places';
+import { placesInitialize, serach } from './../../modules/main/places';
 import ModalPortal from './../../lib/ModalPotal';
 import { onChange } from '../../modules/main/searchParam';
-import { initialize } from './../../modules/main/searchParam';
+import { paramInitialize } from './../../modules/main/searchParam';
 
 const MenuContainer = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const MenuContainer = () => {
   };
 
   const onReset = () => {
-    dispatch(initialize());
+    dispatch(paramInitialize());
   };
 
   const onToggleCatModal = () => {
@@ -44,7 +44,8 @@ const MenuContainer = () => {
   const onSearch = () => {
     if (category !== '' && region_1 !== '')
       //검색시에는 0페이지부터 시작
-      dispatch(serach({ page: 0, category, region_1, region_2 }));
+      dispatch(placesInitialize());
+    dispatch(serach({ page: 0, category, region_1, region_2 }));
   };
 
   return (

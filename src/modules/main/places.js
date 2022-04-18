@@ -7,10 +7,12 @@ import { takeLatest } from 'redux-saga/effects';
 
 const [SEARCH, SEARCH_SUCCESS, SEARCH_FAILURE] =
   createRequestActionTypes('places/SEARCH');
+const INITIALIZE = 'places/INITIALIZE';
 
 export const serach = createAction(
   SEARCH,
-  ({ category, region_1, region_2 }) => ({
+  ({ page, category, region_1, region_2 }) => ({
+    page,
     category,
     region_1,
     region_2,
@@ -18,9 +20,12 @@ export const serach = createAction(
 );
 
 const initialState = {
-  places: null,
+  places: [],
+  totalPages: 0,
   error: null,
 };
+
+export const placesInitialize = createAction(INITIALIZE);
 
 const searchSaga = createRequestSaga(SEARCH, placesAPI.searchByTag);
 
@@ -30,12 +35,12 @@ export function* placesSaga() {
 
 const places = handleActions(
   {
-    //로그인 성공
-    [SEARCH_SUCCESS]: (state, { payload: data }) => ({
+    [INITIALIZE]: (state) => initialState,
+    [SEARCH_SUCCESS]: (state, { payload: { content, totalPages } }) => ({
       ...state,
-      places: data,
+      places: content,
+      totalPages: totalPages,
     }),
-    //로그인 실패
     [SEARCH_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error: error,

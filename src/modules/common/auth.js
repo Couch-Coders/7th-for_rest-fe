@@ -43,7 +43,7 @@ const auth = handleActions(
     [LOGIN_SUCCESS]: (state, { payload: data }) => ({
       ...state,
       authError: null,
-      user: data.data,
+      user: data,
     }),
     //로그인 실패
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
