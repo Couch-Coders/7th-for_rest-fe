@@ -39,6 +39,9 @@ const TextBlock = styled.div`
     }
   }
 `;
+const Spacer = styled.div`
+  height: 3rem;
+`;
 
 const ThumbnailTemplate = ({
   onChangeSearchParam,
@@ -96,6 +99,7 @@ const ThumbnailTemplate = ({
         </TextBlock>
         {render()}
       </ThumbnailTemplateWrapper>
+      <Spacer />
     </>
   );
 };

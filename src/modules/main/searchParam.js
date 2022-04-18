@@ -3,7 +3,7 @@ import { createAction, handleActions } from 'redux-actions';
 const INITIALIZE = 'searchParam/INITIALIZE';
 const CHANGE_PARAM = 'searchParam/CHANGE_PARAM';
 
-export const initialize = createAction(INITIALIZE);
+export const paramInitialize = createAction(INITIALIZE);
 export const onChange = createAction(CHANGE_PARAM, ({ key, value }) => ({
   key,
   value,

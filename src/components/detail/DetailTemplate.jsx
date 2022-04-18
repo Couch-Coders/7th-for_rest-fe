@@ -160,8 +160,9 @@ const DetailTemplate = () => {
           </div>
         </div>
       </TitleWrapper>
+
       <Tabs defaultActiveKey="1" style={tabStyle}>
-        <TabItem tab="Tab 1" key="1">
+        <TabItem tab="Tab 1" key="1" checked>
           <div className="infoBlock">
             <span className="category">카테고리</span>
             <span className="info"> 설명</span>
@@ -181,7 +182,7 @@ const DetailTemplate = () => {
             <span className="info"> 설명</span>
           </div>
         </TabItem>
-        <TabItem tab="Tab 2" key="2" checked>
+        <TabItem tab="Tab 2" key="2">
           <div className="infoBlock">
             <span className="category">카테고리</span>
             <span className="info"> 설명</span>
