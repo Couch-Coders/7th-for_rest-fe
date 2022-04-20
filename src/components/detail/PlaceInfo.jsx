@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Tabs } from 'antd';
 import { Tag } from 'antd';
 import { HeartTwoTone } from '@ant-design/icons';
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 
+import { KakaoMapScript } from '../../lib/kakaoMap';
 const { TabPane } = Tabs;
 
 const TitleWrapper = styled.div`
@@ -15,15 +16,16 @@ const TitleWrapper = styled.div`
   align-items: center;
   .contentBlock {
     display:flex;
+    align-items:center;
     justify-content: space-between;
     img {
       object-fit: cover;
       width: 400px;
       height: 300px;
       margin-left: 10rem;
-      background: gray;
     }
     .textBlock{
+      height:300px;
       h1{
       margin-left:10vw;
     }
@@ -36,8 +38,8 @@ const TitleWrapper = styled.div`
     }
     .tagInfo{
       margin-left:10vw;
-      margin-top:10vh;
-      width:260px;
+      margin-top:5vh;
+      width:300px;
       flex-wrap:wrap;
     }
     }
@@ -82,8 +84,6 @@ const TabItem = styled(TabPane)`
       width: 100%;
       text-align: left;
       white-space:pre-line;
-
-
       .textToggl{
         margin-bottom: 0px;
           margin-left:3rem;
@@ -103,6 +103,10 @@ const PlaceInfo = ({ place }) => {
     ? place.img_src
     : require('../../assets/noImg.png');
 
+  useEffect(() => {
+    KakaoMapScript(place.address);
+  }, [place]);
+
   const preview = (text, cat) => {
     const result = [];
     let preText = text;
@@ -112,7 +116,11 @@ const PlaceInfo = ({ place }) => {
       }
       result.push(preText);
       result.push(
-        <span className="textToggl" onClick={() => onPreviewClick(cat)}>
+        <span
+          className="textToggl"
+          onClick={() => onPreviewClick(cat)}
+          key={cat + '_toggle'}
+        >
           {!preViewChecked[cat] ? <CaretDownOutlined /> : <CaretUpOutlined />}
         </span>,
       );

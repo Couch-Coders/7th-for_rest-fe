@@ -21,6 +21,9 @@ const CustomCard = styled(Card)`
     object-fit: fill;
     border: 1px solid #f0f0f0;
   }
+  .ant-card-meta {
+    width: 90%;
+  }
 `;
 
 const CustomTag = styled(Tag)`

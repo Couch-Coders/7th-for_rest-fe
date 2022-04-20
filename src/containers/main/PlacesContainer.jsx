@@ -25,6 +25,7 @@ const PlacesContainer = () => {
     [dispatch, category, region_1, region_2],
   );
 
+  if (loading && places.length === 0) return null;
   if (!loading && places.length === 0)
     return (
       <>
