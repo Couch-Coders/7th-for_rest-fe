@@ -68,7 +68,7 @@ const MenuContainer = () => {
     dispatch(serach({ category, region_1, region_2 }));
   };
 
-  console.log('이상없음');
+
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import PlacesItem from './PlacesItem';
 import Responsive from './../../common/Responsive';
@@ -55,8 +55,12 @@ const PlacesTemplate = ({ places, totalPages, onSearch }) => {
   const scorllTarget = useRef(null);
   const target = useRef(null);
   const [index, setIndex] = useState(1);
-  const [throttle, setThrottle] = useState(false);
   const [data, setData] = useState([]);
+  const [throttle, setThrottle] = useState(false);
+  // let throttle = useRef(false);
+  // function setThrottle(bool) {
+  //   throttle = bool;
+  // }
 
   function render(index) {
     const result = [];
@@ -107,11 +111,11 @@ const PlacesTemplate = ({ places, totalPages, onSearch }) => {
         }
         if (index < MAX_VIEW && index < totalPages) {
           setThrottle(true);
-          setTimeout(async () => {
+          setTimeout(() => {
             setIndex(index + 1);
             onSearch(index);
             setThrottle(false);
-          }, 3000);
+          }, 1000);
         }
       });
     };
@@ -120,8 +124,10 @@ const PlacesTemplate = ({ places, totalPages, onSearch }) => {
     if (target.current) {
       io.observe(target.current);
     }
-    return () => io && io.disconnect();
-  }, [target, index, totalPages, throttle, setThrottle, setIndex, onSearch]);
+    return () => {
+      io && io.disconnect();
+    };
+  }, [index, totalPages, throttle, onSearch]);
 
   return (
     <>

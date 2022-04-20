@@ -5,8 +5,6 @@ import Responsive from './../../common/Responsive';
 const NotFoundBlock = styled(Responsive)`
   display: flex;
   justify-content: center;
-  .h2 {
-  }
 `;
 
 const NotFound = () => {

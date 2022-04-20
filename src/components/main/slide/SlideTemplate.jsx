@@ -10,7 +10,7 @@ const SlideWrapper = styled(Responsive)`
 `;
 
 const SlideTemplateBlock = styled.div`
-  margin-top: 10vh;
+  margin-top: 7rem;
   display: flex;
   justify-content: space-around;
 `;
