@@ -5,12 +5,12 @@ import createRequestSaga, {
 import * as placesAPI from '../../lib/api/places';
 import { takeLatest } from 'redux-saga/effects';
 
-const [SEARCH, SEARCH_SUCCESS, SEARCH_FAILURE] =
+const [LIST_PLACES, LIST_PLACES_SUCCESS, LIST_PLACES_FAILURE] =
   createRequestActionTypes('places/SEARCH');
 const INITIALIZE = 'places/INITIALIZE';
 
-export const serach = createAction(
-  SEARCH,
+export const getPlaces = createAction(
+  LIST_PLACES,
   ({ page, category, region_1, region_2 }) => ({
     page,
     category,
@@ -27,21 +27,21 @@ const initialState = {
 
 export const placesInitialize = createAction(INITIALIZE);
 
-const searchSaga = createRequestSaga(SEARCH, placesAPI.searchByTag);
+const listPlacesSaga = createRequestSaga(LIST_PLACES, placesAPI.getPlaces);
 
 export function* placesSaga() {
-  yield takeLatest(SEARCH, searchSaga);
+  yield takeLatest(LIST_PLACES, listPlacesSaga);
 }
 
 const places = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
-    [SEARCH_SUCCESS]: (state, { payload: { content, totalPages } }) => ({
+    [LIST_PLACES_SUCCESS]: (state, { payload: { content, totalPages } }) => ({
       ...state,
       places: content,
       totalPages: totalPages,
     }),
-    [SEARCH_FAILURE]: (state, { payload: error }) => ({
+    [LIST_PLACES_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error: error,
     }),

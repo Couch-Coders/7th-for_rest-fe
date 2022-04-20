@@ -1,11 +1,10 @@
 import React from 'react';
-
-import DetailTemplate from '../components/detail/DetailTemplate';
+import PlaceContainer from './../containers/detail/PlaceContainer';
 
 const DetailPage = () => {
   return (
     <>
-      <DetailTemplate />
+      <PlaceContainer />
     </>
   );
 };

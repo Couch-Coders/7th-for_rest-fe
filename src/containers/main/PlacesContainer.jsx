@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import NotFound from '../../components/main/places/NotFound';
-import { serach } from '../../modules/main/places';
+import { getPlaces } from '../../modules/main/places';
 import PlacesTemplate from './../../components/main/places/PlacesTemplate';
 
 const PlacesContainer = () => {
@@ -16,12 +16,16 @@ const PlacesContainer = () => {
       loading: loading['places/SEARCH'],
     }));
 
-  const onSearch = (page) => {
-    if (category !== '' && region_1 !== '' && page !== 0)
-      //검색시에는 0페이지부터 시작
-      dispatch(serach({ page, category, region_1, region_2 }));
-  };
+  const onSearch = useCallback(
+    (page) => {
+      if (category !== '' && region_1 !== '' && page !== 0)
+        //검색시에는 0페이지부터 시작
+        dispatch(getPlaces({ page, category, region_1, region_2 }));
+    },
+    [dispatch, category, region_1, region_2],
+  );
 
+  if (loading && places.length === 0) return null;
   if (!loading && places.length === 0)
     return (
       <>
