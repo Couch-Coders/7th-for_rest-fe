@@ -2,17 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import { Button } from 'antd';
+import { Rate } from 'antd';
 
 const ReviewListBlock = styled(Responsive)`
   margin-top: 3vh;
   margin-left: -1rem;
-`;
-
-const Wrapper = styled.div`
-  background: whitesmoke;
-  padding-top: 1rem;
-  border-radius: 0.25rem;
-  padding-bottom: 1rem;
 `;
 
 const ReviewItemBlock = styled.div`
@@ -21,25 +15,38 @@ const ReviewItemBlock = styled.div`
   }
   display: flex;
   flex-direction: column;
-  background: #eef2f5;
+  border: 1px solid whitesmoke;
+  border-radius: 0.25rem;
+  .dateText {
+    margin-left: 6.2rem;
+  }
 `;
+
 const ButtonBlock = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 1rem;
   margin-right: 1rem;
 
-  .update {
-    margin-left: 1rem;
+  .ant-rate {
+    margin-left: 6rem;
   }
-  button {
-    border-radius: 0.25rem;
+
+  .buttonGroup {
+    display: flex;
+    .update {
+      margin-left: 1rem;
+    }
+    button {
+      border-radius: 0.25rem;
+    }
   }
 `;
 
 const ReviewItem = styled.div`
     display: flex;
+    align-items:center;
     padding:1rem;
     .logo {
       margin-left:1rem;
@@ -58,25 +65,30 @@ const ReviewItem = styled.div`
           word-break:break-all;
         }
     }
+
   }
 `;
 
 const ReviewList = () => {
   return (
     <ReviewListBlock>
-      <Wrapper>
-        <ReviewItemBlock>
-          <ReviewItem>
-            <div className="logo">
-              <img alt="" />
-            </div>
-            <div className="text">
-              <pre>
-                ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-              </pre>
-            </div>
-          </ReviewItem>
-          <ButtonBlock>
+      <ReviewItemBlock>
+        <ReviewItem>
+          <div className="logo">
+            <img alt="" />
+          </div>{' '}
+          <div className="text">
+            <pre>
+              ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+            </pre>
+          </div>
+        </ReviewItem>
+        <div className="dateText">
+          <h5>2022-04-22</h5>
+        </div>
+        <ButtonBlock>
+          <Rate disabled defaultValue={3} />
+          <div className="buttonGroup">
             <div className="delete">
               <Button type={'primary'} key="test1">
                 수정
@@ -87,18 +99,38 @@ const ReviewList = () => {
                 삭제
               </Button>
             </div>
-          </ButtonBlock>
-        </ReviewItemBlock>
-        <ReviewItemBlock>
-          <ReviewItem>
-            <div className="logo">
-              <img alt="" />
-            </div>
-            <div className="text">
-              <pre>ddddddddddddddddddddddddddddddd</pre>
-            </div>
-          </ReviewItem>
-          <ButtonBlock>
+          </div>
+        </ButtonBlock>
+      </ReviewItemBlock>
+      <ReviewItemBlock>
+        <ReviewItem>
+          <div className="logo">
+            <img alt="" />
+          </div>{' '}
+          <div className="text">
+            <pre>
+              ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+            </pre>
+          </div>
+        </ReviewItem>
+        <ButtonBlock>
+          <Rate value={5} />
+        </ButtonBlock>
+      </ReviewItemBlock>
+      <ReviewItemBlock>
+        <ReviewItem>
+          <div className="logo">
+            <img alt="" />
+          </div>{' '}
+          <div className="text">
+            <pre>
+              ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+            </pre>
+          </div>
+        </ReviewItem>
+        <ButtonBlock>
+          <Rate value={5} />
+          <div className="buttonGroup">
             <div className="delete">
               <Button type={'primary'} key="test1">
                 수정
@@ -109,33 +141,9 @@ const ReviewList = () => {
                 삭제
               </Button>
             </div>
-          </ButtonBlock>
-        </ReviewItemBlock>
-        <ReviewItemBlock>
-          <ReviewItem>
-            <div className="logo">
-              <img alt="" />
-            </div>
-            <div className="text">
-              <pre>
-                ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-              </pre>
-            </div>
-          </ReviewItem>
-          <ButtonBlock>
-            <div className="delete">
-              <Button type={'primary'} key="test1">
-                수정
-              </Button>
-            </div>
-            <div className="update">
-              <Button danger key="test">
-                삭제
-              </Button>
-            </div>
-          </ButtonBlock>
-        </ReviewItemBlock>
-      </Wrapper>
+          </div>
+        </ButtonBlock>
+      </ReviewItemBlock>
     </ReviewListBlock>
   );
 };
