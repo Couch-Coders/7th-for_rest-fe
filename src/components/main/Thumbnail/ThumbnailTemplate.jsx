@@ -94,7 +94,7 @@ const ThumbnailTemplate = ({
           </h4>
 
           <h4 className="moreCat" onClick={onClickMoreCat}>
-            <PlusCircleOutlined /> 더 보기
+            더 보기
           </h4>
         </TextBlock>
         {render()}

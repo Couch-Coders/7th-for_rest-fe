@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Tabs } from 'antd';
-import { Tag } from 'antd';
 import { HeartTwoTone } from '@ant-design/icons';
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 
 import { KakaoMapScript } from '../../lib/kakaoMap';
+import Responsive from '../common/Responsive';
 const { TabPane } = Tabs;
 
 const TitleWrapper = styled.div`
   height: 400px;
-  background: #eef2f5;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,43 +20,54 @@ const TitleWrapper = styled.div`
     justify-content: space-between;
     img {
       object-fit: cover;
-      width: 400px;
-      height: 300px;
-      margin-left: 10rem;
+      width: 480px;
+      height: 320px;
+      margin-left: 5rem;
+      border-radius:1rem;
     }
     .textBlock{
-      height:300px;
+      display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+
+    height:300px;
+      width:500px;
       h1{
-      margin-left:10vw;
-    }
-    .heartInfo{
-      margin-left:25vw;
-      span{
-        text-align:center;
-        font-size:20px;
-      }
+
     }
     .tagInfo{
-      margin-left:10vw;
-      margin-top:5vh;
-      width:300px;
       flex-wrap:wrap;
+      width:250px;
+      
+    }
+    .additionGroup{
+      .group{
+        margin-left:0.5rem
+      }
+      display:flex;
+      flex-direction:row;
+      margin-top:2rem;
     }
     }
-
   }
   }
 `;
 
-const CustomTag = styled(Tag)`
-  margin-top: 1rem;
+const Spacer = styled(Responsive)`
+  margin-left: -1rem;
+  div {
+    margin-top: 3rem;
+    border-bottom: 5px solid whitesmoke;
+  }
 `;
+
 const tabStyle = {
   paddingLeft: '1rem',
   paddingRight: '1rem',
   marginTop: '5vh',
-  border: '1px solid #f0f0f0',
   borderRadius: '0.5rem',
+  border: '1px solid whitesmoke',
 };
 
 const TabItem = styled(TabPane)`
@@ -98,7 +109,6 @@ const TabItem = styled(TabPane)`
 const PlaceInfo = ({ place }) => {
   const [preViewChecked, setPreViewChecked] = useState({});
 
-  const tag = place.tag ? place.tag.split('\n') : '';
   const img_url = place.img_src
     ? place.img_src
     : require('../../assets/noImg.png');
@@ -153,23 +163,24 @@ const PlaceInfo = ({ place }) => {
           <img alt="" src={img_url} />
           <div className="textBlock">
             <h1>{place.name}</h1>
-            <div className="heartInfo">
-              <HeartTwoTone
-                twoToneColor="#eb2f96"
-                style={{ fontSize: '20px' }}
-              />
-              <span>{place.likeCount}</span>
-            </div>
             <div className="tagInfo">
-              {tag
-                ? tag.map((item, idx) => {
-                    return (
-                      <CustomTag color="green" key={idx}>
-                        {item}
-                      </CustomTag>
-                    );
-                  })
-                : ''}
+              <h3>{place.tag}</h3>
+            </div>
+            <div className="additionGroup">
+              <div className="group">
+                <HeartTwoTone
+                  twoToneColor="#eb2f96"
+                  style={{ fontSize: '20px' }}
+                />
+                <span>{place.likeCount}</span>
+              </div>
+              <div className="group">
+                <HeartTwoTone
+                  twoToneColor="#eb2f96"
+                  style={{ fontSize: '20px' }}
+                />
+                <span>{place.likeCount}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -265,6 +276,9 @@ const PlaceInfo = ({ place }) => {
           ''
         )}
       </Tabs>
+      <Spacer>
+        <div></div>
+      </Spacer>
     </>
   );
 };
