@@ -6,8 +6,9 @@ import { getPlace } from './../../modules/detail/place';
 
 const PlaceContainer = () => {
   const dispatch = useDispatch();
-  const { place, loading } = useSelector(({ place, loading }) => ({
+  const { place, user, loading } = useSelector(({ place, auth, loading }) => ({
     place: place.place,
+    user: auth.user,
     loading: loading['detail/INFO'],
   }));
 
@@ -22,7 +23,7 @@ const PlaceContainer = () => {
 
   return (
     <>
-      <DetailTemplate place={place} />
+      <DetailTemplate place={place} user={user} />
     </>
   );
 };

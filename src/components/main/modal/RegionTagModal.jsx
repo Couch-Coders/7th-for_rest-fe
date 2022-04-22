@@ -74,7 +74,9 @@ const RegionTagModal = ({
   };
 
   const onConfirm = () => {
+    console.log('dAw');
     if (region_1 !== '') {
+      console.log('dddd');
       onSearch();
       onToggleReg();
     }
@@ -128,7 +130,11 @@ const RegionTagModal = ({
       bodyStyle={style}
       footer={[
         <Button key="submit" type="primary" onClick={onConfirm}>
-          <Link to={`places/${category}/${region_1}/`}>확인</Link>
+          {category && region_1 ? (
+            <Link to={`places/${category}/${region_1}/`}>확인</Link>
+          ) : (
+            <Link to={''}>확인</Link>
+          )}
         </Button>,
         <Button key="back" onClick={onCancelModal}>
           취소

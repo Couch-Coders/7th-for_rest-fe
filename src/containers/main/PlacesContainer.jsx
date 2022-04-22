@@ -6,15 +6,23 @@ import PlacesTemplate from './../../components/main/places/PlacesTemplate';
 
 const PlacesContainer = () => {
   const dispatch = useDispatch();
-  const { category, region_1, region_2, places, totalPages, loading } =
-    useSelector(({ searchParam, places, loading }) => ({
-      category: searchParam.category,
-      region_1: searchParam.region_1,
-      region_2: searchParam.region_2,
-      places: places.places,
-      totalPages: places.totalPages,
-      loading: loading['places/SEARCH'],
-    }));
+  const {
+    category,
+    region_1,
+    region_2,
+    places,
+    totalElements,
+    totalPages,
+    loading,
+  } = useSelector(({ searchParam, places, loading }) => ({
+    category: searchParam.category,
+    region_1: searchParam.region_1,
+    region_2: searchParam.region_2,
+    places: places.places,
+    totalElements: places.totalElements,
+    totalPages: places.totalPages,
+    loading: loading['places/SEARCH'],
+  }));
 
   const onSearch = useCallback(
     (page) => {
@@ -38,6 +46,7 @@ const PlacesContainer = () => {
       <PlacesTemplate
         places={places}
         onSearch={onSearch}
+        totalElements={totalElements}
         totalPages={totalPages}
       />
     </>

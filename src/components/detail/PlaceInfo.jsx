@@ -1,63 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Tabs } from 'antd';
-import { HeartTwoTone } from '@ant-design/icons';
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
-
 import { KakaoMapScript } from '../../lib/kakaoMap';
-import Responsive from '../common/Responsive';
+import Spacer from './../common/Spacer';
 const { TabPane } = Tabs;
 
-const TitleWrapper = styled.div`
-  height: 400px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .contentBlock {
-    display:flex;
-    align-items:center;
-    justify-content: space-between;
-    img {
-      object-fit: cover;
-      width: 480px;
-      height: 320px;
-      margin-left: 5rem;
-      border-radius:1rem;
-    }
-    .textBlock{
-      display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-
-    height:300px;
-      width:500px;
-      h1{
-
-    }
-    .tagInfo{
-      flex-wrap:wrap;
-      width:250px;
-      
-    }
-    .additionGroup{
-      .group{
-        margin-left:0.5rem
-      }
-      display:flex;
-      flex-direction:row;
-      margin-top:2rem;
-    }
-    }
-  }
-  }
-`;
-
-const Spacer = styled(Responsive)`
+const SpacerCustom = styled(Spacer)`
   margin-left: -1rem;
   div {
-    margin-top: 3rem;
     border-bottom: 5px solid whitesmoke;
   }
 `;
@@ -97,7 +48,7 @@ const TabItem = styled(TabPane)`
       white-space:pre-line;
       .textToggl{
         margin-bottom: 0px;
-          margin-left:3rem;
+
           cursor:pointer;
           border:1px solid gray;
           border-radius:0.25rem;
@@ -108,11 +59,6 @@ const TabItem = styled(TabPane)`
 
 const PlaceInfo = ({ place }) => {
   const [preViewChecked, setPreViewChecked] = useState({});
-
-  const img_url = place.img_src
-    ? place.img_src
-    : require('../../assets/noImg.png');
-
   useEffect(() => {
     KakaoMapScript(place.address);
   }, [place]);
@@ -122,7 +68,7 @@ const PlaceInfo = ({ place }) => {
     let preText = text;
     if (text.length > 70 || text.includes('\n')) {
       if (!preViewChecked[cat]) {
-        preText = text.replaceAll('\n', ' ').substr(0, 55).concat('...');
+        preText = text.replaceAll('\n', ' ').substr(0, 55).concat('... ');
       }
       result.push(preText);
       result.push(
@@ -151,41 +97,16 @@ const PlaceInfo = ({ place }) => {
     const content = ['contact', 'cost', 'info', 'link_url'];
     let check = false;
     content.forEach((item) => {
-      if (!check && place[item] !== null) check = true;
+      if (!check && place[item] !== null) {
+        check = true;
+      }
     });
+
     return check;
   }
 
   return (
     <>
-      <TitleWrapper>
-        <div className="contentBlock">
-          <img alt="" src={img_url} />
-          <div className="textBlock">
-            <h1>{place.name}</h1>
-            <div className="tagInfo">
-              <h3>{place.tag}</h3>
-            </div>
-            <div className="additionGroup">
-              <div className="group">
-                <HeartTwoTone
-                  twoToneColor="#eb2f96"
-                  style={{ fontSize: '20px' }}
-                />
-                <span>{place.likeCount}</span>
-              </div>
-              <div className="group">
-                <HeartTwoTone
-                  twoToneColor="#eb2f96"
-                  style={{ fontSize: '20px' }}
-                />
-                <span>{place.likeCount}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </TitleWrapper>
-
       <Tabs defaultActiveKey="1" style={tabStyle}>
         <TabItem tab="위치 정보" key="1">
           <div className="infoBlock" key={'address'}>
@@ -276,9 +197,9 @@ const PlaceInfo = ({ place }) => {
           ''
         )}
       </Tabs>
-      <Spacer>
+      <SpacerCustom>
         <div></div>
-      </Spacer>
+      </SpacerCustom>
     </>
   );
 };

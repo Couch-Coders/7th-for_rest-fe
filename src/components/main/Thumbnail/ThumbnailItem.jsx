@@ -11,9 +11,7 @@ const ThumbnailItemBlock = styled.div`
   justify-content: center;
   align-items: center;
 
-  & + & {
-    margin-left: 3rem;
-  }
+  margin-left: 3rem;
 
   img {
     object-fit: cover;

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import { Button } from 'antd';
 import { Rate } from 'antd';
+import Spacer from '../common/Spacer';
+import ReviewEditor from './ReviewEditor';
 
 const ReviewListBlock = styled(Responsive)`
   margin-top: 3vh;
-  margin-left: -1rem;
 `;
 
 const ReviewItemBlock = styled.div`
@@ -52,8 +53,11 @@ const ReviewItem = styled.div`
       margin-left:1rem;
       height:48px;
       width: 48px;
-      border-radius:50%;
-      background:gray;
+      img{
+        width:100%;
+        height:100%;
+        border-radius:50%;
+      }
     }
     .text{
         margin-left:1.5rem;
@@ -69,81 +73,91 @@ const ReviewItem = styled.div`
   }
 `;
 
-const ReviewList = () => {
+const formatDate = (dateText) => {
+  const date = new Date(dateText);
+  return (
+    date.getFullYear() +
+    '-' +
+    (date.getMonth() + 1 > 9
+      ? (date.getMonth() + 1).toString()
+      : '0' + (date.getMonth() + 1)) +
+    '-' +
+    (date.getDate() > 9
+      ? date.getDate().toString()
+      : '0' + date.getDate().toString())
+  );
+};
+
+const ReviewList = ({ user, reviews, onPublish, onRemove }) => {
+  const [updateItem, setUpdateItem] = useState(0);
+
+  const isWriter = (userId, reviewWriterId) => {
+    return userId === reviewWriterId;
+  };
+
+  const onModify = (item) => {
+    setUpdateItem(item.id);
+  };
+  const onModifyCancel = () => {
+    setUpdateItem(0);
+  };
+
   return (
     <ReviewListBlock>
-      <ReviewItemBlock>
-        <ReviewItem>
-          <div className="logo">
-            <img alt="" />
-          </div>{' '}
-          <div className="text">
-            <pre>
-              ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-            </pre>
-          </div>
-        </ReviewItem>
-        <div className="dateText">
-          <h5>2022-04-22</h5>
-        </div>
-        <ButtonBlock>
-          <Rate disabled defaultValue={3} />
-          <div className="buttonGroup">
-            <div className="delete">
-              <Button type={'primary'} key="test1">
-                수정
-              </Button>
+      {reviews?.map((item, idx) => {
+        return item.id === updateItem ? (
+          <ReviewEditor
+            user={user}
+            item={item}
+            key={idx}
+            isUpdate
+            onCancel={onModifyCancel}
+            onPublish={onPublish}
+          />
+        ) : (
+          <ReviewItemBlock key={idx}>
+            <ReviewItem>
+              <div className="logo">
+                <img src={item.picture} alt={item.name} />
+              </div>
+              <div className="text">
+                <pre>{item.content}</pre>
+              </div>
+            </ReviewItem>
+            <div className="dateText">
+              <h5>{formatDate(item.modifiedDate)} </h5>
             </div>
-            <div className="update">
-              <Button danger key="test">
-                삭제
-              </Button>
-            </div>
-          </div>
-        </ButtonBlock>
-      </ReviewItemBlock>
-      <ReviewItemBlock>
-        <ReviewItem>
-          <div className="logo">
-            <img alt="" />
-          </div>{' '}
-          <div className="text">
-            <pre>
-              ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-            </pre>
-          </div>
-        </ReviewItem>
-        <ButtonBlock>
-          <Rate value={5} />
-        </ButtonBlock>
-      </ReviewItemBlock>
-      <ReviewItemBlock>
-        <ReviewItem>
-          <div className="logo">
-            <img alt="" />
-          </div>{' '}
-          <div className="text">
-            <pre>
-              ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-            </pre>
-          </div>
-        </ReviewItem>
-        <ButtonBlock>
-          <Rate value={5} />
-          <div className="buttonGroup">
-            <div className="delete">
-              <Button type={'primary'} key="test1">
-                수정
-              </Button>
-            </div>
-            <div className="update">
-              <Button danger key="test">
-                삭제
-              </Button>
-            </div>
-          </div>
-        </ButtonBlock>
-      </ReviewItemBlock>
+            <ButtonBlock>
+              <Rate disabled value={item.reviewRating} />
+              {user && isWriter(user.memberId, item.memberId) ? (
+                <div className="buttonGroup">
+                  <div className="delete">
+                    <Button
+                      type={'primary'}
+                      key={'update' + idx}
+                      onClick={() => onModify(item)}
+                    >
+                      수정
+                    </Button>
+                  </div>
+                  <div className="update">
+                    <Button
+                      danger
+                      key={'delte' + idx}
+                      onClick={() => onRemove({ reviewId: item.id })}
+                    >
+                      삭제
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                ''
+              )}
+            </ButtonBlock>
+          </ReviewItemBlock>
+        );
+      })}
+      <Spacer />
     </ReviewListBlock>
   );
 };
