@@ -22,6 +22,7 @@ export const getPlaces = createAction(
 const initialState = {
   places: [],
   totalPages: 0,
+  totalElements: 0,
   error: null,
 };
 
@@ -36,10 +37,14 @@ export function* placesSaga() {
 const places = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
-    [LIST_PLACES_SUCCESS]: (state, { payload: { content, totalPages } }) => ({
+    [LIST_PLACES_SUCCESS]: (
+      state,
+      { payload: { content, totalPages, totalElements } },
+    ) => ({
       ...state,
       places: content,
       totalPages: totalPages,
+      totalElements: totalElements,
     }),
     [LIST_PLACES_FAILURE]: (state, { payload: error }) => ({
       ...state,

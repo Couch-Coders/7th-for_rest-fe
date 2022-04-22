@@ -2,25 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import PlaceInfo from './PlaceInfo';
-import ReviewEditor from './ReviewEditor';
-import ReviewList from './ReviewList';
+import PlaceTitle from './PlaceTitle';
 
 const DetailTemplateBlock = styled(Responsive)`
   margin-top: 5vh;
 `;
 
-const Spacer = styled.div`
-  height: 5rem;
-`;
-
-const DetailTemplate = ({ place }) => {
+const DetailTemplate = ({ place, user }) => {
   return (
     <DetailTemplateBlock>
+      <PlaceTitle place={place} />
       <PlaceInfo place={place} />
-
-      <ReviewEditor />
-      <ReviewList />
-      <Spacer />
     </DetailTemplateBlock>
   );
 };

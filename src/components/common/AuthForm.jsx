@@ -3,10 +3,12 @@ import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Menu, Dropdown } from 'antd';
 import { Link } from 'react-router-dom';
+import { client } from '../../lib/api/clients';
 
 export const defaultHeaders = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
+  Authorization: '',
 };
 
 const AuthForm = ({ user, onLogin, onLogout }) => {
@@ -14,12 +16,14 @@ const AuthForm = ({ user, onLogin, onLogout }) => {
     try {
       const token = await signInGoogle();
       onLogin({ token });
-      defaultHeaders.Authorization = `Bearer ${token}`;
+      client.defaults.headers.Authorization = `Bearer ${token}`;
+      localStorage.setItem('token', `Bearer ${token}`);
     } catch (e) {}
   };
   const oAuthLogOut = () => {
+    client.defaults.headers.Authorization = '';
+    localStorage.removeItem('token');
     onLogout();
-    delete defaultHeaders.Authorizations;
   };
   const menu = (
     <Menu style={{ background: 'rgb(216 216 216)', width: '100px' }}>

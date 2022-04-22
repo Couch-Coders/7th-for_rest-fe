@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import { HiLocationMarker } from 'react-icons/hi';
-import { PlusCircleOutlined } from '@ant-design/icons';
 import mainInfoData from '../../../assets/mainInfoData.json';
 import ThumbnailItem from './ThumbnailItem';
 
@@ -13,6 +12,10 @@ const ThumbnailTemplateBlock = styled.div`
   & + & {
     margin-top: 3vh;
   }
+  > :last-child {
+    margin-right: 3rem;
+  }
+
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

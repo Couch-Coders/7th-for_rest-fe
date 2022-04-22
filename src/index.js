@@ -8,6 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleWare from 'redux-saga';
 import { Provider } from 'react-redux';
 import { tempSetUser } from './modules/common/auth';
+import { client } from './lib/api/clients';
 
 const sagaMiddleware = createSagaMiddleWare();
 
@@ -19,6 +20,8 @@ const store = createStore(
 function loadUser() {
   try {
     const user = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    client.defaults.headers.Authorization = `${token}`;
     if (!user) return;
     store.dispatch(tempSetUser(JSON.parse(user)));
   } catch (e) {

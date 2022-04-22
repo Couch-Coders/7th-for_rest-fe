@@ -42,10 +42,11 @@ const MenuContainer = () => {
   };
 
   const onSearch = () => {
-    if (category !== '' && region_1 !== '')
+    if (category !== '' && region_1 !== '') {
       //검색시에는 0페이지부터 시작
       dispatch(placesInitialize());
-    dispatch(getPlaces({ page: 0, category, region_1, region_2 }));
+      dispatch(getPlaces({ page: 0, category, region_1, region_2 }));
+    }
   };
 
   return (

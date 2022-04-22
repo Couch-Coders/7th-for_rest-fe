@@ -21,7 +21,8 @@ const TextBlock = styled.div`
   .sortMenu {
     margin-left: 5rem;
     font-size: 1rem;
-
+    color: peru;
+    font-weight: 500;
     :hover {
       cursor: pointer;
     }
@@ -51,7 +52,7 @@ const Spacer = styled.div`
 
 const MAX_VIEW = 100;
 
-const PlacesTemplate = ({ places, totalPages, onSearch }) => {
+const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
   const scorllTarget = useRef(null);
   const target = useRef(null);
   const [index, setIndex] = useState(1);
@@ -133,7 +134,7 @@ const PlacesTemplate = ({ places, totalPages, onSearch }) => {
     <>
       <PlacesTemplateBlock>
         <TextBlock ref={scorllTarget}>
-          <h4 className="Counter">총 여러개</h4>
+          <h4 className="Counter">총 {totalElements} 개의 장소</h4>
           <h4>/</h4>
           <h4 className="sortMenu">좋아요 순</h4>
         </TextBlock>
