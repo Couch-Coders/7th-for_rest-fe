@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
-import { Button } from 'antd';
-import { Rate } from 'antd';
+import { Modal, Rate, Button } from 'antd';
 import Spacer from '../common/Spacer';
 import ReviewEditor from './ReviewEditor';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const ReviewListBlock = styled(Responsive)`
   margin-top: 3vh;
@@ -87,7 +87,6 @@ const formatDate = (dateText) => {
       : '0' + date.getDate().toString())
   );
 };
-
 const ReviewList = ({ user, reviews, onPublish, onRemove }) => {
   const [updateItem, setUpdateItem] = useState(0);
 
@@ -102,63 +101,79 @@ const ReviewList = ({ user, reviews, onPublish, onRemove }) => {
     setUpdateItem(0);
   };
 
+  const confirmModal = (revewId) => {
+    Modal.confirm({
+      icon: <ExclamationCircleOutlined />,
+      content: '삭제하시겠습니까',
+      cancelText: '취소',
+      okText: '확인',
+      centered: true,
+      onOk() {
+        onRemove({ reviewId: revewId });
+      },
+      onCancel() {},
+    });
+  };
+
   return (
-    <ReviewListBlock>
-      {reviews?.map((item, idx) => {
-        return item.id === updateItem ? (
-          <ReviewEditor
-            user={user}
-            item={item}
-            key={idx}
-            isUpdate
-            onCancel={onModifyCancel}
-            onPublish={onPublish}
-          />
-        ) : (
-          <ReviewItemBlock key={idx}>
-            <ReviewItem>
-              <div className="logo">
-                <img src={item.picture} alt={item.name} />
-              </div>
-              <div className="text">
-                <pre>{item.content}</pre>
-              </div>
-            </ReviewItem>
-            <div className="dateText">
-              <h5>{formatDate(item.modifiedDate)} </h5>
-            </div>
-            <ButtonBlock>
-              <Rate disabled value={item.reviewRating} />
-              {user && isWriter(user.memberId, item.memberId) ? (
-                <div className="buttonGroup">
-                  <div className="delete">
-                    <Button
-                      type={'primary'}
-                      key={'update' + idx}
-                      onClick={() => onModify(item)}
-                    >
-                      수정
-                    </Button>
-                  </div>
-                  <div className="update">
-                    <Button
-                      danger
-                      key={'delte' + idx}
-                      onClick={() => onRemove({ reviewId: item.id })}
-                    >
-                      삭제
-                    </Button>
-                  </div>
+    <>
+      <ReviewListBlock>
+        {reviews?.map((item, idx) => {
+          return item.id === updateItem ? (
+            <ReviewEditor
+              user={user}
+              item={item}
+              key={idx}
+              isUpdate
+              onCancel={onModifyCancel}
+              onPublish={onPublish}
+            />
+          ) : (
+            <ReviewItemBlock key={idx}>
+              <ReviewItem>
+                <div className="logo">
+                  <img src={item.picture} alt={item.name} />
                 </div>
-              ) : (
-                ''
-              )}
-            </ButtonBlock>
-          </ReviewItemBlock>
-        );
-      })}
-      <Spacer />
-    </ReviewListBlock>
+                <div className="text">
+                  <pre>{item.content}</pre>
+                </div>
+              </ReviewItem>
+              <div className="dateText">
+                <h5>{formatDate(item.createdDate)} </h5>
+              </div>
+              <ButtonBlock>
+                <Rate disabled value={item.reviewRating} />
+                {user && isWriter(user.memberId, item.memberId) ? (
+                  <div className="buttonGroup">
+                    <div className="delete">
+                      <Button
+                        type={'primary'}
+                        key={'update' + idx}
+                        onClick={() => onModify(item)}
+                      >
+                        수정
+                      </Button>
+                    </div>
+                    <div className="update">
+                      <Button
+                        danger
+                        key={'delte' + idx}
+                        onClick={() => confirmModal(item.id)}
+                      >
+                        삭제
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  ''
+                )}
+              </ButtonBlock>
+            </ReviewItemBlock>
+          );
+        })}
+        <Spacer />
+      </ReviewListBlock>
+    </>
   );
 };
 
