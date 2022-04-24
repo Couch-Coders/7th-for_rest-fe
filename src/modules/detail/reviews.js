@@ -45,7 +45,7 @@ const reviews = handleActions(
   {
     [READ_REVIEWS_SUCCESS]: (state, { payload: data }) => ({
       ...state,
-      reviews: data,
+      reviews: data.reviews,
     }),
     [READ_REVIEWS_FAILURE]: (state, { payload: error }) => ({
       ...state,

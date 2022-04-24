@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { HeartTwoTone } from '@ant-design/icons';
-import { defaultHeaders } from '../common/AuthForm';
+import {
+  HeartFilled,
+  HeartTwoTone,
+  CommentOutlined,
+  StarFilled,
+} from '@ant-design/icons';
 
 const PlaceTitleBlock = styled.div`
   height: 400px;
@@ -48,7 +52,27 @@ align-items: center;
 }
 }`;
 
-const PlaceTitle = ({ place }) => {
+const PlaceTitle = ({ place, reviews, user, onLikeClick }) => {
+  const [likeChecked, setLikeChecked] = useState(false);
+
+  const avgRating = () => {
+    if (reviews.length === 0) return 0;
+    return (
+      reviews.reduce((acc, cur) => {
+        return (acc += parseFloat(cur.reviewRating));
+      }, 0) / reviews.length
+    );
+  };
+
+  const onLike = async () => {
+    if (!user) {
+      alert('로그인 후 좋아요 기능 이용 가능합니다.');
+      return null;
+    }
+    await onLikeClick();
+    setLikeChecked(!likeChecked);
+  };
+
   const img_url = place.img_src
     ? place.img_src
     : require('../../assets/noImg.png');
@@ -63,18 +87,35 @@ const PlaceTitle = ({ place }) => {
           </div>
           <div className="additionGroup">
             <div className="group">
-              <HeartTwoTone
-                twoToneColor="#eb2f96"
-                style={{ fontSize: '20px' }}
-              />
+              {likeChecked ? (
+                <HeartFilled
+                  checked={likeChecked}
+                  onClick={onLike}
+                  style={{
+                    color: '#eb2f96',
+                    fontSize: '20px',
+                    cursor: 'pointer',
+                  }}
+                />
+              ) : (
+                <HeartTwoTone
+                  checked={likeChecked}
+                  twoToneColor="#eb2f96"
+                  onClick={onLike}
+                  style={{ fontSize: '20px', cursor: 'pointer' }}
+                />
+              )}
+
               <span>{place.likeCount}</span>
             </div>
+
             <div className="group">
-              <HeartTwoTone
-                twoToneColor="#eb2f96"
-                style={{ fontSize: '20px' }}
-              />
-              <span>{place.likeCount}</span>
+              <StarFilled style={{ fontSize: '20px', color: '#fadb14' }} />
+              <span>{avgRating().toString().substr(0, 3)}</span>
+            </div>
+            <div className="group">
+              <CommentOutlined style={{ fontSize: '20px' }} />
+              <span>{reviews.length}</span>
             </div>
           </div>
         </div>

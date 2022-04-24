@@ -1,5 +1,9 @@
 import { client } from './clients';
 
-export const getPlace = ({ id }) => {
-  return client.get(`/places/${id}`);
+export const getPlace = ({ placeId }) => {
+  return client.get(`/places/${placeId}`);
+};
+
+export const subscribePlace = ({ placeId }) => {
+  return client.get(`/love/${placeId}`);
 };

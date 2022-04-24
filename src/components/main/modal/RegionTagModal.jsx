@@ -37,7 +37,6 @@ const style = {
   height: '350px',
   overflowY: 'auto',
   overflowX: 'hidden',
-  WebkitScrollbar: 'none',
 };
 
 const RegionTagModal = ({
@@ -52,6 +51,7 @@ const RegionTagModal = ({
 }) => {
   const onClickFirstRegion = ({ region_1 }) => {
     onChangeSearchParam({ region_1 });
+    onResetSecondRegion();
   };
 
   const onCancelModal = () => {
@@ -60,7 +60,7 @@ const RegionTagModal = ({
   };
 
   const onClickSecondRegion = (region_2_item) => {
-    let updateItem = '';
+    let updateItem = [];
     if (region_2.includes(region_2_item)) {
       updateItem = region_2.filter((item) => item !== region_2_item);
     } else {
@@ -74,9 +74,7 @@ const RegionTagModal = ({
   };
 
   const onConfirm = () => {
-    console.log('dAw');
     if (region_1 !== '') {
-      console.log('dddd');
       onSearch();
       onToggleReg();
     }

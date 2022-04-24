@@ -99,6 +99,10 @@ const ReviewEditor = ({ user, onPublish, item, isUpdate, onCancel }) => {
   };
 
   const onSubmit = () => {
+    if (!user) {
+      alert('로그인 후 작성가능합니다');
+      return null;
+    }
     if (!validateContent(content) || !validateRating(reviewRating)) {
       alert('입력값 오류');
       return null;
@@ -129,7 +133,7 @@ const ReviewEditor = ({ user, onPublish, item, isUpdate, onCancel }) => {
             </div>
             {item ? (
               <div className="cancel">
-                <Button type={'primary'} danger onClick={onCancel}>
+                <Button danger onClick={onCancel}>
                   취소
                 </Button>
               </div>

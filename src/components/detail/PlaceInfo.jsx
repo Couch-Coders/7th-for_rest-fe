@@ -4,9 +4,11 @@ import { Tabs } from 'antd';
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 import { KakaoMapScript } from '../../lib/kakaoMap';
 import Spacer from './../common/Spacer';
+
 const { TabPane } = Tabs;
 
 const SpacerCustom = styled(Spacer)`
+  margin-top: 5rem;
   margin-left: -1rem;
   div {
     border-bottom: 5px solid whitesmoke;
