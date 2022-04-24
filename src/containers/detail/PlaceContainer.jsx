@@ -29,12 +29,14 @@ const PlaceContainer = () => {
   useEffect(() => {
     async function getData() {
       dispatch(getPlace({ placeId }));
-      const response = await checkSubscribe({ placeId });
-      const checked = response.data.isLove;
-      setIsSubscribe(checked);
+      if (user) {
+        const response = await checkSubscribe({ placeId });
+        const checked = response.data.isLove;
+        setIsSubscribe(checked);
+      }
     }
     getData();
-  }, [dispatch, placeId]);
+  }, [dispatch, placeId, user]);
 
   if (loading) return null;
 

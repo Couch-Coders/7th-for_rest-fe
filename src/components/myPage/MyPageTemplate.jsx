@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
-import CategoryTemplate from './CategoryTemplate';
+import LikeCategory from './LikeCategory';
 import LikePlace from './LikePlace';
 
 const MyPageTemplateBlock = styled(Responsive)`
@@ -14,7 +14,7 @@ const MyPageTemplate = () => {
   return (
     <MyPageTemplateBlock>
       <LikePlace />
-      <CategoryTemplate />
+      <LikeCategory />
     </MyPageTemplateBlock>
   );
 };

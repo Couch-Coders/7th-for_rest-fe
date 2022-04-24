@@ -27,6 +27,7 @@ const ReviewContainer = () => {
 
   useEffect(() => {
     dispatch(readReview({ placeId }));
+
     return () => {};
   }, [dispatch, placeId]);
 
