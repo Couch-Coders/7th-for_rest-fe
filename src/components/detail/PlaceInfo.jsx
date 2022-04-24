@@ -63,7 +63,7 @@ const PlaceInfo = ({ place }) => {
   const [preViewChecked, setPreViewChecked] = useState({});
   useEffect(() => {
     KakaoMapScript(place.address);
-  }, [place]);
+  }, [place.address]);
 
   const preview = (text, cat) => {
     const result = [];

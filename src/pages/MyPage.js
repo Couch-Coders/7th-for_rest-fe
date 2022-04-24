@@ -1,7 +1,12 @@
 import React from 'react';
+import MyPageTemplate from '../components/myPage/MyPageTemplate';
 
 const MyPage = () => {
-  return <></>;
+  return (
+    <>
+      <MyPageTemplate />
+    </>
+  );
 };
 
 export default MyPage;

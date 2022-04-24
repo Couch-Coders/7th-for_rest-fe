@@ -7,3 +7,7 @@ export const getPlace = ({ placeId }) => {
 export const subscribePlace = ({ placeId }) => {
   return client.get(`/love/${placeId}`);
 };
+
+export const checkSubscribe = ({ placeId }) => {
+  return client.get(`/love/check/${placeId}`);
+};

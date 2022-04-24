@@ -17,7 +17,7 @@ const initialState = {
 
 const searchParam = handleActions(
   {
-    [INITIALIZE]: (state) => initialState, //initisalState를 넣으면 초기 상태로 바뀜
+    [INITIALIZE]: (state) => initialState,
     [CHANGE_PARAM]: (state, { payload: { key, value } }) => ({
       ...state,
       [key]: value,
