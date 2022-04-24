@@ -8,13 +8,14 @@ const PlaceTemplateBlock = styled(Responsive)`
   margin-top: 5vh;
 `;
 
-const PlaceTemplate = ({ place, reviews, user, onLikeClick }) => {
+const PlaceTemplate = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
   return (
     <PlaceTemplateBlock>
       <PlaceTitle
         place={place}
         reviews={reviews}
         user={user}
+        isSubscribe={isSubscribe}
         onLikeClick={onLikeClick}
       />
       <PlaceInfo place={place} />

@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PlaceTemplateBlock from '../../components/detail/PlaceTemplate';
-import { subscribePlace } from '../../lib/api/place';
-import { getLikeCount, getPlace } from './../../modules/detail/place';
-import { getPlace as getPlaceAPI } from './../../lib/api/place';
+import { checkSubscribe, subscribePlace } from '../../lib/api/place';
+import { getPlace, updateLikeCount } from './../../modules/detail/place';
 
 const PlaceContainer = () => {
+  const [isSubscribe, setIsSubscribe] = useState(false);
   const dispatch = useDispatch();
   const { user, place, reviews, loading } = useSelector(
     ({ auth, place, reviews, loading }) => ({
@@ -21,13 +21,19 @@ const PlaceContainer = () => {
   const placeId = location.pathname.replace('/detail/', '');
 
   const onLikeClick = async () => {
-    await subscribePlace({ placeId });
-    // 별도로 likeCount만 가져오는 api를 구현하지 않아, 전체 값을 가져온후 like카운트만 변경
-    dispatch(getLikeCount({ placeId }));
+    const response = await subscribePlace({ placeId });
+    dispatch(updateLikeCount({ likeCount: response.data }));
+    setIsSubscribe(!isSubscribe);
   };
 
   useEffect(() => {
-    dispatch(getPlace({ placeId }));
+    async function getData() {
+      dispatch(getPlace({ placeId }));
+      const response = await checkSubscribe({ placeId });
+      const checked = response.data.isLove;
+      setIsSubscribe(checked);
+    }
+    getData();
   }, [dispatch, placeId]);
 
   if (loading) return null;
@@ -38,6 +44,7 @@ const PlaceContainer = () => {
         place={place}
         reviews={reviews}
         user={user}
+        isSubscribe={isSubscribe}
         onLikeClick={onLikeClick}
       />
     </>

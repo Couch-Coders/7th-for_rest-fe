@@ -60,7 +60,6 @@ const ReviewContainer = () => {
     async ({ reviewId }) => {
       await removeReview({ reviewId });
       dispatch(removeReviewState({ reviewId }));
-      console.log('삭제 성공');
     },
     [dispatch],
   );

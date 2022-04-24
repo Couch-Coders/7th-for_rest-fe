@@ -52,7 +52,7 @@ align-items: center;
 }
 }`;
 
-const PlaceTitle = ({ place, reviews, user, onLikeClick }) => {
+const PlaceTitle = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
   const [likeChecked, setLikeChecked] = useState(false);
 
   const avgRating = () => {
@@ -87,9 +87,8 @@ const PlaceTitle = ({ place, reviews, user, onLikeClick }) => {
           </div>
           <div className="additionGroup">
             <div className="group">
-              {likeChecked ? (
+              {JSON.parse(isSubscribe) ? (
                 <HeartFilled
-                  checked={likeChecked}
                   onClick={onLike}
                   style={{
                     color: '#eb2f96',
@@ -99,7 +98,6 @@ const PlaceTitle = ({ place, reviews, user, onLikeClick }) => {
                 />
               ) : (
                 <HeartTwoTone
-                  checked={likeChecked}
                   twoToneColor="#eb2f96"
                   onClick={onLike}
                   style={{ fontSize: '20px', cursor: 'pointer' }}

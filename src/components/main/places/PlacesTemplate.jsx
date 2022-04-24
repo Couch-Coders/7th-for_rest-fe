@@ -103,7 +103,7 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
   useEffect(() => {
     if (throttle) return;
     const options = {
-      threshold: 0.25,
+      threshold: 0,
     };
     const handleIntersection = (entries, observer) => {
       entries.forEach((entry) => {
