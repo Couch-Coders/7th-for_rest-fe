@@ -8,9 +8,8 @@ import {
 } from '@ant-design/icons';
 import { Modal } from 'antd';
 const PlaceItemBlock = styled.div`
-  & + & {
-    margin-top: 1rem;
-  }
+  margin-top: 1rem;
+
   width: 100%;
   ${(props) =>
     props.hidden &&
