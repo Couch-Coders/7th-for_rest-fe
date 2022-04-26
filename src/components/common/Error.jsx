@@ -19,7 +19,7 @@ const NotFoundBlock = styled(Responsive)`
     `}
 `;
 
-const ErrorPage = ({ children, center, noSearch }) => {
+const Error = ({ children, center, noSearch }) => {
   return (
     <NotFoundBlock center={center} noSearch={noSearch}>
       <h2>{children}</h2>
@@ -27,4 +27,4 @@ const ErrorPage = ({ children, center, noSearch }) => {
   );
 };
 
-export default ErrorPage;
+export default Error;

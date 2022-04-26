@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Pagination } from 'antd';
 import PlaceItem from './PlaceItem';
@@ -19,6 +19,10 @@ const LikePlace = ({ sortedPlaces, onLikeClick }) => {
   const [pageInex, setPageInex] = useState(1);
 
   const totalPlaces = sortedPlaces.length;
+
+  useEffect(() => {
+    setPageInex(1);
+  }, [sortedPlaces]);
 
   const onPageChange = (e) => {
     setPageInex(e);
@@ -54,6 +58,7 @@ const LikePlace = ({ sortedPlaces, onLikeClick }) => {
           <Pagination
             simple
             defaultCurrent={1}
+            current={pageInex}
             defaultPageSize={4}
             total={totalPlaces}
             onChange={(e) => onPageChange(e)}
