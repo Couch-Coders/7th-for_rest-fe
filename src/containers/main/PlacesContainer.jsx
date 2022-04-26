@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPlaces, placesInitialize } from '../../modules/main/places';
 import PlacesTemplate from './../../components/main/places/PlacesTemplate';
@@ -28,7 +28,6 @@ const PlacesContainer = () => {
   const onSearch = useCallback(
     (page) => {
       if (category !== '' && region_1 !== '' && page !== 0)
-        //검색시에는 0페이지부터 시작
         dispatch(getPlaces({ page, category, region_1, region_2 }));
     },
     [dispatch, category, region_1, region_2],
@@ -41,12 +40,13 @@ const PlacesContainer = () => {
   }, [dispatch]);
 
   if (loading && places.length === 0) return <LoadingPage />;
-  if (!loading && places.length === 0)
+  else if (!loading && places.length === 0) {
     return (
       <>
         <Error>{'검색결과가 없습니다.'}</Error>
       </>
     );
+  }
 
   return (
     <>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import LikeTagCheckBox from './LikeTagCheckBox';
 import LikePlace from './LikePlace';
-import ErrorPage from '../common/Error';
+import Error from '../common/Error';
 
 const MyPageTemplateBlock = styled(Responsive)`
   margin-top: 10rem;
@@ -72,7 +72,7 @@ const MyPageTemplate = ({ places, onLikeClick }) => {
       {sortedPlaces.length ? (
         <LikePlace sortedPlaces={sortedPlaces} onLikeClick={onLikeClick} />
       ) : (
-        <ErrorPage noSearch>{'검색 결과가 없습니다'}</ErrorPage>
+        <Error noSearch>{'검색 결과가 없습니다'}</Error>
       )}
 
       <LikeTagCheckBox

@@ -92,7 +92,7 @@ const PlaceItem = ({ place, hidden, onLikeClick }) => {
             />
             {place.like_count}
             <StarFilled style={{ fontSize: '20px', color: '#fadb14' }} />
-            {place.avg}
+            {place.avg ? place.avg : 0}
             <CommentOutlined style={{ fontSize: '20px' }} />
             {place.review_count}
           </div>

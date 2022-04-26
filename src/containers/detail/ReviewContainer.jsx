@@ -13,12 +13,12 @@ import {
 
 const ReviewContainer = () => {
   const dispatch = useDispatch();
-  const { user, reviews, reviewLoading, placeLoading } = useSelector(
+  const { user, reviews, placeLoading, reviewLoading } = useSelector(
     ({ auth, reviews, loading }) => ({
       user: auth.user,
       reviews: reviews.reviews,
-      reviewLoading: loading['detail/INFO'],
-      placeLoading: loading['reviews/READ'],
+      placeLoading: loading['detail/INFO'],
+      reviewLoading: loading['reviews/READ'],
     }),
   );
 
@@ -65,7 +65,7 @@ const ReviewContainer = () => {
     [dispatch],
   );
 
-  if (reviewLoading || placeLoading) return null;
+  if (placeLoading) return null;
 
   return (
     <>
