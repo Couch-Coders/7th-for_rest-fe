@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Pagination } from 'antd';
 import PlaceItem from './PlaceItem';
@@ -13,27 +13,55 @@ const LikePlaceBlock = styled.div`
     justify-content: center;
   }
 `;
+const VIEW_ITEM = 4;
 
-const LikePlace = () => {
+const LikePlace = ({ sortedPlaces, onLikeClick }) => {
+  const [pageInex, setPageInex] = useState(1);
+
+  const totalPlaces = sortedPlaces.length;
+
+  const onPageChange = (e) => {
+    setPageInex(e);
+  };
+
+  const render = () => {
+    const result = [];
+    sortedPlaces.map((place, idx) => {
+      if ((pageInex - 1) * VIEW_ITEM <= idx && idx < pageInex * VIEW_ITEM)
+        return result.push(
+          <PlaceItem place={place} key={idx} onLikeClick={onLikeClick} />,
+        );
+      else
+        return result.push(
+          <PlaceItem
+            place={place}
+            key={idx}
+            hidden
+            onLikeClick={onLikeClick}
+          />,
+        );
+    });
+    return result;
+  };
+
   return (
     <LikePlaceBlock>
-      <h2>총 x개의 즐겨찾기 장소</h2>
+      <h2>총 {totalPlaces}곳의 즐겨찾기 장소</h2>
 
-      <PlaceItem></PlaceItem>
-
-      <PlaceItem></PlaceItem>
-
-      <PlaceItem></PlaceItem>
-
-      <PlaceItem></PlaceItem>
-      <div className="pagenation">
-        <Pagination
-          simple
-          defaultCurrent={1}
-          total={20}
-          onChange={(e) => console.log(e)}
-        />
-      </div>
+      {render()}
+      {totalPlaces ? (
+        <div className="pagenation">
+          <Pagination
+            simple
+            defaultCurrent={1}
+            defaultPageSize={4}
+            total={totalPlaces}
+            onChange={(e) => onPageChange(e)}
+          />
+        </div>
+      ) : (
+        ''
+      )}
     </LikePlaceBlock>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   HeartFilled,
@@ -18,7 +18,7 @@ align-items: center;
   align-items:center;
   justify-content: space-between;
   img {
-    object-fit: cover;
+    object-fit: fill;
     width: 480px;
     height: 320px;
     margin-left: 5rem;
@@ -53,8 +53,6 @@ align-items: center;
 }`;
 
 const PlaceTitle = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
-  const [likeChecked, setLikeChecked] = useState(false);
-
   const avgRating = () => {
     if (reviews.length === 0) return 0;
     return (
@@ -70,7 +68,6 @@ const PlaceTitle = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
       return null;
     }
     await onLikeClick();
-    setLikeChecked(!likeChecked);
   };
 
   const img_url = place.img_src
@@ -92,7 +89,7 @@ const PlaceTitle = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
                   onClick={onLike}
                   style={{
                     color: '#eb2f96',
-                    fontSize: '20px',
+                    fontSize: '25px',
                     cursor: 'pointer',
                   }}
                 />
@@ -100,7 +97,7 @@ const PlaceTitle = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
                 <HeartTwoTone
                   twoToneColor="#eb2f96"
                   onClick={onLike}
-                  style={{ fontSize: '20px', cursor: 'pointer' }}
+                  style={{ fontSize: '25px', cursor: 'pointer' }}
                 />
               )}
 
@@ -108,11 +105,11 @@ const PlaceTitle = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
             </div>
 
             <div className="group">
-              <StarFilled style={{ fontSize: '20px', color: '#fadb14' }} />
+              <StarFilled style={{ fontSize: '25px', color: '#fadb14' }} />
               <span>{avgRating().toString().substr(0, 3)}</span>
             </div>
             <div className="group">
-              <CommentOutlined style={{ fontSize: '20px' }} />
+              <CommentOutlined style={{ fontSize: '25px' }} />
               <span>{reviews.length}</span>
             </div>
           </div>

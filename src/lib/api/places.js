@@ -13,3 +13,7 @@ export const getPlaces = ({ page, category, region_1, region_2 }) => {
     },
   });
 };
+
+export const getLikePlaces = () => {
+  return client.get('/members/myLike');
+};

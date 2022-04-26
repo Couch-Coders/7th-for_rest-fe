@@ -65,7 +65,7 @@ const ReviewContainer = () => {
     [dispatch],
   );
 
-  if (reviewLoading && placeLoading) return null;
+  if (reviewLoading || placeLoading) return null;
 
   return (
     <>
