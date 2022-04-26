@@ -39,7 +39,7 @@ const likePlace = handleActions(
     [INITIALIZE]: (state) => initialState,
     [GET_LIKE_PLACE_SUCCESS]: (state, { payload: data }) => ({
       ...state,
-      places: data.data.content,
+      places: data.data,
       totalPlaces: data.count,
     }),
     [GET_LIKE_PLACE_FAILURE]: (state, { payload: error }) => ({

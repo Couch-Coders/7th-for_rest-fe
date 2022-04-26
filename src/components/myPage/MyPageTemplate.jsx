@@ -47,6 +47,7 @@ const MyPageTemplate = ({ places, onLikeClick }) => {
     const key = Object.keys(item).toString();
     let updateItem = [];
     const originalItem = selectedTag[key];
+    // 전체 버튼 클릭시
     if (!item[key]) {
       setSelectedTag({
         ...selectedTag,

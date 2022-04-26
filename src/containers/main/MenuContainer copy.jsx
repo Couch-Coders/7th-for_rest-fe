@@ -7,6 +7,10 @@ import { useDispatch } from 'react-redux';
 import { serach } from './../../modules/main/places';
 import ModalPortal from './../../lib/ModalPotal';
 
+/**
+ *  검색 조건을 담고있는 searchParam을 리덕스를 사용하지않고 state만 사용한파일입니다.
+ */
+
 const MenuContainer = () => {
   const dispatch = useDispatch();
   const initialState = {
@@ -67,8 +71,6 @@ const MenuContainer = () => {
     const { category, region_1, region_2 } = searchParam;
     dispatch(serach({ category, region_1, region_2 }));
   };
-
-
 
   return (
     <>

@@ -9,6 +9,7 @@ import createSagaMiddleWare from 'redux-saga';
 import { Provider } from 'react-redux';
 import { tempSetUser } from './modules/common/auth';
 import { client } from './lib/api/clients';
+import { HelmetProvider } from 'react-helmet-async';
 
 const sagaMiddleware = createSagaMiddleWare();
 
@@ -35,7 +36,9 @@ loadUser();
 ReactDOM.render(
   <Provider store={store}>
     <HashRouter>
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </HashRouter>
   </Provider>,
   document.getElementById('root'),
