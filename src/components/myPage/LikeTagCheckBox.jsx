@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { Button } from 'antd';
 
 const LikeTagCheckBoxBlock = styled.div`
-  margin-top: 43.5px;
+  margin-top: 59.5px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
