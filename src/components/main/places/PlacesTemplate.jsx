@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import PlacesItem from './PlacesItem';
 import Responsive from './../../common/Responsive';
@@ -37,7 +37,6 @@ const ItemBlock = styled.div`
   & + & {
     margin-top: 10rem;
   }
-  overflow: hidden;
 `;
 
 // ItemBlock에 아이템이 3개가 안될경우 보이진 않지만 공간만 차지하는 DIV
@@ -50,18 +49,15 @@ const Spacer = styled.div`
   height: 5rem;
 `;
 
-const MAX_VIEW = 100;
-
 const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
   const scorllTarget = useRef(null);
   const target = useRef(null);
-  const [index, setIndex] = useState(1);
+
   const [data, setData] = useState([]);
-  const [throttle, setThrottle] = useState(false);
-  // let throttle = useRef(false);
-  // function setThrottle(bool) {
-  //   throttle = bool;
-  // }
+  // const [throttle, setThrottle] = useState(false);
+  // const [index, setIndex] = useState(1);
+  let index = useRef(1).current;
+  let throttle = useRef(false).current;
 
   function render(index) {
     const result = [];
@@ -100,6 +96,14 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
     };
   }, [places]);
 
+  const setIndex = useCallback(() => {
+    index++;
+  }, [index]);
+
+  const setThrottle = useCallback(() => {
+    throttle = !throttle;
+  }, []);
+
   useEffect(() => {
     if (throttle) return;
     const options = {
@@ -110,12 +114,12 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
         if (!entry.isIntersecting) {
           return;
         }
-        if (index < MAX_VIEW && index < totalPages) {
-          setThrottle(true);
+        if (index < totalPages) {
+          setThrottle();
           setTimeout(() => {
-            setIndex(index + 1);
             onSearch(index);
-            setThrottle(false);
+            setIndex();
+            setThrottle();
           }, 1000);
         }
       });
@@ -128,15 +132,17 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
     return () => {
       io && io.disconnect();
     };
-  }, [index, totalPages, throttle, onSearch]);
+  }, [index, totalPages, onSearch, throttle, setThrottle, setIndex]);
 
   return (
     <>
       <PlacesTemplateBlock>
         <TextBlock ref={scorllTarget}>
           <h4 className="Counter">총 {totalElements} 개의 장소</h4>
-          <h4>/</h4>
+          {/*
+           <h4>/</h4>
           <h4 className="sortMenu">좋아요 순</h4>
+  */}
         </TextBlock>
         {render(index)}
         <Spacer ref={target} />

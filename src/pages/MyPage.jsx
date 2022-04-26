@@ -1,10 +1,10 @@
 import React from 'react';
-import MyPageTemplate from '../components/myPage/MyPageTemplate';
+import LikePlacesContainer from '../containers/myPage/LikePlacesContainer';
 
 const MyPage = () => {
   return (
     <>
-      <MyPageTemplate />
+      <LikePlacesContainer />
     </>
   );
 };

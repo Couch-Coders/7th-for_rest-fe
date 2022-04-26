@@ -9,6 +9,11 @@ export const getPlaces = ({ page, category, region_1, region_2 }) => {
       category: category,
       region_1: region_1,
       region_2: StringRegion_2,
+      sort: 'id',
     },
   });
+};
+
+export const getLikePlaces = () => {
+  return client.get('/members/myLike');
 };

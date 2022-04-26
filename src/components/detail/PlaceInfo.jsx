@@ -68,7 +68,7 @@ const PlaceInfo = ({ place }) => {
   const preview = (text, cat) => {
     const result = [];
     let preText = text;
-    if (text.length > 70 || text.includes('\n')) {
+    if (text.length > 70 || text.split('\n').length > 2) {
       if (!preViewChecked[cat]) {
         preText = text.replaceAll('\n', ' ').substr(0, 55).concat('... ');
       }

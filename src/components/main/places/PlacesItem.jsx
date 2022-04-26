@@ -45,8 +45,8 @@ const PlacesItem = ({ item }) => {
     : require('../../../assets/noImg.png');
 
   const tagRender = (tag) => {
-    const tagAry = tag.split('\n');
-    return tagAry.map((item, index) => (
+    const tagArr = tag.split('\n');
+    return tagArr.map((item, index) => (
       <CustomTag color="green" key={index}>
         {item}
       </CustomTag>

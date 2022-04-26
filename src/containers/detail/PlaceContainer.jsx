@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import LoadingPage from '../../components/common/LoadingPage';
 import PlaceTemplateBlock from '../../components/detail/PlaceTemplate';
 import { checkSubscribe, subscribePlace } from '../../lib/api/place';
 import { getPlace, updateLikeCount } from './../../modules/detail/place';
@@ -29,14 +30,16 @@ const PlaceContainer = () => {
   useEffect(() => {
     async function getData() {
       dispatch(getPlace({ placeId }));
-      const response = await checkSubscribe({ placeId });
-      const checked = response.data.isLove;
-      setIsSubscribe(checked);
+      if (user) {
+        const response = await checkSubscribe({ placeId });
+        const checked = response.data.isLove;
+        setIsSubscribe(checked);
+      }
     }
     getData();
-  }, [dispatch, placeId]);
+  }, [dispatch, placeId, user]);
 
-  if (loading) return null;
+  if (loading) return <LoadingPage />;
 
   return (
     <>

@@ -27,6 +27,7 @@ const ReviewContainer = () => {
 
   useEffect(() => {
     dispatch(readReview({ placeId }));
+
     return () => {};
   }, [dispatch, placeId]);
 
@@ -64,7 +65,7 @@ const ReviewContainer = () => {
     [dispatch],
   );
 
-  if (reviewLoading && placeLoading) return null;
+  if (reviewLoading || placeLoading) return null;
 
   return (
     <>

@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import NotFound from '../../components/main/places/NotFound';
-import { getPlaces } from '../../modules/main/places';
+import { getPlaces, placesInitialize } from '../../modules/main/places';
 import PlacesTemplate from './../../components/main/places/PlacesTemplate';
+import LoadingPage from './../../components/common/LoadingPage';
+import Error from '../../components/common/Error';
 
 const PlacesContainer = () => {
   const dispatch = useDispatch();
@@ -33,11 +34,17 @@ const PlacesContainer = () => {
     [dispatch, category, region_1, region_2],
   );
 
-  if (loading && places.length === 0) return null;
+  useEffect(() => {
+    return () => {
+      dispatch(placesInitialize());
+    };
+  }, [dispatch]);
+
+  if (loading && places.length === 0) return <LoadingPage />;
   if (!loading && places.length === 0)
     return (
       <>
-        <NotFound />
+        <Error>{'검색결과가 없습니다.'}</Error>
       </>
     );
 
