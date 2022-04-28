@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPlaces, placesInitialize } from '../../modules/main/places';
 import PlacesTemplate from './../../components/main/places/PlacesTemplate';
@@ -40,13 +40,8 @@ const PlacesContainer = () => {
   }, [dispatch]);
 
   if (loading && places.length === 0) return <LoadingPage />;
-  else if (!loading && places.length === 0) {
-    return (
-      <>
-        <Error>{'검색결과가 없습니다.'}</Error>
-      </>
-    );
-  }
+  if (!loading && places.length === 0)
+    return <Error>{'검색결과가 없습니다.'}</Error>;
 
   return (
     <>

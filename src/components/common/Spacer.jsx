@@ -6,8 +6,8 @@ const SpacerBlock = styled(Responsive)`
   height: 5rem;
 `;
 
-const Spacer = ({ children, ...rest }) => {
-  return <SpacerBlock {...rest}>{children}</SpacerBlock>;
+const Spacer = () => {
+  return <SpacerBlock />;
 };
 
 export default Spacer;

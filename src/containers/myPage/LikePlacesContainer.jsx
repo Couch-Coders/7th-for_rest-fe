@@ -19,7 +19,7 @@ const LikePlacesContainer = () => {
     }),
   );
 
-  const onLikeClick = async ({ placeId }) => {
+  const onLikeRemove = async ({ placeId }) => {
     await subscribePlace({ placeId });
     dispatch(removeLikePlace({ placeId }));
   };
@@ -36,11 +36,7 @@ const LikePlacesContainer = () => {
     return <Error center>{'등록된 장소가 없습니다'}</Error>;
   return (
     <>
-      <MyPageTemplate
-        places={places}
-        loading={loading}
-        onLikeClick={onLikeClick}
-      />
+      <MyPageTemplate places={places} onLikeRemove={onLikeRemove} />
     </>
   );
 };

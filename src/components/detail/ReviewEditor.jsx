@@ -143,9 +143,6 @@ const ReviewEditor = ({ user, onPublish, item, isUpdate, onCancel }) => {
           </div>
         </ButtonBlock>
         <EditorBlock>
-          <div className="logo">
-            <img alt="" />
-          </div>
           <div className="input">
             {user ? (
               <textarea
