@@ -55,57 +55,36 @@ const CustomButton = styled(Button)`
     `}
 `;
 
-const LikeTagCheckBox = ({ places, selectedTag, onClick }) => {
-  const categorys = places
-    ? [...new Set(places.map((item) => item.category))]
-    : [];
-  const regions = places
-    ? [...new Set(places.map((item) => item.region_1))]
-    : [];
+const LikeTagCheckBox = ({ categorys, regions, selectedTag, onClick }) => {
+  //첫 렌더링시 오류 방지
 
+  console.log(categorys);
   const categorysRender = () => {
     if (!categorys) return;
     const categorysItem = [];
     categorysItem.push(
-      selectedTag.categorys.length ? (
-        <CustomButton
-          shape={'round'}
-          key="cat_all"
-          onClick={() => onClick({ categorys: '' })}
-        >
-          전체
-        </CustomButton>
-      ) : (
-        <CustomButton
-          shape={'round'}
-          key="cat_all"
-          checked
-          onClick={() => onClick({ categorys: '' })}
-        >
-          전체
-        </CustomButton>
-      ),
+      //전체 태그버튼은 처음 한번 생성
+      <CustomButton
+        shape={'round'}
+        key="cat_all"
+        //categorys 태그가 선택된게 없으면 체크true
+        checked={!selectedTag.categorys.length}
+        onClick={() => onClick({ categorys: '' })}
+      >
+        전체
+      </CustomButton>,
     );
     categorys.forEach((item, idx) => {
       categorysItem.push(
-        selectedTag.categorys.includes(item) ? (
-          <CustomButton
-            shape={'round'}
-            key={idx}
-            checked
-            onClick={() => onClick({ categorys: item })}
-          >
-            {item}
-          </CustomButton>
-        ) : (
-          <CustomButton
-            shape={'round'}
-            key={idx}
-            onClick={() => onClick({ categorys: item })}
-          >
-            {item}
-          </CustomButton>
-        ),
+        <CustomButton
+          shape={'round'}
+          key={idx}
+          //해당 태그가 selectedTag.categorys에 존재하면 체크 true
+          checked={selectedTag.categorys.includes(item)}
+          onClick={() => onClick({ categorys: item })}
+        >
+          {item}
+        </CustomButton>,
       );
     });
 
@@ -116,45 +95,25 @@ const LikeTagCheckBox = ({ places, selectedTag, onClick }) => {
     if (!regions) return;
     const regionsItem = [];
     regionsItem.push(
-      selectedTag.regions.length ? (
-        <CustomButton
-          shape={'round'}
-          key="reg_all"
-          onClick={() => onClick({ regions: '' })}
-        >
-          전체
-        </CustomButton>
-      ) : (
-        <CustomButton
-          shape={'round'}
-          key="reg_all"
-          checked
-          onClick={() => onClick({ regions: '' })}
-        >
-          전체
-        </CustomButton>
-      ),
+      <CustomButton
+        shape={'round'}
+        key="reg_all"
+        checked={!selectedTag.regions.length}
+        onClick={() => onClick({ regions: '' })}
+      >
+        전체
+      </CustomButton>,
     );
     regions.forEach((item, idx) => {
       regionsItem.push(
-        selectedTag.regions.includes(item) ? (
-          <CustomButton
-            shape={'round'}
-            key={'reg_' + idx}
-            checked
-            onClick={() => onClick({ regions: item })}
-          >
-            {item}
-          </CustomButton>
-        ) : (
-          <CustomButton
-            shape={'round'}
-            key={'reg_' + idx}
-            onClick={() => onClick({ regions: item })}
-          >
-            {item}
-          </CustomButton>
-        ),
+        <CustomButton
+          shape={'round'}
+          key={'reg_' + idx}
+          checked={selectedTag.regions.includes(item)}
+          onClick={() => onClick({ regions: item })}
+        >
+          {item}
+        </CustomButton>,
       );
     });
     return regionsItem;

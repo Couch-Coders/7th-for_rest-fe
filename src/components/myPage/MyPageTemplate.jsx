@@ -11,19 +11,31 @@ const MyPageTemplateBlock = styled(Responsive)`
   justify-content: space-between;
 `;
 
-const MyPageTemplate = ({ places, onLikeClick }) => {
+const MyPageTemplate = ({ places, onLikeRemove }) => {
+  //places 정보를 담고 조건 selectedTag에 따라 필터링할 state
   const [sortedPlaces, setSortedPlaces] = useState([]);
+  // 선택된 태그를 담을 state
   const [selectedTag, setSelectedTag] = useState({
     categorys: [],
     regions: [],
   });
 
+  const categorys = places
+    ? [...new Set(places.map((item) => item.category))]
+    : [];
+  const regions = places
+    ? [...new Set(places.map((item) => item.region_1))]
+    : [];
+
   useEffect(() => {
     if (
+      //선택된 태그가 없으면 전체 정보 저장
       selectedTag.categorys.length === 0 &&
       selectedTag.regions.length === 0
     ) {
       setSortedPlaces(places);
+      // 선택된 categorys 태그가 없으면 places의 아이템중에서
+      //regions에 저장된 값과 일치하 정보를 필터링
     } else if (selectedTag.categorys.length === 0) {
       setSortedPlaces(
         places.filter((item) => selectedTag.regions.includes(item.region_1)),
@@ -33,6 +45,7 @@ const MyPageTemplate = ({ places, onLikeClick }) => {
         places.filter((item) => selectedTag.categorys.includes(item.category)),
       );
     } else {
+      //태그가 모두 선택 상황일시 두값 다 필터링
       setSortedPlaces(
         places.filter(
           (item) =>
@@ -54,13 +67,10 @@ const MyPageTemplate = ({ places, onLikeClick }) => {
         [key]: updateItem,
       });
     } else {
-      if (originalItem.includes(item[key])) {
-        updateItem = originalItem.filter(
-          (originItem) => originItem !== item[key],
-        );
-      } else {
-        updateItem = [...originalItem, item[key]];
-      }
+      // 태그 클릭시 기존 아이템이 존재하면 제거, 없으면 추가
+      updateItem = originalItem.includes(item[key])
+        ? originalItem.filter((originItem) => originItem !== item[key])
+        : [...originalItem, item[key]];
       setSelectedTag({
         ...selectedTag,
         [key]: updateItem,
@@ -68,16 +78,21 @@ const MyPageTemplate = ({ places, onLikeClick }) => {
     }
   };
 
+  const onLikeClick = async ({ placeId }) => {
+    onLikeRemove({ placeId });
+  };
+
   return (
     <MyPageTemplateBlock>
       {sortedPlaces.length ? (
         <LikePlace sortedPlaces={sortedPlaces} onLikeClick={onLikeClick} />
       ) : (
-        <Error noSearch>{'검색 결과가 없습니다'}</Error>
+        <Error noSearchData>{'검색 결과가 없습니다'}</Error>
       )}
 
       <LikeTagCheckBox
-        places={places}
+        categorys={categorys}
+        regions={regions}
         selectedTag={selectedTag}
         onClick={onClick}
       />

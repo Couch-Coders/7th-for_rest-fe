@@ -12,16 +12,16 @@ const NotFoundBlock = styled(Responsive)`
       top: 45vh;
     `}
   ${(props) =>
-    props.noSearch &&
+    props.noSearchData &&
     css`
       flex-basis: 65%;
       margin-top: 59.5px;
     `}
 `;
 
-const Error = ({ children, center, noSearch }) => {
+const Error = ({ children, center, noSearchData }) => {
   return (
-    <NotFoundBlock center={center} noSearch={noSearch}>
+    <NotFoundBlock center={center} noSearchData={noSearchData}>
       <h2>{children}</h2>
     </NotFoundBlock>
   );

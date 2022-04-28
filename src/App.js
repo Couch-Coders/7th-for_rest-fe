@@ -12,7 +12,7 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <title>for-rest</title>
+        <title>For-Rest</title>
       </Helmet>
       <Routes>
         <Route element={<HeaderContainer />}>

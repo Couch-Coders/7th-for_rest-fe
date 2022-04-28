@@ -50,14 +50,17 @@ const Spacer = styled.div`
 `;
 
 const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
-  const scorllTarget = useRef(null);
   const target = useRef(null);
-
   const [data, setData] = useState([]);
-  // const [throttle, setThrottle] = useState(false);
-  // const [index, setIndex] = useState(1);
   let index = useRef(1).current;
   let throttle = useRef(false).current;
+  const setIndex = useCallback(() => {
+    index++;
+  }, [index]);
+
+  const setThrottle = useCallback(() => {
+    throttle = !throttle;
+  }, []);
 
   function render(index) {
     const result = [];
@@ -84,25 +87,13 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
   }
 
   useEffect(() => {
-    try {
-      if (places.length !== 0) {
-        setData((data) => [...data, ...places]);
-      }
-    } catch (e) {
-      setData([]);
+    if (places.length !== 0) {
+      setData((data) => [...data, ...places]);
     }
     return () => {
       if (places.length === 0) setData([]);
     };
   }, [places]);
-
-  const setIndex = useCallback(() => {
-    index++;
-  }, [index]);
-
-  const setThrottle = useCallback(() => {
-    throttle = !throttle;
-  }, []);
 
   useEffect(() => {
     if (throttle) return;
@@ -137,7 +128,7 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
   return (
     <>
       <PlacesTemplateBlock>
-        <TextBlock ref={scorllTarget}>
+        <TextBlock>
           <h4 className="Counter">총 {totalElements} 개의 장소</h4>
           {/*
            <h4>/</h4>

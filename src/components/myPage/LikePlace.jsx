@@ -31,10 +31,12 @@ const LikePlace = ({ sortedPlaces, onLikeClick }) => {
   const render = () => {
     const result = [];
     sortedPlaces.map((place, idx) => {
+      //인덱스가 해당 페이지에 맞을때만 보이는 컴포넌트를 생성
       if ((pageInex - 1) * VIEW_ITEM <= idx && idx < pageInex * VIEW_ITEM)
         return result.push(
           <PlaceItem place={place} key={idx} onLikeClick={onLikeClick} />,
         );
+      //인덱스가 해당 페이지에 해당 되지 않을때 숨김
       else
         return result.push(
           <PlaceItem
