@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Card } from 'antd';
 import { Tag } from 'antd';
 import { HeartTwoTone } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const PlacesItemBlock = styled.div`
   margin-top: 2rem;
@@ -13,13 +14,15 @@ const PlacesItemBlock = styled.div`
 
 const CustomCard = styled(Card)`
   border-radius: 2rem;
-
   width: 300px;
   img {
     border-radius: 2rem 2rem 0 0;
     height: 250px;
-    object-fit: cover;
+    object-fit: fill;
     border: 1px solid #f0f0f0;
+  }
+  .ant-card-meta {
+    width: 90%;
   }
 `;
 
@@ -37,31 +40,35 @@ const TitleBox = styled.div`
 const { Meta } = Card;
 
 const PlacesItem = ({ item }) => {
-  const img_url = item.img_url
-    ? item.img_url
+  const img_url = item.img_src
+    ? item.img_src
     : require('../../../assets/noImg.png');
+
+  const tagRender = (tag) => {
+    const tagArr = tag.split('\n');
+    return tagArr.map((item, index) => (
+      <CustomTag color="green" key={index}>
+        {item}
+      </CustomTag>
+    ));
+  };
 
   return (
     <PlacesItemBlock>
-      <CustomCard cover={<img alt={item.placeName} src={img_url} />}>
-        <TitleBox>
-          <Meta title={item.placeName} />
-          <p>
-            <HeartTwoTone twoToneColor="#eb2f96" />
-            <em>{item.heart}</em>
-          </p>
-        </TitleBox>
-        {item.tag &&
-          item.tag.map((item, index) => {
-            return (
-              <CustomTag color="green" key={index}>
-                {item}
-              </CustomTag>
-            );
-          })}
-      </CustomCard>
+      <Link to={`/detail/${item.id}`}>
+        <CustomCard cover={<img alt={item.name} src={img_url} />}>
+          <TitleBox>
+            <Meta title={item.name} />
+            <p>
+              <HeartTwoTone twoToneColor="#eb2f96" />
+              <em>{item.likeCount}</em>
+            </p>
+          </TitleBox>
+          {item.tag && tagRender(item.tag)}
+        </CustomCard>
+      </Link>
     </PlacesItemBlock>
   );
 };
 
-export default PlacesItem;
+export default React.memo(PlacesItem);

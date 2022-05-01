@@ -5,12 +5,14 @@ import createRequestSaga, {
 import * as placesAPI from '../../lib/api/places';
 import { takeLatest } from 'redux-saga/effects';
 
-const [SEARCH, SEARCH_SUCCESS, SEARCH_FAILURE] =
+const [GET_LIST_PLACES, GET_LIST_PLACES_SUCCESS, GET_LIST_PLACES_FAILURE] =
   createRequestActionTypes('places/SEARCH');
+const INITIALIZE = 'places/INITIALIZE';
 
-export const serach = createAction(
-  SEARCH,
-  ({ category, region_1, region_2 }) => ({
+export const getPlaces = createAction(
+  GET_LIST_PLACES,
+  ({ page, category, region_1, region_2 }) => ({
+    page,
     category,
     region_1,
     region_2,
@@ -18,25 +20,33 @@ export const serach = createAction(
 );
 
 const initialState = {
-  places: null,
+  places: [],
+  totalPages: 0,
+  totalElements: 0,
   error: null,
 };
 
-const searchSaga = createRequestSaga(SEARCH, placesAPI.searchByTag);
+export const placesInitialize = createAction(INITIALIZE);
+
+const listPlacesSaga = createRequestSaga(GET_LIST_PLACES, placesAPI.getPlaces);
 
 export function* placesSaga() {
-  yield takeLatest(SEARCH, searchSaga);
+  yield takeLatest(GET_LIST_PLACES, listPlacesSaga);
 }
 
 const places = handleActions(
   {
-    //로그인 성공
-    [SEARCH_SUCCESS]: (state, { payload: data }) => ({
+    [INITIALIZE]: (state) => initialState,
+    [GET_LIST_PLACES_SUCCESS]: (
+      state,
+      { payload: { content, totalPages, totalElements } },
+    ) => ({
       ...state,
-      places: data,
+      places: content,
+      totalPages: totalPages,
+      totalElements: totalElements,
     }),
-    //로그인 실패
-    [SEARCH_FAILURE]: (state, { payload: error }) => ({
+    [GET_LIST_PLACES_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error: error,
     }),

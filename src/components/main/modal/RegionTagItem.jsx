@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from 'antd';
 
@@ -12,12 +12,10 @@ const CustomButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-
   :focus {
     color: rgba(0, 0, 0, 0.85);
     border-color: #d9d9d9;
   }
-
   ${(props) =>
     props.checked &&
     css`
@@ -32,32 +30,34 @@ const CustomButton = styled(Button)`
 `;
 
 const RegionTagItem = ({
-  item,
-  onClickReg1,
-  onClickReg2,
+  region,
+  onClickFirstRegion,
+  onClickSecondRegion,
   checked,
-  onReset,
+  onResetSecondRegion,
 }) => {
-  const onClickRegion1 = () => {
-    onClickReg1({ region_1: item });
-  };
-  const onClickRegion2 = () => {
-    onClickReg2(item);
-  };
-  const onResetReg2 = () => {
-    onReset();
-  };
+  const onClickRegion1 = useCallback(() => {
+    onClickFirstRegion({ region_1: region });
+  }, [region, onClickFirstRegion]);
+
+  const onClickRegion2 = useCallback(() => {
+    onClickSecondRegion(region);
+  }, [region, onClickSecondRegion]);
+
+  const onReset = useCallback(() => {
+    onResetSecondRegion();
+  }, [onResetSecondRegion]);
 
   const onClick = () => {
-    if (onClickReg1) return onClickRegion1();
-    else if (onClickReg2) return onClickRegion2();
-    else if (onReset) return onResetReg2();
+    if (onClickFirstRegion) return onClickRegion1();
+    else if (onClickSecondRegion) return onClickRegion2();
+    else if (onResetSecondRegion) return onReset();
   };
 
   return (
     <RegionTagItemBlock>
       <CustomButton shape={'round'} onClick={onClick} checked={checked}>
-        {item}
+        {region}
       </CustomButton>
     </RegionTagItemBlock>
   );
@@ -71,4 +71,4 @@ RegionTagItem.defaultProps = {
   onReset: null,
 };
 
-export default RegionTagItem;
+export default React.memo(RegionTagItem);

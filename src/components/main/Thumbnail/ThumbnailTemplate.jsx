@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import { HiLocationMarker } from 'react-icons/hi';
-import { PlusCircleOutlined } from '@ant-design/icons';
 import mainInfoData from '../../../assets/mainInfoData.json';
 import ThumbnailItem from './ThumbnailItem';
 
@@ -13,6 +12,10 @@ const ThumbnailTemplateBlock = styled.div`
   & + & {
     margin-top: 3vh;
   }
+  > :last-child {
+    margin-right: 3rem;
+  }
+
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -39,17 +42,38 @@ const TextBlock = styled.div`
     }
   }
 `;
+const Spacer = styled.div`
+  height: 3rem;
+`;
 
-const ThumbnailTemplate = ({ onClick, onCancel, onToggleCat, onToggleReg }) => {
+const ThumbnailTemplate = ({
+  onChangeSearchParam,
+  onReset,
+  onToggleCat,
+  onToggleReg,
+}) => {
+  const onClickThumbnail = useCallback(
+    ({ category }) => {
+      onReset();
+      onChangeSearchParam({ category });
+      onToggleReg();
+    },
+    [onChangeSearchParam, onReset, onToggleReg],
+  );
+
+  const onClickMoreCat = useCallback(() => {
+    onToggleCat();
+  }, [onToggleCat]);
+
   // <MenuItem>를 4개씩 나눠서 저장
-  function render() {
+  const thumbnailRender = useCallback(() => {
     let itemCount = 1;
     const result = [];
     let temp = [];
     for (const key in mainInfoData.mainCategory) {
       temp.push(
         <ThumbnailItem
-          item={mainInfoData.mainCategory[key]}
+          ThumbItem={mainInfoData.mainCategory[key]}
           onClick={onClickThumbnail}
           key={itemCount}
         />,
@@ -65,17 +89,9 @@ const ThumbnailTemplate = ({ onClick, onCancel, onToggleCat, onToggleReg }) => {
       itemCount += 1;
     }
     return result;
-  }
+  }, [onClickThumbnail]);
 
-  const onClickThumbnail = ({ category }) => {
-    onCancel();
-    onClick({ category });
-    onToggleReg();
-  };
-
-  const onClickMoreCat = () => {
-    onToggleCat();
-  };
+  const Thumbnail = useMemo(() => thumbnailRender(), [thumbnailRender]);
 
   return (
     <>
@@ -86,13 +102,14 @@ const ThumbnailTemplate = ({ onClick, onCancel, onToggleCat, onToggleReg }) => {
           </h4>
 
           <h4 className="moreCat" onClick={onClickMoreCat}>
-            <PlusCircleOutlined /> 더 보기
+            더 보기
           </h4>
         </TextBlock>
-        {render()}
+        {Thumbnail}
       </ThumbnailTemplateWrapper>
+      <Spacer />
     </>
   );
 };
 
-export default ThumbnailTemplate;
+export default React.memo(ThumbnailTemplate);

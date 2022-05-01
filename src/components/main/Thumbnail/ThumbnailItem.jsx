@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 const ThumbnailItemBlock = styled.div`
@@ -11,15 +11,13 @@ const ThumbnailItemBlock = styled.div`
   justify-content: center;
   align-items: center;
 
-  & + & {
-    margin-left: 3rem;
-  }
+  margin-left: 3rem;
 
   img {
     object-fit: cover;
     filter: brightness(65%);
-    width: 196px;
-    height: 196px;
+    width: 198px;
+    height: 198px;
     box-sizing: border-box;
     border-radius: 0.6rem;
   }
@@ -36,22 +34,22 @@ const ThumbnailItemBlock = styled.div`
   }
 `;
 
-const ThumbnailItem = ({ item, onClick }) => {
-  const onClickItem = () => {
+const ThumbnailItem = ({ ThumbItem, onClick }) => {
+  const onClickItem = useCallback(() => {
     onClick({
-      category: item.name,
+      category: ThumbItem.name,
     });
-  };
+  }, [ThumbItem.name, onClick]);
 
   return (
     <ThumbnailItemBlock onClick={onClickItem}>
-      <h2>{item.name}</h2>
+      <h2>{ThumbItem.name}</h2>
       <img
-        src={require(`../../../assets/tagImg/${item.img_url}`)}
-        alt={item.name}
+        src={require(`../../../assets/tagImg/${ThumbItem.img_url}`)}
+        alt={ThumbItem.name}
       ></img>
     </ThumbnailItemBlock>
   );
 };
 
-export default ThumbnailItem;
+export default React.memo(ThumbnailItem);

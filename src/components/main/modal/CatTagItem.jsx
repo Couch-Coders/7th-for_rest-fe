@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 
 const CatTagItemBlock = styled.div`
@@ -25,16 +25,16 @@ const CatTagItemBlock = styled.div`
     `}
 `;
 
-const CatTagItem = ({ children, item, onClick, checked }) => {
-  const onClickInItem = () => {
-    onClick({ category: item });
-  };
+const CatTagItem = ({ children, category, onClick, checked }) => {
+  const onClickInItem = useCallback(() => {
+    onClick({ category: category });
+  }, [category, onClick]);
 
   return (
     <CatTagItemBlock onClick={onClickInItem} checked={checked}>
-      {children ? children : item}
+      {children ? children : category}
     </CatTagItemBlock>
   );
 };
 
-export default CatTagItem;
+export default React.memo(CatTagItem);

@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import PlacesItem from './PlacesItem';
 import Responsive from './../../common/Responsive';
 
 const PlacesTemplateBlock = styled(Responsive)`
-  margin-top: 15vh;
+  margin-top: 10vh;
 `;
 
 const TextBlock = styled.div`
@@ -21,7 +21,8 @@ const TextBlock = styled.div`
   .sortMenu {
     margin-left: 5rem;
     font-size: 1rem;
-
+    color: peru;
+    font-weight: 500;
     :hover {
       cursor: pointer;
     }
@@ -36,7 +37,6 @@ const ItemBlock = styled.div`
   & + & {
     margin-top: 10rem;
   }
-  overflow: hidden;
 `;
 
 // ItemBlock에 아이템이 3개가 안될경우 보이진 않지만 공간만 차지하는 DIV
@@ -49,58 +49,78 @@ const Spacer = styled.div`
   height: 5rem;
 `;
 
-const MAX_VIEW = 100;
-
-const PlacesTemplate = ({ places }) => {
-  const scorllTarget = useRef(null);
+const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
   const target = useRef(null);
+  const [data, setData] = useState([]);
+  let index = useRef(1).current;
+  let throttle = useRef(false).current;
+  const setIndex = useCallback(() => {
+    index++;
+  }, [index]);
 
-  const [index, setIndex] = useState(1);
+  const setThrottle = useCallback(() => {
+    throttle = !throttle;
+  }, [throttle]);
 
-  function render(index) {
-    const VIEW_PLACE_ITEM = 12;
-    const result = [];
-    let temp = [];
-    let itemCount = 0;
+  const render = useCallback(
+    (index) => {
+      const result = [];
+      let temp = [];
+      let itemCount = 0;
+      while (itemCount < data.length) {
+        temp.push(<PlacesItem item={data[itemCount]} key={itemCount} />);
+        itemCount += 1;
+        if (itemCount % 3 === 0) {
+          //3개에 한번씩 ItemBlock으로 감싸주기
+          result.push(<ItemBlock key={itemCount}>{temp}</ItemBlock>);
+          temp = [];
+        } else if (itemCount === data.length) {
+          // 공간만 채우기 위해, 부족한 수 만큼 TempDiv 추가
+          const gap = 3 - (itemCount % 3);
+          for (let index = 0; index < gap; index++) {
+            temp.push(<TempDiv key={index}></TempDiv>);
+          }
+          result.push(<ItemBlock key={itemCount}>{temp}</ItemBlock>);
 
-    while (itemCount < VIEW_PLACE_ITEM * index && itemCount < places.length) {
-      temp.push(<PlacesItem item={places[itemCount]} key={itemCount} />);
-      itemCount += 1;
-      if (itemCount % 3 === 0) {
-        result.push(<ItemBlock key={itemCount}>{temp}</ItemBlock>);
-        temp = [];
-      } else if (
-        itemCount === VIEW_PLACE_ITEM * index ||
-        itemCount === places.length
-      ) {
-        // 공간만 채우기 위해, 부족한 수 만큼 커스텀div 추가
-        const gap = 3 - (itemCount % 3);
-        for (let index = 0; index < gap; index++) {
-          temp.push(<TempDiv key={index}></TempDiv>);
+          temp = [];
         }
-
-        result.push(<ItemBlock key={itemCount}>{temp}</ItemBlock>);
-        temp = [];
       }
-    }
-    return result;
-  }
+      return result;
+    },
+    [data],
+  );
 
   useEffect(() => {
-    if (index === 1) {
-      scorllTarget?.current?.scrollIntoView({ behavior: 'smooth' });
+    if (places.length !== 0) {
+      setData((data) => [...data, ...places]);
     }
-
-    const options = {
-      threshold: 0.25,
+    return () => {
+      if (places.length === 0) setData([]);
     };
+  }, [places]);
+
+  useEffect(() => {
+    if (throttle) return;
+    const options = {
+      threshold: 0,
+    };
+
+    const timer = () =>
+      setTimeout(() => {
+        onSearch(index);
+        setIndex();
+        setThrottle();
+      }, 1000);
+
     const handleIntersection = (entries, observer) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) {
-          console.log('Asdaa');
           return;
         }
-        if (index < MAX_VIEW) setIndex((cur) => cur + 1);
+        if (index < totalPages) {
+          setThrottle();
+          timer();
+        }
       });
     };
     const io = new IntersectionObserver(handleIntersection, options);
@@ -108,19 +128,21 @@ const PlacesTemplate = ({ places }) => {
     if (target.current) {
       io.observe(target.current);
     }
-
-    return () => io && io.disconnect();
-  }, [target, index]);
-  console.log(index);
-  if (places.length === 0) return <>결과 없음</>;
+    return () => {
+      io && io.disconnect();
+      clearTimeout(timer());
+    };
+  }, [index, totalPages, onSearch, throttle, setThrottle, setIndex]);
 
   return (
     <>
       <PlacesTemplateBlock>
-        <TextBlock ref={scorllTarget}>
-          <h4 className="Counter">총 여러개</h4>
-          <h4>/</h4>
+        <TextBlock>
+          <h4 className="Counter">총 {totalElements} 개의 장소</h4>
+          {/*
+           <h4>/</h4>
           <h4 className="sortMenu">좋아요 순</h4>
+        */}
         </TextBlock>
         {render(index)}
         <Spacer ref={target} />
@@ -129,4 +151,4 @@ const PlacesTemplate = ({ places }) => {
   );
 };
 
-export default PlacesTemplate;
+export default React.memo(PlacesTemplate);

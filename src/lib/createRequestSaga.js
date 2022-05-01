@@ -14,16 +14,13 @@ export default function createRequestSaga(type, request) {
   return function* (action) {
     yield put(startLoading(type)); //로딩시작
     try {
-      console.log(action);
       const response = yield call(request, action.payload);
-      console.log(response);
       yield put({
         type: SUCCESS,
         payload: response.data,
       });
-      console.log('성공');
     } catch (e) {
-      console.log('실패');
+      console.log('saga 실패');
       console.log(e);
       yield put({
         type: FAILURE,

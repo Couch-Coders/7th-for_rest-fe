@@ -22,17 +22,17 @@ const SlideItemBlock = styled.div`
 `;
 
 // h3. 텍스트부분 position 수정해야함.
-const SlideItem = ({ item }) => {
+const SlideItem = ({ slideItem }) => {
   return (
     <SlideItemBlock>
       <Link to="/">
         <img
-          src={require(`../../../assets/slideImg/${item.img_url}`)}
-          alt={item.serachType}
+          src={require(`../../../assets/slideImg/${slideItem.img_url}`)}
+          alt={slideItem.serachType}
         ></img>
       </Link>
     </SlideItemBlock>
   );
 };
 
-export default SlideItem;
+export default React.memo(SlideItem);

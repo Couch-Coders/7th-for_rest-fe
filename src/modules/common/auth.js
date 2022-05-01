@@ -18,7 +18,6 @@ export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 
 const initialState = {
   user: null,
-  auth: null,
   authError: null,
 };
 
@@ -44,8 +43,7 @@ const auth = handleActions(
     [LOGIN_SUCCESS]: (state, { payload: data }) => ({
       ...state,
       authError: null,
-      auth: data.token,
-      user: data.user,
+      user: data,
     }),
     //로그인 실패
     [LOGIN_FAILURE]: (state, { payload: error }) => ({

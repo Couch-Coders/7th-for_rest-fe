@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import Responsive from '../../common/Responsive';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -10,14 +10,14 @@ const SlideWrapper = styled(Responsive)`
 `;
 
 const SlideTemplateBlock = styled.div`
-  margin-top: 10rem;
+  margin-top: 7rem;
   display: flex;
   justify-content: space-around;
 `;
 
 const SlideButton = styled.div`
   position: absolute;
-  top: 423px;
+  top: 365px;
   z-index: 5;
   :hover {
     cursor: pointer;
@@ -47,17 +47,16 @@ function rendering() {
   //아이템이 총 4개일경우 렌더링해야되는것 : 34 1234 12
   //아이템이 총 5개일경우 렌더링해야되는것 : 45 12345 12
   //  현재는 23 123 12 모습.  총 7개 아이템 필요
+  // oreder는 SlideItem이 recommendInfo를 담은 item의 몇 번째 정보를 가지고 있어야 하는지 정하는데 사용된다.
   while (index < itemCount + 4) {
-    let order =
-      index + (itemCount - 2) < 3
-        ? index + (itemCount - 2)
-        : (index + (itemCount - 2)) % itemCount;
-    result.push(<SlideItem item={item[order]} key={index} />);
+    let order = index < itemCount ? index : index % itemCount;
+    result.push(<SlideItem slideItem={item[order]} key={index} />);
     index++;
   }
   return [itemCount, result];
 }
 
+// Dan이라는 개발자가 작성한 useInterval 함수
 function useInterval(callback, delay) {
   const savedCallback = useRef();
   useEffect(() => {
@@ -86,34 +85,46 @@ const SlideTemplate = () => {
 
   //아이템의 갯수와 렌더링할 리액트EL 배열 반환
   const [itemCount, result] = rendering();
-  function replaceSlide(index) {
+
+  const replaceSlide = useCallback((index) => {
+    //함수의 실행은 슬라이드의 이동과 동시에 실행, 이동이 끝남과 동시에 transition의 스타일을 바꾸고, 위치이동
     setTimeout(() => {
       setTransition('');
       setIndex(-1 * index);
     }, transitionTime);
-  }
+  }, []);
+
+  const onClickBtn = useCallback(
+    (num) => {
+      //num은 왼쪽과 오른쪽을 구분할때 사용. 왼쪽은 -1, 오른쪽은 1
+      setIsOngoing(false);
+      setIndex(index + num);
+      if (index === num * (itemCount - 2)) replaceSlide(index);
+      /*index는 아직 숫자가 갱신되지 않은 상태이기때문에 itemCount - 2 적용
+      itemCount는 현재의 경우 3, 인덱스는 가운데 이미지가 0,한칸 전진시 1, 두칸 옮겨가면 2(현재 함수 실행시 인덱스는 갱신이 안된 1) */
+      setTransition(transitionStyle);
+    },
+    [index, itemCount, replaceSlide, transitionStyle],
+  );
+
   useInterval(() => {
     if (isOngoing && !isMouseOver) {
+      //버튼을 클릭시 or over시 작동X
       if (index >= itemCount - 2) replaceSlide(index);
       setIndex(index + 1);
       setTransition(transitionStyle);
     } else {
-      setIsOngoing(true);
+      setIsOngoing(true); // 버튼 클릭이 없을시 일정시간후 함수가 실행되도록 변경
     }
   }, 2000);
-
-  const onClickBtn = (num) => {
-    setIsOngoing(false);
-    setIndex(index + num);
-    if (index === num * (itemCount - 2)) replaceSlide(index);
-    setTransition(transitionStyle);
-  };
 
   return (
     <SlideWrapper>
       <SlideButton
         left
-        onClick={() => onClickBtn(-1)}
+        onClick={() => {
+          onClickBtn(-1);
+        }}
         onMouseOver={() => setIsMouseOver(true)}
         onMouseOut={() => setIsMouseOver(false)}
       >
@@ -121,7 +132,9 @@ const SlideTemplate = () => {
       </SlideButton>
       <SlideButton
         right
-        onClick={() => onClickBtn(1)}
+        onClick={() => {
+          onClickBtn(1);
+        }}
         onMouseOver={() => setIsMouseOver(true)}
         onMouseOut={() => setIsMouseOver(false)}
       >
@@ -140,4 +153,4 @@ const SlideTemplate = () => {
   );
 };
 
-export default SlideTemplate;
+export default React.memo(SlideTemplate);
