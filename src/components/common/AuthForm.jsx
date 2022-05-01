@@ -34,6 +34,7 @@ const AuthForm = ({ user, onLogin, onLogout }) => {
   }, [onLogin, oAuthLogOut]);
 
   useEffect(() => {
+    if (!user) return;
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('loginTime', new Date().getTime());
   }, [user]);
