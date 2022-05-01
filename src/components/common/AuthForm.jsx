@@ -46,7 +46,7 @@ const AuthForm = ({ user, onLogin, onLogout }) => {
     return () => {
       clearTimeout(LogOutTimer());
     };
-  }, [user, timer]);
+  }, [user, LogOutTimer]);
 
   const menu = (
     <Menu style={{ background: 'rgb(216 216 216)', width: '100px' }}>
