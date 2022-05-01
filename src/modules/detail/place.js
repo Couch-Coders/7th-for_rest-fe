@@ -5,13 +5,13 @@ import createRequestSaga, {
 import * as placeAPI from '../../lib/api/place';
 import { takeLatest } from 'redux-saga/effects';
 
-const [READ_PLACE, READ_PLACE_SUCCESS, READ_PLACE_FAILURE] =
+const [GET_PLACE, GET_PLACE_SUCCESS, GET_PLACE_FAILURE] =
   createRequestActionTypes('detail/INFO');
 
 const UPDATE_LIKE_COUNT = createRequestActionTypes('detail/LIKE_COUNT');
 const INITIALIZE = 'detail/INITIALIZE';
 
-export const getPlace = createAction(READ_PLACE, ({ placeId }) => ({
+export const getPlace = createAction(GET_PLACE, ({ placeId }) => ({
   placeId,
 }));
 
@@ -29,20 +29,20 @@ const initialState = {
 
 export const placeInitialize = createAction(INITIALIZE);
 
-const detailPlaceSaga = createRequestSaga(READ_PLACE, placeAPI.getPlace);
+const detailPlaceSaga = createRequestSaga(GET_PLACE, placeAPI.getPlace);
 
 export function* placeSaga() {
-  yield takeLatest(READ_PLACE, detailPlaceSaga);
+  yield takeLatest(GET_PLACE, detailPlaceSaga);
 }
 
 const place = handleActions(
   {
     [INITIALIZE]: (state) => initialState,
-    [READ_PLACE_SUCCESS]: (state, { payload: data }) => ({
+    [GET_PLACE_SUCCESS]: (state, { payload: data }) => ({
       ...state,
       place: data,
     }),
-    [READ_PLACE_FAILURE]: (state, { payload: error }) => ({
+    [GET_PLACE_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error: error,
     }),

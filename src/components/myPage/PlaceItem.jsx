@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import {
   ExclamationCircleOutlined,
@@ -32,6 +32,7 @@ const PlaceItemBlock = styled.div`
     max-height: 12rem;
     height: 80%;
   }
+
   .textBlock {
     margin-left: 3rem;
     display: flex;
@@ -58,19 +59,22 @@ const PlaceItem = ({ place, hidden, onLikeClick }) => {
     ? place.img_src
     : require('../../assets/noImg.png');
 
-  const confirmModal = (placeId) => {
-    Modal.confirm({
-      icon: <ExclamationCircleOutlined />,
-      content: '좋아요를 취소하시겠습니까',
-      cancelText: '취소',
-      okText: '확인',
-      centered: true,
-      onOk() {
-        onLikeClick({ placeId: placeId });
-      },
-      onCancel() {},
-    });
-  };
+  const confirmModal = useCallback(
+    (placeId) => {
+      Modal.confirm({
+        icon: <ExclamationCircleOutlined />,
+        content: '좋아요를 취소하시겠습니까',
+        cancelText: '취소',
+        okText: '확인',
+        centered: true,
+        onOk() {
+          onLikeClick({ placeId: placeId });
+        },
+        onCancel() {},
+      });
+    },
+    [onLikeClick],
+  );
 
   return (
     <PlaceItemBlock hidden={hidden}>
@@ -119,4 +123,4 @@ const PlaceItem = ({ place, hidden, onLikeClick }) => {
   );
 };
 
-export default PlaceItem;
+export default React.memo(PlaceItem);

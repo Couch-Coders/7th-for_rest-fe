@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import {
   HeartFilled,
@@ -26,11 +26,11 @@ align-items: center;
   }
   .textBlock{
     display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
 
-  height:300px;
+    height:300px;
     width:500px;
     h1{
 
@@ -53,22 +53,24 @@ align-items: center;
 }`;
 
 const PlaceTitle = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
-  const avgRating = () => {
+  const avgRating = useCallback(() => {
     if (reviews.length === 0) return 0;
     return (
       reviews.reduce((acc, cur) => {
         return (acc += parseFloat(cur.reviewRating));
       }, 0) / reviews.length
     );
-  };
+  }, [reviews]);
 
-  const onLike = async () => {
+  const avg = useMemo(() => avgRating(reviews), [avgRating, reviews]);
+
+  const onLike = useCallback(() => {
     if (!user) {
       alert('로그인 후 좋아요 기능 이용 가능합니다.');
       return null;
     }
-    await onLikeClick();
-  };
+    onLikeClick();
+  }, [onLikeClick, user]);
 
   const img_url = place.img_src
     ? place.img_src
@@ -106,7 +108,7 @@ const PlaceTitle = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
 
             <div className="group">
               <StarFilled style={{ fontSize: '25px', color: '#fadb14' }} />
-              <span>{avgRating().toString().substr(0, 3)}</span>
+              <span>{avg.toString().substr(0, 3)}</span>
             </div>
             <div className="group">
               <CommentOutlined style={{ fontSize: '25px' }} />
@@ -119,4 +121,4 @@ const PlaceTitle = ({ place, reviews, user, onLikeClick, isSubscribe }) => {
   );
 };
 
-export default PlaceTitle;
+export default React.memo(PlaceTitle);

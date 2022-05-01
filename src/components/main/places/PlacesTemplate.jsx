@@ -60,31 +60,35 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
 
   const setThrottle = useCallback(() => {
     throttle = !throttle;
-  }, []);
+  }, [throttle]);
 
-  function render(index) {
-    const result = [];
-    let temp = [];
-    let itemCount = 0;
-    while (itemCount < data.length) {
-      temp.push(<PlacesItem item={data[itemCount]} key={itemCount} />);
-      itemCount += 1;
-      if (itemCount % 3 === 0) {
-        result.push(<ItemBlock key={itemCount}>{temp}</ItemBlock>);
-        temp = [];
-      } else if (itemCount === data.length) {
-        // 공간만 채우기 위해, 부족한 수 만큼 TempDiv 추가
-        const gap = 3 - (itemCount % 3);
-        for (let index = 0; index < gap; index++) {
-          temp.push(<TempDiv key={index}></TempDiv>);
+  const render = useCallback(
+    (index) => {
+      const result = [];
+      let temp = [];
+      let itemCount = 0;
+      while (itemCount < data.length) {
+        temp.push(<PlacesItem item={data[itemCount]} key={itemCount} />);
+        itemCount += 1;
+        if (itemCount % 3 === 0) {
+          //3개에 한번씩 ItemBlock으로 감싸주기
+          result.push(<ItemBlock key={itemCount}>{temp}</ItemBlock>);
+          temp = [];
+        } else if (itemCount === data.length) {
+          // 공간만 채우기 위해, 부족한 수 만큼 TempDiv 추가
+          const gap = 3 - (itemCount % 3);
+          for (let index = 0; index < gap; index++) {
+            temp.push(<TempDiv key={index}></TempDiv>);
+          }
+          result.push(<ItemBlock key={itemCount}>{temp}</ItemBlock>);
+
+          temp = [];
         }
-        result.push(<ItemBlock key={itemCount}>{temp}</ItemBlock>);
-
-        temp = [];
       }
-    }
-    return result;
-  }
+      return result;
+    },
+    [data],
+  );
 
   useEffect(() => {
     if (places.length !== 0) {
@@ -100,6 +104,14 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
     const options = {
       threshold: 0,
     };
+
+    const timer = () =>
+      setTimeout(() => {
+        onSearch(index);
+        setIndex();
+        setThrottle();
+      }, 1000);
+
     const handleIntersection = (entries, observer) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) {
@@ -107,11 +119,7 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
         }
         if (index < totalPages) {
           setThrottle();
-          setTimeout(() => {
-            onSearch(index);
-            setIndex();
-            setThrottle();
-          }, 1000);
+          timer();
         }
       });
     };
@@ -122,6 +130,7 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
     }
     return () => {
       io && io.disconnect();
+      clearTimeout(timer());
     };
   }, [index, totalPages, onSearch, throttle, setThrottle, setIndex]);
 
@@ -133,7 +142,7 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
           {/*
            <h4>/</h4>
           <h4 className="sortMenu">좋아요 순</h4>
-  */}
+        */}
         </TextBlock>
         {render(index)}
         <Spacer ref={target} />
@@ -142,4 +151,4 @@ const PlacesTemplate = ({ places, totalPages, totalElements, onSearch }) => {
   );
 };
 
-export default PlacesTemplate;
+export default React.memo(PlacesTemplate);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import { Modal, Rate, Button } from 'antd';
@@ -72,7 +72,7 @@ const ReviewItem = styled.div`
 
   }
 `;
-
+//date포맷 함수
 const formatDate = (dateText) => {
   const date = new Date(dateText);
   return (
@@ -87,42 +87,46 @@ const formatDate = (dateText) => {
       : '0' + date.getDate().toString())
   );
 };
+
 const ReviewList = ({ user, reviews, onPublish, onRemove }) => {
   const [updateItem, setUpdateItem] = useState(0);
 
-  const isWriter = (userId, reviewWriterId) => {
+  const isWriter = useCallback((userId, reviewWriterId) => {
     return userId === reviewWriterId;
-  };
+  }, []);
 
-  const onModify = (item) => {
+  const onModify = useCallback((item) => {
     setUpdateItem(item.id);
-  };
-  const onModifyCancel = () => {
+  }, []);
+  const onModifyCancel = useCallback(() => {
     setUpdateItem(0);
-  };
+  }, []);
 
-  const confirmModal = (revewId) => {
-    Modal.confirm({
-      icon: <ExclamationCircleOutlined />,
-      content: '삭제하시겠습니까',
-      cancelText: '취소',
-      okText: '확인',
-      centered: true,
-      onOk() {
-        onRemove({ reviewId: revewId });
-      },
-      onCancel() {},
-    });
-  };
+  const confirmModal = useCallback(
+    (revewId) => {
+      Modal.confirm({
+        icon: <ExclamationCircleOutlined />,
+        content: '삭제하시겠습니까',
+        cancelText: '취소',
+        okText: '확인',
+        centered: true,
+        onOk() {
+          onRemove({ reviewId: revewId });
+        },
+        onCancel() {},
+      });
+    },
+    [onRemove],
+  );
 
   return (
     <>
       <ReviewListBlock>
-        {reviews?.map((item, idx) => {
-          return item.id === updateItem ? (
+        {reviews?.map((review, idx) => {
+          return review.id === updateItem ? (
             <ReviewEditor
               user={user}
-              item={item}
+              reviewItem={review}
               key={idx}
               isUpdate
               onCancel={onModifyCancel}
@@ -132,24 +136,25 @@ const ReviewList = ({ user, reviews, onPublish, onRemove }) => {
             <ReviewItemBlock key={idx}>
               <ReviewItem>
                 <div className="logo">
-                  <img src={item.picture} alt={item.name} />
+                  <img src={review.picture} alt={review.name} />
                 </div>
                 <div className="text">
-                  <pre>{item.content}</pre>
+                  <pre>{review.content}</pre>
                 </div>
               </ReviewItem>
               <div className="dateText">
-                <h5>{formatDate(item.createdDate)} </h5>
+                <h5>{formatDate(review.createdDate)} </h5>
               </div>
               <ButtonBlock>
-                <Rate disabled value={item.reviewRating} />
-                {user && isWriter(user.memberId, item.memberId) ? (
+                <Rate disabled value={review.reviewRating} />
+                {/* 유저 정보와 글의 작성자 정보가 일치하면 수정,삭제 버튼 추가*/}
+                {user && isWriter(user.memberId, review.memberId) ? (
                   <div className="buttonGroup">
                     <div className="delete">
                       <Button
                         type={'primary'}
                         key={'update' + idx}
-                        onClick={() => onModify(item)}
+                        onClick={() => onModify(review)}
                       >
                         수정
                       </Button>
@@ -158,7 +163,7 @@ const ReviewList = ({ user, reviews, onPublish, onRemove }) => {
                       <Button
                         danger
                         key={'delte' + idx}
-                        onClick={() => confirmModal(item.id)}
+                        onClick={() => confirmModal(review.id)}
                       >
                         삭제
                       </Button>
@@ -177,4 +182,4 @@ const ReviewList = ({ user, reviews, onPublish, onRemove }) => {
   );
 };
 
-export default ReviewList;
+export default React.memo(ReviewList);

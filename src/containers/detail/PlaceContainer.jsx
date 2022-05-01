@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import LoadingPage from '../../components/common/LoadingPage';
@@ -21,11 +21,11 @@ const PlaceContainer = () => {
   const location = useLocation();
   const placeId = location.pathname.replace('/detail/', '');
 
-  const onLikeClick = async () => {
+  const onLikeClick = useCallback(async () => {
     const response = await subscribePlace({ placeId });
     dispatch(updateLikeCount({ likeCount: response.data }));
-    setIsSubscribe(!isSubscribe);
-  };
+    setIsSubscribe((cur) => !cur);
+  }, [dispatch, placeId]);
 
   useEffect(() => {
     async function getData() {

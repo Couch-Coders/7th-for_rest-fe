@@ -71,4 +71,4 @@ const PlacesItem = ({ item }) => {
   );
 };
 
-export default PlacesItem;
+export default React.memo(PlacesItem);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Pagination } from 'antd';
 import PlaceItem from './PlaceItem';
@@ -24,19 +24,19 @@ const LikePlace = ({ sortedPlaces, onLikeClick }) => {
     setPageInex(1);
   }, [sortedPlaces]);
 
-  const onPageChange = (e) => {
+  const onPageChange = useCallback((e) => {
     setPageInex(e);
-  };
+  }, []);
 
-  const render = () => {
+  const render = useCallback(() => {
     const result = [];
     sortedPlaces.map((place, idx) => {
-      //인덱스가 해당 페이지에 맞을때만 보이는 컴포넌트를 생성
+      //해당 페이지(index)에 속하는 아이템만 컴포넌트를 보이게 생성
       if ((pageInex - 1) * VIEW_ITEM <= idx && idx < pageInex * VIEW_ITEM)
         return result.push(
           <PlaceItem place={place} key={idx} onLikeClick={onLikeClick} />,
         );
-      //인덱스가 해당 페이지에 해당 되지 않을때 숨김
+      //페이지에 해당 되지 않을때는 숨김
       else
         return result.push(
           <PlaceItem
@@ -48,7 +48,7 @@ const LikePlace = ({ sortedPlaces, onLikeClick }) => {
         );
     });
     return result;
-  };
+  }, [onLikeClick, pageInex, sortedPlaces]);
 
   return (
     <LikePlaceBlock>
@@ -73,4 +73,4 @@ const LikePlace = ({ sortedPlaces, onLikeClick }) => {
   );
 };
 
-export default LikePlace;
+export default React.memo(LikePlace);

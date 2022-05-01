@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Tabs } from 'antd';
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
@@ -61,41 +61,44 @@ const TabItem = styled(TabPane)`
 
 const PlaceInfo = ({ place }) => {
   const [preViewChecked, setPreViewChecked] = useState({});
-  useEffect(() => {
-    KakaoMapScript(place.address);
-  }, [place.address]);
 
-  const preview = (text, cat) => {
-    const result = [];
-    let preText = text;
-    if (text.length > 70 || text.split('\n').length > 2) {
-      if (!preViewChecked[cat]) {
-        preText = text.replaceAll('\n', ' ').substr(0, 55).concat('... ');
+  const onPreviewClick = useCallback(
+    (cat) => {
+      setPreViewChecked({
+        ...preViewChecked,
+        [cat]: !preViewChecked[cat],
+      });
+    },
+    [preViewChecked],
+  );
+
+  const preview = useCallback(
+    (text, cat) => {
+      const result = [];
+      let preText = text;
+      if (text.length > 70 || text.split('\n').length > 2) {
+        if (!preViewChecked[cat]) {
+          preText = text.replaceAll('\n', ' ').substr(0, 55).concat('... ');
+        }
+        result.push(preText);
+        result.push(
+          <span
+            className="textToggl"
+            onClick={() => onPreviewClick(cat)}
+            key={cat + '_toggle'}
+          >
+            {!preViewChecked[cat] ? <CaretDownOutlined /> : <CaretUpOutlined />}
+          </span>,
+        );
+      } else {
+        result.push(preText);
       }
-      result.push(preText);
-      result.push(
-        <span
-          className="textToggl"
-          onClick={() => onPreviewClick(cat)}
-          key={cat + '_toggle'}
-        >
-          {!preViewChecked[cat] ? <CaretDownOutlined /> : <CaretUpOutlined />}
-        </span>,
-      );
-    } else {
-      result.push(preText);
-    }
-    return result;
-  };
+      return result;
+    },
+    [onPreviewClick, preViewChecked],
+  );
 
-  const onPreviewClick = (cat) => {
-    setPreViewChecked({
-      ...preViewChecked,
-      [cat]: !preViewChecked[cat],
-    });
-  };
-
-  function hasContent(place) {
+  const hasContent = useCallback((place) => {
     const content = ['contact', 'cost', 'info', 'link_url'];
     let check = false;
     content.forEach((item) => {
@@ -103,9 +106,12 @@ const PlaceInfo = ({ place }) => {
         check = true;
       }
     });
-
     return check;
-  }
+  }, []);
+
+  useEffect(() => {
+    KakaoMapScript(place.address);
+  }, [place.address]);
 
   return (
     <>
@@ -206,4 +212,4 @@ const PlaceInfo = ({ place }) => {
   );
 };
 
-export default PlaceInfo;
+export default React.memo(PlaceInfo);

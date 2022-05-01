@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import Responsive from '../../common/Responsive';
 import { HiLocationMarker } from 'react-icons/hi';
@@ -52,15 +52,28 @@ const ThumbnailTemplate = ({
   onToggleCat,
   onToggleReg,
 }) => {
+  const onClickThumbnail = useCallback(
+    ({ category }) => {
+      onReset();
+      onChangeSearchParam({ category });
+      onToggleReg();
+    },
+    [onChangeSearchParam, onReset, onToggleReg],
+  );
+
+  const onClickMoreCat = useCallback(() => {
+    onToggleCat();
+  }, [onToggleCat]);
+
   // <MenuItem>를 4개씩 나눠서 저장
-  function render() {
+  const thumbnailRender = useCallback(() => {
     let itemCount = 1;
     const result = [];
     let temp = [];
     for (const key in mainInfoData.mainCategory) {
       temp.push(
         <ThumbnailItem
-          item={mainInfoData.mainCategory[key]}
+          ThumbItem={mainInfoData.mainCategory[key]}
           onClick={onClickThumbnail}
           key={itemCount}
         />,
@@ -76,17 +89,9 @@ const ThumbnailTemplate = ({
       itemCount += 1;
     }
     return result;
-  }
+  }, [onClickThumbnail]);
 
-  const onClickThumbnail = ({ category }) => {
-    onReset();
-    onChangeSearchParam({ category });
-    onToggleReg();
-  };
-
-  const onClickMoreCat = () => {
-    onToggleCat();
-  };
+  const Thumbnail = useMemo(() => thumbnailRender(), [thumbnailRender]);
 
   return (
     <>
@@ -100,11 +105,11 @@ const ThumbnailTemplate = ({
             더 보기
           </h4>
         </TextBlock>
-        {render()}
+        {Thumbnail}
       </ThumbnailTemplateWrapper>
       <Spacer />
     </>
   );
 };
 
-export default ThumbnailTemplate;
+export default React.memo(ThumbnailTemplate);

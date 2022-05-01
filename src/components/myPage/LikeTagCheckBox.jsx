@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from 'antd';
 
@@ -56,10 +56,7 @@ const CustomButton = styled(Button)`
 `;
 
 const LikeTagCheckBox = ({ categorys, regions, selectedTag, onClick }) => {
-  //첫 렌더링시 오류 방지
-
-  console.log(categorys);
-  const categorysRender = () => {
+  const categorysRender = useCallback(() => {
     if (!categorys) return;
     const categorysItem = [];
     categorysItem.push(
@@ -89,9 +86,9 @@ const LikeTagCheckBox = ({ categorys, regions, selectedTag, onClick }) => {
     });
 
     return categorysItem;
-  };
+  }, [categorys, onClick, selectedTag.categorys]);
 
-  const regionsRender = () => {
+  const regionsRender = useCallback(() => {
     if (!regions) return;
     const regionsItem = [];
     regionsItem.push(
@@ -117,20 +114,23 @@ const LikeTagCheckBox = ({ categorys, regions, selectedTag, onClick }) => {
       );
     });
     return regionsItem;
-  };
+  }, [onClick, regions, selectedTag.regions]);
+
+  const region = useMemo(() => regionsRender(), [regionsRender]);
+  const category = useMemo(() => categorysRender(), [categorysRender]);
 
   return (
     <LikeTagCheckBoxBlock>
       <ThemeBlock key="cat_blogck">
         <h3>카테고리 선택</h3>
-        <div className="buttonGroup">{categorysRender()}</div>
+        <div className="buttonGroup">{category}</div>
       </ThemeBlock>
       <ThemeBlock key="reg_blogck">
         <h3>지역 선택</h3>
-        <div className="buttonGroup">{regionsRender()}</div>
+        <div className="buttonGroup">{region}</div>
       </ThemeBlock>
     </LikeTagCheckBoxBlock>
   );
 };
 
-export default LikeTagCheckBox;
+export default React.memo(LikeTagCheckBox);

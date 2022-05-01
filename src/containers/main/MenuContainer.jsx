@@ -1,6 +1,6 @@
 import React from 'react';
 import ThumbnailTemplate from '../../components/main/thumbnail/ThumbnailTemplate';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import CatTagModal from './../../components/main/modal/CatTagModal';
 import RegionTagModal from '../../components/main/modal/RegionTagModal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,35 +19,38 @@ const MenuContainer = () => {
   const [catModal, setCatModal] = useState(false);
   const [regionModal, setRegionModal] = useState(false);
 
-  const onChangeSearchParam = (item) => {
-    const key = Object.keys(item).toString();
-    dispatch(
-      onChange({
-        key: key,
-        value: item[key],
-      }),
-    );
-  };
+  const onChangeSearchParam = useCallback(
+    (item) => {
+      const key = Object.keys(item).toString();
+      dispatch(
+        onChange({
+          key: key,
+          value: item[key],
+        }),
+      );
+    },
+    [dispatch],
+  );
 
-  const onReset = () => {
+  const onReset = useCallback(() => {
     dispatch(paramInitialize());
-  };
+  }, [dispatch]);
 
-  const onToggleCatModal = () => {
-    setCatModal(!catModal);
-  };
+  const onToggleCatModal = useCallback(() => {
+    setCatModal((cur) => !cur);
+  }, []);
 
-  const onToggleRegModal = () => {
-    setRegionModal(!regionModal);
-  };
+  const onToggleRegModal = useCallback(() => {
+    setRegionModal((cur) => !cur);
+  }, []);
 
-  const onSearch = () => {
+  const onSearch = useCallback(() => {
     if (category !== '' && region_1 !== '') {
       //검색시에는 0페이지부터 시작
       dispatch(placesInitialize());
       dispatch(getPlaces({ page: 0, category, region_1, region_2 }));
     }
-  };
+  }, [category, dispatch, region_1, region_2]);
 
   return (
     <>

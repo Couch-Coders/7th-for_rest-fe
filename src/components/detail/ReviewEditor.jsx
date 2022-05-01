@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 import { Button } from 'antd';
@@ -70,35 +70,41 @@ const validateRating = (Rating) => {
   return 'number' === typeof parseFloat(Rating) && 1 <= Rating && Rating <= 5;
 };
 
-const ReviewEditor = ({ user, onPublish, item, isUpdate, onCancel }) => {
+const ReviewEditor = ({ user, onPublish, reviewItem, isUpdate, onCancel }) => {
   const [reviewContent, setReviewContent] = useState(initialState);
 
   useEffect(() => {
-    item &&
+    reviewItem &&
       setReviewContent({
-        content: item.content,
-        reviewRating: item.reviewRating,
-        image: item.image,
+        content: reviewItem.content,
+        reviewRating: reviewItem.reviewRating,
+        image: reviewItem.image,
       });
-  }, [item]);
+  }, [reviewItem]);
 
   const { content, reviewRating, image } = reviewContent;
 
-  const onHandleRate = (value) => {
-    setReviewContent({
-      ...reviewContent,
-      reviewRating: value,
-    });
-  };
+  const onHandleRate = useCallback(
+    (value) => {
+      setReviewContent({
+        ...reviewContent,
+        reviewRating: value,
+      });
+    },
+    [reviewContent],
+  );
 
-  const onChangeText = (e) => {
-    setReviewContent({
-      ...reviewContent,
-      content: e.target.value,
-    });
-  };
+  const onChangeText = useCallback(
+    (e) => {
+      setReviewContent({
+        ...reviewContent,
+        content: e.target.value,
+      });
+    },
+    [reviewContent],
+  );
 
-  const onSubmit = () => {
+  const onSubmit = useCallback(() => {
     if (!user) {
       alert('로그인 후 작성가능합니다');
       return null;
@@ -107,14 +113,14 @@ const ReviewEditor = ({ user, onPublish, item, isUpdate, onCancel }) => {
       alert('입력값 오류');
       return null;
     }
-    if (item) {
-      onPublish({ reviewId: item.id, content, reviewRating, image });
+    if (reviewItem) {
+      onPublish({ reviewId: reviewItem.id, content, reviewRating, image });
       onCancel();
     } else {
       onPublish({ content, reviewRating, image });
     }
     setReviewContent(initialState);
-  };
+  }, [content, image, reviewItem, onCancel, onPublish, reviewRating, user]);
 
   return (
     <ReviewEditorBlock checked={isUpdate}>
@@ -131,7 +137,7 @@ const ReviewEditor = ({ user, onPublish, item, isUpdate, onCancel }) => {
                 등록
               </Button>
             </div>
-            {item ? (
+            {reviewItem ? (
               <div className="cancel">
                 <Button danger onClick={onCancel}>
                   취소
@@ -163,4 +169,4 @@ const ReviewEditor = ({ user, onPublish, item, isUpdate, onCancel }) => {
   );
 };
 
-export default ReviewEditor;
+export default React.memo(ReviewEditor);

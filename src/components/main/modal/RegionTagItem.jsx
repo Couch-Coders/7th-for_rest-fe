@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from 'antd';
 
@@ -30,21 +30,23 @@ const CustomButton = styled(Button)`
 `;
 
 const RegionTagItem = ({
-  item,
+  region,
   onClickFirstRegion,
   onClickSecondRegion,
   checked,
   onResetSecondRegion,
 }) => {
-  const onClickRegion1 = () => {
-    onClickFirstRegion({ region_1: item });
-  };
-  const onClickRegion2 = () => {
-    onClickSecondRegion(item);
-  };
-  const onReset = () => {
+  const onClickRegion1 = useCallback(() => {
+    onClickFirstRegion({ region_1: region });
+  }, [region, onClickFirstRegion]);
+
+  const onClickRegion2 = useCallback(() => {
+    onClickSecondRegion(region);
+  }, [region, onClickSecondRegion]);
+
+  const onReset = useCallback(() => {
     onResetSecondRegion();
-  };
+  }, [onResetSecondRegion]);
 
   const onClick = () => {
     if (onClickFirstRegion) return onClickRegion1();
@@ -55,7 +57,7 @@ const RegionTagItem = ({
   return (
     <RegionTagItemBlock>
       <CustomButton shape={'round'} onClick={onClick} checked={checked}>
-        {item}
+        {region}
       </CustomButton>
     </RegionTagItemBlock>
   );
@@ -69,4 +71,4 @@ RegionTagItem.defaultProps = {
   onReset: null,
 };
 
-export default RegionTagItem;
+export default React.memo(RegionTagItem);

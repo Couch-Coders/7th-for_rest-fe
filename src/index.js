@@ -21,9 +21,16 @@ const store = createStore(
 function loadUser() {
   try {
     const user = localStorage.getItem('user');
+    if (user === 'null') {
+      return;
+    }
+    const currentLoginTime = localStorage.getItem('loginTime');
+    if (new Date().getTime() - currentLoginTime > 1000 * 60 * 60) {
+      return;
+    }
+
     const token = localStorage.getItem('token');
     client.defaults.headers.Authorization = `${token}`;
-    if (!user) return;
     store.dispatch(tempSetUser(JSON.parse(user)));
   } catch (e) {
     console.log('localStorage is not working');

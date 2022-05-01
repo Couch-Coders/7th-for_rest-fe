@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingPage from '../../components/common/LoadingPage';
 import MyPageTemplate from '../../components/myPage/MyPageTemplate';
@@ -19,10 +19,13 @@ const LikePlacesContainer = () => {
     }),
   );
 
-  const onLikeRemove = async ({ placeId }) => {
-    await subscribePlace({ placeId });
-    dispatch(removeLikePlace({ placeId }));
-  };
+  const onLikeRemove = useCallback(
+    async ({ placeId }) => {
+      await subscribePlace({ placeId });
+      dispatch(removeLikePlace({ placeId }));
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     dispatch(getLikePlace());

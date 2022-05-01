@@ -23,8 +23,6 @@ const MenuContainer = () => {
   const [catModal, setCatModal] = useState(false);
   const [regionModal, setRegionModal] = useState(false);
 
-  console.log(searchParam);
-
   const onClick = (item) => {
     const key = Object.keys(item).toString();
     setSearchParam({
