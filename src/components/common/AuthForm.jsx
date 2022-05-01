@@ -21,23 +21,32 @@ const AuthForm = ({ user, onLogin, onLogout }) => {
     onLogout();
   }, [onLogout]);
 
+  const LogOutTimer = useCallback(
+    () =>
+      setTimeout(() => {
+        oAuthLogOut();
+      }, 1000 * 60 * 60),
+    [oAuthLogOut],
+  );
+
   const oAuthLogin = useCallback(async () => {
     try {
       const token = await signInGoogle();
       onLogin({ token });
       client.defaults.headers.Authorization = `Bearer ${token}`;
       localStorage.setItem('token', `Bearer ${token}`);
-      setTimeout(() => {
-        oAuthLogOut();
-      }, 1000 * 60 * 60);
+      LogOutTimer();
     } catch (e) {}
-  }, [onLogin, oAuthLogOut]);
+  }, [onLogin, LogOutTimer]);
 
   useEffect(() => {
     if (!user) return;
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('loginTime', new Date().getTime());
-  }, [user]);
+    return () => {
+      clearTimeout(LogOutTimer());
+    };
+  }, [user, timer]);
 
   const menu = (
     <Menu style={{ background: 'rgb(216 216 216)', width: '100px' }}>
