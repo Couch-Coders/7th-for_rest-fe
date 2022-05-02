@@ -150,3 +150,6 @@ BACK-END : Spring Boot / Data JPA / Query DSL / JUnit5
 #### [API명세서](https://grape-ring-3f9.notion.site/API-9cc8b24e8f674ed1a4af508dea073eea)
 
 #### [DB명세서](https://grape-ring-3f9.notion.site/DB-b0397ad96f6c4e5a958a908bacdf1a99)
+
+
+## [백엔드 깃 레포](https://github.com/Couch-Coders/7th-for_rest-be)
