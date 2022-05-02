@@ -9,7 +9,7 @@ const CatTagItemBlock = styled.div`
   align-items: center;
   justify-content: center;
   border: 1px solid gray;
-  background: #efefef;
+  background: white;
   margin-top: 1rem;
   font-size: 1rem;
   margin-left: 2rem;
@@ -20,8 +20,8 @@ const CatTagItemBlock = styled.div`
   ${(props) =>
     props.checked &&
     css`
-      background: #12483aa1;
-      color: white;
+      background: whitesmoke;
+      color: coral;
     `}
 `;
 
