@@ -20,7 +20,7 @@ google oAuth를 사용하여 로그인을 할 수 있습니다.
 
 파이썬을 사용하여 네이버 지도 크롤링을 통해 얻은 데이터 사용
 
-React를 사용한 무한 슬라이딩
+React를 이용한 무한 슬라이딩
 
 IntersectionObserver를 사용한 무한 스크롤
 
@@ -43,6 +43,8 @@ BACK-END : Spring Boot / Data JPA / Query DSL / JUnit5
 
 
 ## 🔹 기능 소개 
+
+[![For-Rest 시연영상](http://img.youtube.com/vi/n006XpYXaAM/0.jpg)](http://youtu.be/n006XpYXaAM)
 
 ## ⏰ 개발 기간
 
