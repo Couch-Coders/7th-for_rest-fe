@@ -1,6 +1,6 @@
 import React from 'react';
 import ThumbnailTemplate from '../../components/main/Thumbnail/ThumbnailTemplate';
-import { useState } from 'react';
+import { useState,useCallback } from 'react';
 import CatTagModal from './../../components/main/modal/CatTagModal';
 import RegionTagModal from '../../components/main/modal/RegionTagModal';
 import { useDispatch, useSelector } from 'react-redux';
