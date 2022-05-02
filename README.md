@@ -37,7 +37,7 @@ BACK-END : [김종완](https://github.com/3210439)
 
 ## 🛠️ 기술 스택
 
-FRONT-END : React / Redux-saga / STYLED-COMPONETS / ANTD
+FRONT-END : React / Redux-saga /styled-components / antd
 
 BACK-END : Spring Boot / Data JPA / Query DSL / JUnit5
 
