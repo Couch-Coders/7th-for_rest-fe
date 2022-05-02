@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# :sunrise_over_mountains: For-Rest 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### For-rest는 아쉬운 여가시간을 보람차게 보낼 수 있는 
+#### 장소를 추천해주는 장소 추천 플랫폼입니다. 
+#### 내 주변, 또는 원하는 지역의 장소들을 찾아 볼 수 있습니다.
 
-## Available Scripts
+## 🗝️ 주요기능
 
-In the project directory, you can run:
+google oAuth를 사용하여 로그인을 할 수 있습니다.
 
-### `yarn start`
+장소와 지역을 선택하여 해당지역의 장소를 검색할 수 있습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+카카오맵을 사용하여 위치를 쉽게 파악할 수 있습니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+로그인 시 리뷰 작성과 좋아요 등록이 가능합니다.
 
-### `yarn test`
+마이페이지에서 좋아요 등록된 장소를 장소와 지역별로 빠르게 검색 할 수 있습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ✅ 주요 개발
 
-### `yarn build`
+파이썬을 사용하여 네이버 지도 크롤링을 통해 얻은 데이터 사용
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+React를 사용한 무한 슬라이딩
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+IntersectionObserver를 사용한 무한 스크롤
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Redux-Saga를 사용한 상태관리
 
-### `yarn eject`
+React-Potal 및 React-lazy, memo 등을 사용한 최적화
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 👬 팀원 소개
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+FRONT-END : [권준](https://github.com/jun-05)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+BACK-END : [김종완](https://github.com/3210439) 
+/ [박성광](https://github.com/Sunggwang-Park)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🛠️ 기술 스택
 
-## Learn More
+FRONT-END : React / Redux-saga / STYLED-COMPONETS / ANTD
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+BACK-END : Spring Boot / Data JPA / Query DSL / JUnit5
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## 🔹 기능 소개 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## ⏰ 개발 기간
 
-### Analyzing the Bundle Size
+#### - 2022.03.15 ~ 2022.03.26 기획 및 설계, 사전 준비
+#### - 2022.03.26 ~ 2022.04.26 실제 개발 기간 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📁 폴더 구조
+```
+└── src
+    ├── App.js
+    ├── index.js
+    ├── assets
+    │   ├── slideImg
+    │   │    └── ...
+    │   ├── tagImg
+    │   │    └── ...
+    │   ├── mainInfoData.json 
+    │   ├── tagData.json   
+    │   └── noImg.png      
+    ├── components
+    │   ├── common
+    │   │     ├── AuthForm.jsx
+    │   │     ├── Header.jsx
+    │   │     ├── Responsive.jsx
+    │   │     ├── Error.jsx
+    │   │     ├── LoadingPage.jsx   
+    │   │     └── Spacer.jsx         
+    │   ├── main    
+    │   │     ├── modal
+    │   │     │    ├── CatTagItem.jsx
+    │   │     │    ├── CatTagModal.jsx
+    │   │     │    ├── RegionTagItem.jsx    
+    │   │     │    └── RegionTagModal.jsx  
+    │   │     ├── places
+    │   │     │    ├── PlacesItem.jsx
+    │   │     │    └── PlacesTemplate.jsx      
+    │   │     ├── slide
+    │   │     │    ├── SlideItem.jsx
+    │   │     │    └── SlideTemplate.jsx      
+    │   │     └── thumbnail
+    │   │          ├── ThumbnailItem.jsx
+    │   │          └── ThumbnailTemplate.jsx        
+    │   ├── detail
+    │   │     ├── PlaceTemplate.jsx    
+    │   │     ├── PlaceInfo.js
+    │   │     ├── PlaceTitle.jsx
+    │   │     ├── ReviewList.jsx
+    │   │     └── ReviewEditor.jsx       
+    │   └── myPage
+    │   │     ├── LikePlace.jsx    
+    │   │     ├── LikeTagCheckBox.js
+    │   │     ├── MyPageTemplate.jsx
+    │   │     └── PlaceItem.jsx        
+    ├── containers
+    │   ├── common
+    │   │     └── HeaderContainer.js    
+    │   ├── main
+    │   │     ├── MenuContainer.js
+    │   │     └── PlacesContainer.jsx        
+    │   ├── detail
+    │   │     ├── PlaceContainer.js
+    │   │     └── ReviewContainer.jsx            
+    │   └── myPage
+    │         └── LikePlacesContainer.jsx    
+    ├── lib
+    │   ├── api
+    │   │     ├── clients.js    
+    │   │     ├── auth.js    
+    │   │     ├── place.js    
+    │   │     ├── places.js        
+    │   │     └── review.js          
+    │   ├── createRequestSaga.js
+    │   ├── fireBaseAuth.js
+    │   ├── kakaoMap.js
+    │   └── ModalPotal.js    
+    ├── modules
+    │   ├── common
+    │   │     ├── auth.js
+    │   │     └── loading.js        
+    │   ├── main    
+    │   │     ├── places.js
+    │   │     └── searchParam.js
+    │   ├── detail    
+    │   │     ├── place.js
+    │   │     └── reviews.js
+    │   └── myPage    
+    │         └── likePlace.js     
+    └── pages    
+        ├── MainPage.jsx    
+        ├── PlacesListPage.jsx    
+        ├── DetailPage.jsx    
+        ├── MyPage.jsx    
+        └── NotFound.jsx            
+```
 
-### Making a Progressive Web App
+## 🛠️ 기획 및 설계
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### [기능 명세서](https://www.notion.so/For-Rest-f4552450135f42e987bcd7a02eaff7cd)
 
-### Advanced Configuration
+#### [페이지 기획서](https://whimsical.com/getting-started-boards-LuHajAmtXAgZ4oK2Abnb8s)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### [디자인](https://www.figma.com/file/jY76g8qwad9pLzUOmByt1R/%EC%B9%B4%EC%9A%B0%EC%B9%98%EC%BD%94%EB%94%A9-figma%ED%8C%8C%EC%9D%BC-(Copy)?node-id=63%3A1870)
 
-### Deployment
+#### [API명세서](https://grape-ring-3f9.notion.site/API-9cc8b24e8f674ed1a4af508dea073eea)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### [DB명세서](https://grape-ring-3f9.notion.site/DB-b0397ad96f6c4e5a958a908bacdf1a99)
