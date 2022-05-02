@@ -22,7 +22,7 @@ google oAuth를 사용하여 로그인을 할 수 있습니다.
 
 React를 이용한 무한 슬라이딩
 
-IntersectionObserver를 사용한 무한 스크롤
+IntersectionObserver를 이용한 무한 스크롤
 
 Redux-Saga를 사용한 상태관리
 
